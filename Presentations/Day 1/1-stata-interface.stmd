@@ -1,0 +1,198 @@
+---
+title: Introduction to Stata
+author: Luiza Andrade and Sushmita Samaddar
+---
+
+
+# The main reasons to use Stata
+
+- In Excel you make changes directly to the data and save new versions of the data set
+- In Stata you make changes to the instructions on how to get from the raw data to the final analysis and save new versions of the instructions
+- Since Stata is a more statistics oriented software, processing the data to create analytical products can be a lot easier
+
+# The main reasons to use Stata
+
+Powerful tool with many capabilities:
+				
+- Descriptive statistics
+- Inference statistics
+- Complex data analysis
+					
+				
+# The main reasons to use Stata
+
+Powerful tool with many capabilities:
+				
+- Descriptive statistics
+- Inference statistics
+- Complex data analysis
+	
+But it's also good for beginner programmers:
+						
+- User friendly interface
+- Relatively easy programming language that can be learned while you're using the software
+					
+
+# The Stata interface
+
+![](img/stata_interface.png)
+
+# How to tell Stata what to do
+
+- Drop-down menus: An easy place to start but quickly becomes inefficient
+- Write code in the command window: Faster than menus but require that you are familiar with the command
+- Write code in a do-file: The only feasible way to run long instructions
+
+# Opening a data set
+
+![](img/open_dataset_menu.png)
+
+# Task 1: Opening a data set
+
+1. Open Stata
+1. Click on `File > Open...`
+1. Navigate to `DataWork > Data > Final`
+1. Select the file called `contract_clean.dta`
+1. Click `Open`
+
+# Task 1: Opening a data set
+
+1. When you use the menus, Stata produces the code for that action
+1. Highlight, right-click and copy the code
+1. Paste the code in the command window
+1. Replace `contract_clean` with `item_clean`
+1. Hit `Enter`
+
+What happened?
+
+# Task 1: Opening a data set
+
+1. Open the do-file editor by typing `doedit` in the command window or through the shortcut icon on the top ribbon
+1. Paste the code in the do-file
+1. Replace `contract_clean` with `process_clean`
+1. Press `CTRL + D`'
+1. Go back to the Stata console
+
+What happened?
+
+# Code syntax
+
+- Writing code is like speaking a language (such as English, Croatian, etc.)
+- One needs to speak to Stata in the language it understands
+- Computers are not as intelligent as humans, so we need to be very precise in how we communicate with them
+- A single character out of place will make your instructions completely indecipherable 
+- Just like a human language, computer languages have a syntax that makes sentences correct
+- The equivalent of a sentence in computer language is a line of code
+- Let's take a look at the most simple sentence when can ue in Stata
+
+# Browsing a data set
+
+- You can view the data that is open in Stata by typing `browse` in the command window or through the shortcut icon on the top ribbon
+- Note that the content of different columns is in different colors
+- Each column in this data set is called a `variable`
+- Each row in this data set is called an `observation`
+- We will use these expressions interchangeably from now on
+
+# Exploring a data set
+
+- Type `describe` in the command window and press `ENTER`
+- Note that this command has printed information in your console
+- The first part, that is preceded by a `.`, is the command you entered
+- The second part is the output of this command
+
+# Exploring a data set
+
+- Read the command's output and compare it to the data set that you have open
+- What are the values shown in the column `storage type` for columns with different colors?
+
+# The Stata interface - Review window
+
+![](img/stata_interface.png)
+
+
+# The Stata interface - Review window
+
+- The review window provides records your conversation with Stata
+- It is a convenient way to bring back your previous commands and modify it to do something new
+- Double click on a command you want to use again and it will appear in your command window
+- You can also click in command window and select the commands in the result window by using the `PageUp` and `PageDown` buttons in your keyboard
+- If a command is red in the review window, it means it did not run because of an error
+
+# Code syntax
+
+- Note that all the content of your conversation with Stata so far consists of single words
+- These are what we call *commands*
+- Commands are the equivalent of verbs in the Stata language
+- These verbs are pre-defined, and you need to use each of them in the correct way for Stata to understand you
+
+# Code syntax
+
+- When you are not sure how to use a command, you can look for help
+- To look for help, we use the `help` command
+- To see how it works, type `help codebook` in the command window and then press `ENTER`
+
+# Help files
+
+![](img/help_codebook.png)
+
+# Help files
+
+- At the top of the help file, you will find a very short description of what the command does
+- Under syntax, you will how to use the command correctly
+  - Everything inside square bracket (`[]`) is *not* required
+  - Whenever `varlist` is shown in a help file, it means the command takes a list of variable names as a complement
+
+# Exploring a data set
+
+- Type `codebook` in the command window and press `ENTER`
+- Now type `codebook, compact` 
+- Now type `codebook nr_participants process_type bid_submission_date` 
+- How does the output of the command look for columns with different "storage types"?
+
+# Types of variables
+
+Stata can store information in two formats:
+
+- **String (text):** values are red when browsing
+- **Numeric (number):** values are black or blue when browsing
+
+# Types of variables
+
+- Numbers *can* be stored as text, but text *cannot* be stored as number
+- It is not possible to do computations on numbers stored as text 		
+- Categorical variables are stored as numeric variables with *value labels*
+- Dates and times are stored as numbers, but can be shown in different formats
+
+# Task 2: Create histograms
+
+1. Type `help histogram` to see the syntax for the comand `histogram`
+1. Create a histogram for the variable `nr_nonlocal_bidders`
+1. Create a histogram for the variable `bid_type`
+  - What option makes this command easier to use with categorical variables?
+1. Create a histogram for the variable `process_name`
+
+# Error messages
+ 
+- When there is an error in how you used a command, Stata will print a message in red
+- This message explains what is wrong with your "sentence"
+- You can always Google the error if you can not understand it
+- Some commands can only be used with certain types of variables
+- In this case, we are trying to analyze text as if it were a number
+
+# The Stata interface - Variable window
+
+![](img/variable_window.png)
+
+- The variable window lists all the variables in the data set that is currently open
+- You can use the search bar to look for variables based on their names and labels
+- Clicking on a variable will show some information about it on the *Properties* window
+
+# Recap
+
+We have learned
+
+- How the Stata interface is organized
+- Three different ways to interact with Stata
+- How to open and explore a data set in Stata
+- How to find help
+- How data can be stored in different formats
