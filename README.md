@@ -5,8 +5,6 @@
 
 ### Intro
 
-This training uses a final analysis data set
-
 -	Operationalizing the Project Folders for the Training 
 -	Stata interface
 -	Loading a data set
@@ -21,8 +19,6 @@ This training uses a final analysis data set
 
 ### Exploring data
 
-This training uses a final analysis data set
-
 - Why we use do-files 
 -	Save a do-file  
 -	Summary statistics table
@@ -33,9 +29,7 @@ This training uses a final analysis data set
 -	Boxplot
 -	Cross tabulation
 	
-### Cleaning data - Part 1
-
-This training uses a simplified raw data set
+### Cleaning data
 
 -	Load data from csv and excel 
 -	Unique ID – explore duplications
@@ -44,8 +38,6 @@ This training uses a simplified raw data set
 -	Subset observations (keep/drop)
 -	Drop variables
 -	Save dataset
-
-### Cleaning data - Part 2
 
 **Cleaning strings:**
 -	Trim
@@ -73,7 +65,7 @@ This training uses a simplified raw data set
 -	Order variables
 -	Export data to csv and Excel
 
-### Construction: construct a data set
+### Construction
 
 -	Merge: merge contract and item data into process data
 -	Append: show with a toy example
