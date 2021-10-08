@@ -7,9 +7,9 @@ title: Data Analysis
 
 - What is data analysis?
 
-```{s/}
-set scheme s2color
-```
+
+{{1}}
+
 
 
 # Data analysis
@@ -39,9 +39,9 @@ set scheme s2color
 1. Open a new do-file in the do-file editor
 2. Load the dataset that you want to explore
 
-```{s}
-use "../DataWork/Data/Final/final_process.dta", clear
-```
+
+{{2}}
+
 
 Note that:
 
@@ -87,9 +87,9 @@ codebook [varlist] [if] [in] [, options]
 
 Explore the specific variables:
 
-```{s}
-codebook process_value process_type
-```
+
+{{3}}
+
 
 
 # Exploratory analysis: `summarize`
@@ -109,9 +109,9 @@ summarize [varlist] [if] [in] [weight] [, options]
 
 **Exercise:** Use summarize to explore the variables `process_value` and `process_type`
 
-```{s}
-summarize process_value process_type
-```
+
+{{4}}
+
 
 
 # Exploratory analysis: `summarize` 
@@ -122,9 +122,9 @@ summarize [varlist] [if] [in] [weight] [, options]
 
 - Using the option `detail` will include more information about the distribution
 
-```{s}
-summarize process_value, detail
-```
+
+{{5}}
+
 
 
 # Exploratory analysis: tabulate one way
@@ -144,9 +144,9 @@ tabulate varname [if] [in] [weight] [, options]
 
 **Exercise:** use tabulate to explore the variable procurement_type
 
-```{s}
-tabulate procurement_type
-```
+
+{{6}}
+
 
 
 # Exploratory analysis: tabulate two way
@@ -166,9 +166,9 @@ tabulate varname1 varname2 [if] [in] [weight] [, options]
 
 **Exercise:** use tabulate to explore the relationship between variables `procurement_type` and `process_type`
 
-```{s}
-tabulate procurement_type process_type
-```
+
+{{7}}
+
 
 # Exploratory analysis: `histogram`
 
@@ -185,9 +185,9 @@ histogram varname [if] [in] [weight] [, [continuous_opts | discrete_opts] option
 histogram varname [if] [in] [weight] [, [continuous_opts | discrete_opts] options]
 ~~~
 
-```{s}
-histogram month_init
-```
+
+{{8}}
+
 
 
 # Exploratory analysis: `histogram`
@@ -196,9 +196,9 @@ histogram month_init
 histogram varname [if] [in] [weight] [, [continuous_opts | discrete_opts] options]
 ~~~
 
-```{s}
-histogram month_init, discrete
-```
+
+{{9}}
+
 
 *Particularly useful with discrete variables*
 
@@ -208,9 +208,9 @@ histogram month_init, discrete
 histogram varname [if] [in] [weight] [, [continuous_opts | discrete_opts] options]
 ~~~
 
-```{s}
-histogram bid_submission_period
-```
+
+{{10}}
+
 
 *Particularly useful with discrete variables*
 
@@ -221,9 +221,9 @@ histogram bid_submission_period
 kdensity varname [if] [in] [weight] [, options]
 ~~~
 
-```{s}
-kdensity bid_submission_period
-```
+
+{{11}}
+
 
 
 # Exploratory analysis: `kdensity`
@@ -241,9 +241,9 @@ kdensity varname [if] [in] [weight] [, options]
 kdensity varname [if] [in] [weight] [, options]
 ~~~
 
-```{s}
-kdensity bid_submission_period if bid_submission_period < 100
-```
+
+{{12}}
+
 
 
 # Exploratory analysis: `scatter`
@@ -261,9 +261,9 @@ scatter varlist [if] [in] [weight] [, options]
 scatter varlist [if] [in] [weight] [, options]
 ~~~
 
-```{s}
-scatter nr_nonlocal_bidders nr_participants
-```
+
+{{13}}
+
 
 
 # Exploratory analysis: `graph bar`
@@ -278,9 +278,9 @@ graph hbar yvars [if] [in] [weight] [, options]
 
 # Exploratory analysis: `graph bar`
 
-```{s}
-graph bar process_value
-```
+
+{{14}}
+
 
 Note that by default a bar graph displays the average value of a continuous variable
 
@@ -289,18 +289,18 @@ Note that by default a bar graph displays the average value of a continuous vari
 
 Use the option `over()` to break down a bar graph into groups
 
-```{s}
-graph bar process_value, over(procurement_type)
-```
+
+{{15}}
+
 
 
 # Exploratory analysis: `graph bar`
 
 Write `(**stat**)` before a variable’s name to show a statistic other than the mean
 
-```{s}
-graph bar (sum) process_value, over(procurement_type)
-```
+
+{{16}}
+
 
 Other possible values of `stat` are: 
 - `sum` 
@@ -322,9 +322,9 @@ graph hbar yvars [if] [in] [weight] [, options]
 
 # Exploratory analysis: `graph bar`
 
-```{s}
-graph hbar (count) process_id, over(procurement_type)
-```
+
+{{17}}
+
 
 **Exercise:** Create a horizontal bar graph that shows the number of processes with each procurement type
 
@@ -344,121 +344,69 @@ graph hbar (count) process_id, over(procurement_type)
 
 # Final analysis: `graph bar`
 
-```{s}
-use "../DataWork/Data/Final/final_process.dta"
 
-graph bar (count) process_id, over(procurement_type) 
-```
+{{18}}
+
 
 
 # Final analysis: `graph bar`
 
-```{s}
-use "../DataWork/Data/Final/final_process.dta"
 
-graph bar (count) process_id, ///
-	over(procurement_type) ///
-	ytitle("Number of processes")
-```
+{{19}}
+
 
 
 # Final analysis: `graph bar`
 
-```{s}
-use "../DataWork/Data/Final/final_process.dta"
 
-graph bar (count) process_id, ///
-	over(procurement_type) ///
-	ytitle("Number of processes") ///
-	blabel(total)
-```
+{{20}}
+
 
 
 # Final analysis: `graph bar`
 
-```{s}
-use "../DataWork/Data/Final/final_process.dta"
 
-graph bar (count) process_id, ///
-	over(procurement_type) ///
-	ytitle("Number of processes") ///
-	blabel(total)  ///
-	graphregion(color(white))
-```
+{{21}}
+
 
 
 # Final analysis: `set scheme`
 
-```{s}
-set scheme uncluttered
 
-use "../DataWork/Data/Final/final_process.dta"
+{{22}}
 
-graph bar (count) process_id, ///
-	over(procurement_type) ///
-	ytitle("Number of processes") ///
-	blabel(total) 
-```
 
 
 # Final analysis: `set scheme`
 
-```{s}
-set scheme plottig
 
-use "../DataWork/Data/Final/final_process.dta"
+{{23}}
 
-graph bar (count) process_id, ///
-	over(procurement_type) ///
-	ytitle("Number of processes") ///
-	blabel(total) 
-```
 
 
 # Final analysis: `set scheme`
 
-```{s}
-set scheme plotplain
 
-use "../DataWork/Data/Final/final_process.dta"
+{{24}}
 
-graph bar (count) process_id, ///
-	over(procurement_type) ///
-	ytitle("Number of processes") ///
-	blabel(total) 
-```
 
 
 # Final analysis: `graph bar`
 
 **Exercise:** recreate the graph shown below
 
-```{s}
-set scheme uncluttered
 
-use "../DataWork/Data/Final/final_process.dta"
+{{25}}
 
-gr bar (sum) process_value, ///
-	over(procurement_type) ///
-	ytitle("Awarded value (Lev)") ///
-	blabel(total)  
-```
 
 
 # Final analysis: `graph bar`
 
 **Exercise:** recreate the graph shown below
 
-```{s}
-set scheme uncluttered
 
-use "../DataWork/Data/Final/final_process.dta"
+{{26}}
 
-gr bar (sum) process_value, ///
-	over(procurement_type) ///
-	ytitle("Awarded value (Lev)") ///
-	blabel(total)  
-```
 
 
 # Final analysis: exporting outputs
@@ -479,9 +427,9 @@ graph export newfilename.suffix [, options]
 
 # Final analysis: exporting graphs
 
-```{s}
-graph export "../DataWork/Output/process-value-by-procurement-type.png", replace
-```
+
+{{27}}
+
 
 
 # Final analysis: saving do-files
@@ -499,35 +447,17 @@ Final analysis scripts should be short and simple:
 
 `process-value-by-procurement-type.do`
 
-```{s}
-set scheme uncluttered
 
-use "../DataWork/Data/Final/final_process.dta"
+{{28}}
 
-gr bar (sum) process_value, ///
-	over(procurement_type) ///
-	ytitle("Awarded value (Lev)") ///
-	blabel(total)  
-
-graph export "../DataWork/Output/process-value-by-procurement-type.png", replace
-```
 
 
 # Final analysis: saving do-files
 processes-by-procurement-type.do
 
-```{s}
-set scheme uncluttered
 
-use "../DataWork/Data/Final/final_process.dta"
+{{29}}
 
-gr bar (sum) process_id, ///
-	over(procurement_type) ///
-	ytitle("Number of processes") ///
-	blabel(total)  
-
-graph export "../DataWork/Output/processes-by-procurement-type.png", replace
-```
 
 
 # Final analysis: saving do-files
@@ -560,37 +490,37 @@ graph pie, over(procurement_type)
 
 # Final analysis: `graph pie`
 
-```{s}
-graph pie process_value, over(procurement_type)
-```
 
+{{30}}
 
-# Final analysis: `graph pie`
-
-```{s}
-gr pie process_value, over(procurement_type) plabel(_all percent)
-```
 
 
 # Final analysis: `graph pie`
 
-```{s}
-gr pie process_value, over(procurement_type) plabel(_all percent) legend(position(12) cols(3))
-```
 
+{{31}}
 
-# Final analysis: `graph pie`
-
-```{s}
-gr pie process_value, over(procurement_type) plabel(_all percent) legend(position(4) cols(1))
-```
 
 
 # Final analysis: `graph pie`
 
-```{s}
-gr pie process_value, over(procurement_type) plabel(_all percent, gap(10)) legend(on position(4) cols(1)) pie(2, explode)
-```
+
+{{32}}
+
+
+
+# Final analysis: `graph pie`
+
+
+{{33}}
+
+
+
+# Final analysis: `graph pie`
+
+
+{{34}}
+
 
 # Two way graphs
 
@@ -599,9 +529,9 @@ gr pie process_value, over(procurement_type) plabel(_all percent, gap(10)) legen
 
 If we wanted to see how the total process value changes over time, for example, we could simple treat time as a categorical variable and create the following graph:
 
-```{s}
-gr bar (sum) process_value, over(year_init) 
-```
+
+{{35}}
+
 
 
 # Two way graphs
@@ -616,9 +546,9 @@ gr bar (sum) process_value, over(year_init)
 
 The way to create this year-level dataset was discussed when we talked about construction:
 
-```{s}
-collapse (sum) process_value, by(year_init)
-```
+
+{{36}}
+
 
 
 # Two-way graphs
@@ -639,8 +569,8 @@ One nice freature of two-way graphs is that we can add layers to a plot:
 
 ```{s}
 graph twoway ///
-	(line process_value year_init) /// First layer
-	(scatter process_value year_init) // Second layer
+    (line process_value year_init) /// First layer
+    (scatter process_value year_init) // Second layer
 ```
 
 # Two-way graphs
@@ -650,10 +580,10 @@ graph twoway ///
 
 ```{s}
 graph twoway ///
-	(line process_value year_init) /// First layer
-	(scatter process_value year_init) /// Second layer
-	, ///
-	legend(off) // general graph option
+    (line process_value year_init) /// First layer
+    (scatter process_value year_init) /// Second layer
+    , ///
+    legend(off) // general graph option
 ```
 
 
@@ -664,11 +594,11 @@ graph twoway ///
 
 ```{s}
 graph twoway ///
-	(line process_value year_init) /// First layer
-	(scatter process_value year_init /// Second layer
-		, mlabel(process_value)) /// Option to be applied to the second layer
-	, ///
-	legend(off) // General graph option
+    (line process_value year_init) /// First layer
+    (scatter process_value year_init /// Second layer
+        , mlabel(process_value)) /// Option to be applied to the second layer
+    , ///
+    legend(off) // General graph option
 ```
 
 
@@ -693,15 +623,15 @@ legend(off) // General graph option
 ```{s/}
 
 qui {
-	graph twoway ///
-		(line process_value year_init) /// First layer
-		(scatter process_value year_init /// Second layer
-			, mlabel(process_value)) /// Option to be applied to the second layer
-		, ///
-		legend(off) /// General graph option
-		title(Total process value by over (Lev))
-		
-	gr export "img/process_value_year_bar.png", replace
+    graph twoway ///
+        (line process_value year_init) /// First layer
+        (scatter process_value year_init /// Second layer
+            , mlabel(process_value)) /// Option to be applied to the second layer
+        , ///
+        legend(off) /// General graph option
+        title(Total process value by over (Lev))
+        
+    gr export "img/process_value_year_bar.png", replace
 }
 
 ```
@@ -715,12 +645,12 @@ qui {
 
 ~~~
 graph twoway ///
-	(line process_value year_init) /// First layer
-	(scatter process_value year_init /// Second layer
-		, mlabel(process_value)) /// Option to be applied to the second layer
-	, ///
-	legend(off) /// General graph option
-	title(Total process value by over (Lev)) // <---- Title is a general graph option
+    (line process_value year_init) /// First layer
+    (scatter process_value year_init /// Second layer
+        , mlabel(process_value)) /// Option to be applied to the second layer
+    , ///
+    legend(off) /// General graph option
+    title(Total process value by over (Lev)) // <---- Title is a general graph option
 ~~~
 
 
@@ -776,10 +706,10 @@ export excel using "../DataWork/Output/Tables.xls", sheet("Bid procedure") sheet
 use "../DataWork/Data/Final/final_process.dta", clear
     
 collapse (sum)        value = process_value ///
-		 (percent) percent = process_value ///
-		 (count)   volume = bid_id ///
-		 , ///
-		 by(bid_procedure)
+         (percent) percent = process_value ///
+         (count)   volume = bid_id ///
+         , ///
+         by(bid_procedure)
 
 label variable value     "Awarded value (Lev)"
 label variable percent     "Percent of awarded value"
@@ -787,7 +717,7 @@ label variable volume     "Volume of processes"
 
 export excel using "../DataWork/Output/Tables.xls", sheet("Bid procedure") sheetreplace firstrow(varlabels)
 ```
-	
+    
 # Appendix
 
 - Changing layer colors
