@@ -55,10 +55,10 @@
 	if `document' {
 	
 		* Copy the Stata style to the same folder as the markdown file to compile in PDF
-		//cd "${mdfolder}"
+		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-		markstat using "${mdfolder}/1-stata-interface", beamer
+		markstat using "${mdfolder}/5-data-analysis", beamer
 	
 	}
 	
