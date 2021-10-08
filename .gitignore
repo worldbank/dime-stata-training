@@ -43,6 +43,7 @@
 !/**/*.do
 !/**/*.stmd
 !/**/*.ado
+!/**/*.stmd
 
 # R
 !/**/*.R
@@ -97,6 +98,7 @@
 !/**/Output/**/*.xml
 !/**/Output/**/*.eps
 !/**/Output/**/*.svg
+!/**/*.png
 
 #######################
 # Include all the files with passwords or tokens here. All files named
