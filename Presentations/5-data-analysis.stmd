@@ -46,3 +46,11 @@ Note that:
   - We will explore each of them separately
   - If you want to explore variables that are not in the dataset yet, go back to construction and create them
  
+# Exploratory analysis: useful commands
+
+- `codebook`: to describe the dataset and individual variables
+- `summarize`: to see descriptive statistics for continuous variables
+- `tabulate`: to create frequency tables
+- `histogram`: to create a histograms
+- `kdensity`: to create a density graph for continuous variables
+- `scatter`: to quickly visualize the relationship between two variables
