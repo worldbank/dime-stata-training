@@ -47,7 +47,9 @@ But it's also good for beginner programmers:
 
 ![](img/open_dataset_menu.png)
 
-# Task 1: Opening a data set
+# Opening a data set
+
+**Exercise:** Load the dataset `contract_clean.dta` into Stata
 
 1. Open Stata
 1. Click on `File > Open...`
@@ -55,9 +57,9 @@ But it's also good for beginner programmers:
 1. Select the file called `contract_clean.dta`
 1. Click `Open`
 
-# Task 1: Opening a data set
+# Opening a data set
 
-1. When you use the menus, Stata produces the code for that action
+1. When you use the menus, Stata prints the code for that action in the results window
 1. Highlight, right-click and copy the code
 1. Paste the code in the command window
 1. Replace `contract_clean` with `item_clean`
@@ -65,7 +67,7 @@ But it's also good for beginner programmers:
 
 What happened?
 
-# Task 1: Opening a data set
+# Opening a data set
 
 1. Open the do-file editor by typing `doedit` in the command window or through the shortcut icon on the top ribbon
 1. Paste the code in the do-file
@@ -75,8 +77,28 @@ What happened?
 
 What happened?
 
+# Opening a data set
+
+- You have just used all the three ways that can be used to interact with Stata
+- Using the point-and-click method through Stata's user interface may seem the easiest way to interact with it
+- However, when we use this method, we are "cooking a meal", not "writing a recipe"
+- Our preferred way to interact with Stata, the one we will focus on during this training, are do-files
+- Do-files are the last method you just tried
+- We prefer them over the over methods because they allow us to re-do every step we have taken in our work and re-create all its outputs
+
+# Using a do-file
+
+**Exercise:** to understand how useful and easy to use do-files can be do the following:
+
+1. Open the do-file in `DataWork > Code > XXX` by going to the do-file editor, then clicking `Open` and navigating to this file
+2. Now press `CTRL + D` or click in the `Execute` button at the right corner of the buttons ribbon in the do-file editor
+
+You will see that Stata will follow all the instructions in the do-file, including create and export some tables and graphs. This will allow anyone to re-use this code to do similar tasks in the future.
+
+
 # Code syntax
 
+- The do-file you have just opened is giving instructions to Stata using code
 - Writing code is like speaking a language (such as English, Croatian, etc.)
 - One needs to speak to Stata in the language it understands
 - Computers are not as intelligent as humans, so we need to be very precise in how we communicate with them
