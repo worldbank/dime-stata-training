@@ -10,6 +10,10 @@ author: Luiza Andrade and Sushmita Samaddar
 - In Stata you make changes to the instructions on how to get from the raw data to the final analysis and save new versions of the instructions
 - Since Stata is a more statistics oriented software, processing the data to create analytical products can be a lot easier
 
+```{s/}
+qui use "../DataWork/Data/Final/final_process.dta", clear
+```
+
 # The main reasons to use Stata
 
 Powerful tool with many capabilities:
@@ -190,6 +194,7 @@ Stata can store information in two formats:
 # Exploring a data set
 
 **Exercise:**
+
 - Type `codebook` in the command window and press `ENTER`
 - Now type `codebook, compact` 
 - Now type `codebook nr_participants process_type bid_submission_date` 
@@ -244,9 +249,6 @@ In the next exercise, we will use them to explore the process-related variables.
 
 # Exploring a data set
 
-Histograms are a common way to display the distribution of a variable. 
-In the next exercise, we will use them to explore the process-related variables. 
-
 **Exercise:**
 
 1. Type `help histogram` to see the syntax for the comand `histogram`
@@ -255,12 +257,9 @@ In the next exercise, we will use them to explore the process-related variables.
 help histogram
 ~~~
 
-![](hist1.PNG)
+![](img/hist1.PNG)
 
 # Exploring a data set
-
-Histograms are a common way to display the distribution of a variable. 
-In the next exercise, we will use them to explore the process-related variables. 
 
 **Exercise:**
 
@@ -271,12 +270,9 @@ In the next exercise, we will use them to explore the process-related variables.
 histogram process_value
 ~~~
 
-![](hist2.PNG)
+![](img/hist2.PNG)
 
 # Exploring a data set
-
-Histograms are a common way to display the distribution of a variable. 
-In the next exercise, we will use them to explore the process-related variables. 
 
 **Exercise:**
 
@@ -288,15 +284,12 @@ In the next exercise, we will use them to explore the process-related variables.
 histogram process_type
 ~~~
 
-![](hist3.PNG)
+![](img/hist3.PNG)
 
 - What option makes this command easier to use with categorical variables? Look at the help file to find out.
 
 
 # Exploring a data set
-
-Histograms are a common way to display the distribution of a variable. 
-In the next exercise, we will use them to explore the process-related variables. 
 
 **Exercise:**
 
@@ -308,13 +301,10 @@ In the next exercise, we will use them to explore the process-related variables.
 histogram process_type, discrete
 ~~~
 
-![](hist4.PNG)
+![](img/hist4.PNG)
 
 
 # Exploring a data set
-
-Histograms are a common way to display the distribution of a variable. 
-In the next exercise, we will use them to explore the process-related variables. 
 
 **Exercise:**
 
@@ -323,7 +313,7 @@ In the next exercise, we will use them to explore the process-related variables.
 1. Create a histogram for the variable `process_type`
 1. Create a histogram for the variable `process_name`
 
-![](hist5.PNG)
+![](img/hist5.PNG)
 
 - What is happening here? Why is it happening?
 
