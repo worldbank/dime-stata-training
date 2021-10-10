@@ -195,22 +195,137 @@ Stata can store information in two formats:
 - Now type `codebook nr_participants process_type bid_submission_date` 
 - How does the output of the command look for columns with different "storage types"?
 
-# Finding variables
+# Exploring a data set
 
 There are two ways to find the information you are looking for in a dataset:
 
 1. You can use the search bar in the variable window and type an expression that would be contained in these variables
 2. You can use the command `lookfor` and type `lookfor` followed by the same expression either in a do-file or in the console
 
+# Exploring a data set
 
+There are two ways to find the information you are looking for in a dataset:
 
-# Task 2: Create histograms
+1. You can use the search bar in the variable window and type an expression that would be contained in these variables
+2. You can use the command `lookfor` and type `lookfor` followed by the same expression either in a do-file or in the console
+
+# Exploring a data set
+
+There are two ways to find the information you are looking for in a dataset:
+
+1. You can use the search bar in the variable window and type an expression that would be contained in these variables
+2. You can use the command `lookfor` and type `lookfor` followed by the same expression either in a do-file or in the console
+
+# Exploring a data set
+
+**Exercise:** use the command `lookfor` to find all the variables in the data set that contain the word "process" in their names or descriptions.
+
+# Exploring a data set
+
+**Exercise:** use the command `lookfor` to find all the variables in the data set that contain the word "process" in their names or descriptions.
+
+```{s}
+lookfor process
+```
+
+- Note that the second column in the output is telling use which variables contain numbers and which contain text.
+
+# Exploring a data set
+
+Histograms are a common way to display the distribution of a variable. 
+In the next exercise, we will use them to explore the process-related variables. 
+
+**Exercise:**
 
 1. Type `help histogram` to see the syntax for the comand `histogram`
-1. Create a histogram for the variable `nr_nonlocal_bidders`
-1. Create a histogram for the variable `bid_type`
-  - What option makes this command easier to use with categorical variables?
+1. Create a histogram for the variable `process_value`
+1. Create a histogram for the variable `process_type`
 1. Create a histogram for the variable `process_name`
+
+# Exploring a data set
+
+Histograms are a common way to display the distribution of a variable. 
+In the next exercise, we will use them to explore the process-related variables. 
+
+**Exercise:**
+
+1. Type `help histogram` to see the syntax for the comand `histogram`
+
+~~~
+help histogram
+~~~
+
+![](hist1.PNG)
+
+# Exploring a data set
+
+Histograms are a common way to display the distribution of a variable. 
+In the next exercise, we will use them to explore the process-related variables. 
+
+**Exercise:**
+
+1. Type `help histogram` to see the syntax for the comand `histogram`
+1. Create a histogram for the variable `process_value`
+
+~~~
+histogram process_value
+~~~
+
+![](hist2.PNG)
+
+# Exploring a data set
+
+Histograms are a common way to display the distribution of a variable. 
+In the next exercise, we will use them to explore the process-related variables. 
+
+**Exercise:**
+
+1. Type `help histogram` to see the syntax for the comand `histogram`
+1. Create a histogram for the variable `process_value`
+1. Create a histogram for the variable `process_type`
+
+~~~
+histogram process_type
+~~~
+
+![](hist3.PNG)
+
+- What option makes this command easier to use with categorical variables? Look at the help file to find out.
+
+
+# Exploring a data set
+
+Histograms are a common way to display the distribution of a variable. 
+In the next exercise, we will use them to explore the process-related variables. 
+
+**Exercise:**
+
+1. Type `help histogram` to see the syntax for the comand `histogram`
+1. Create a histogram for the variable `process_value`
+1. Create a histogram for the variable `process_type`
+
+~~~
+histogram process_type, discrete
+~~~
+
+![](hist4.PNG)
+
+
+# Exploring a data set
+
+Histograms are a common way to display the distribution of a variable. 
+In the next exercise, we will use them to explore the process-related variables. 
+
+**Exercise:**
+
+1. Type `help histogram` to see the syntax for the comand `histogram`
+1. Create a histogram for the variable `process_value`
+1. Create a histogram for the variable `process_type`
+1. Create a histogram for the variable `process_name`
+
+![](hist5.PNG)
+
+- What is happening here? Why is it happening?
 
 # Error messages
  
@@ -227,6 +342,7 @@ There are two ways to find the information you are looking for in a dataset:
 - The variable window lists all the variables in the data set that is currently open
 - You can use the search bar to look for variables based on their names and labels
 - Clicking on a variable will show some information about it on the *Properties* window
+- If you click in the variable `process_name`, you will see that it contains text rather than numbers
 
 # Recap
 
