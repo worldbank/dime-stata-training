@@ -334,6 +334,12 @@ histogram process_type, discrete
 - Clicking on a variable will show some information about it on the *Properties* window
 - If you click in the variable `process_name`, you will see that it contains text rather than numbers
 
+# Saving a do-file
+
+For us to be able to re-do the same tasks we have done today next time we work with Stata, we need to save our instructions
+
+**Exercise:** on the do-file editor, click on the *Save* shortcut on the top ribbon. Save the do-file as `DataWork > Code > Lecture notes > Intro to Stata.do`
+
 # Recap
 
 We have learned
