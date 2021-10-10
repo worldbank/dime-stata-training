@@ -70,7 +70,7 @@ What happened?
 1. Open the do-file editor by typing `doedit` in the command window or through the shortcut icon on the top ribbon
 1. Paste the code in the do-file
 1. Replace `contract_clean` with `process_clean`
-1. Press `CTRL + D`'
+1. Press `CTRL + D`
 1. Go back to the Stata console
 
 What happened?
@@ -148,6 +148,14 @@ What happened?
 - Now type `codebook, compact` 
 - Now type `codebook nr_participants process_type bid_submission_date` 
 - How does the output of the command look for columns with different "storage types"?
+
+# Finding variables
+
+There are two ways to find the information you are looking for in a dataset:
+
+1. You can use the search bar in the variable window and type an expression that would be contained in these variables
+2. You can use the command `lookfor` and type `lookfor` followed by the same expression either in a do-file or in the console
+
 
 # Types of variables
 
