@@ -101,15 +101,22 @@ You will see that Stata will follow all the instructions in the do-file, includi
 - The do-file you have just opened is giving instructions to Stata using code
 - Writing code is like speaking a language (such as English, Croatian, etc.)
 - One needs to speak to Stata in the language it understands
-- Computers are not as intelligent as humans, so we need to be very precise in how we communicate with them
-- A single character out of place will make your instructions completely indecipherable 
+- Don't worry if you don't understand everything in this do-file: the purpose of this course is to teach you how to speak this languages well enough to keep using it in the future
+
+# Code syntax
+
+- Computers are not as intelligent as humans, so we need to be very precise in how we communicate with them, as they are unable to guess or to infer what we were trying to say
+- This means that a single character out of place will make your instructions completely indecipherable for a computer
 - Just like a human language, computer languages have a syntax that makes sentences correct
 - The equivalent of a sentence in computer language is a line of code
-- Let's take a look at the most simple sentence when can ue in Stata
+- In the next few slides, we will see an example of the most simple sentence when can use in Stata
 
 # Browsing a data set
 
-- You can view the data that is open in Stata by typing `browse` in the command window or through the shortcut icon on the top ribbon
+You can view the data that is open in Stata by typing `browse` in a new line of the do-file, then running it by pressing `CTRL + D` or the `Execute` shortcut
+
+**Exercise:** use the `browse` command to view the data set that we opened earlier.
+
 - Note that the content of different columns is in different colors
 - Each column in this data set is called a `variable`
 - Each row in this data set is called an `observation`
@@ -117,15 +124,31 @@ You will see that Stata will follow all the instructions in the do-file, includi
 
 # Exploring a data set
 
-- Type `describe` in the command window and press `ENTER`
-- Note that this command has printed information in your console
-- The first part, that is preceded by a `.`, is the command you entered
-- The second part is the output of this command
+**Exercise:** explore the data set in memory by using the command  `describe`
 
 # Exploring a data set
 
+**Exercise:** explore the data set in memory by using the command  `describe`
+
+- Note that this command has printed information in your console
+- The first part, that is preceded by a `.`, is the command you entered
+- The second part is the output of this command
 - Read the command's output and compare it to the data set that you have open
 - What are the values shown in the column `storage type` for columns with different colors?
+
+# Types of variables
+
+Stata can store information in two formats:
+
+- **String (text):** values are red when browsing
+- **Numeric (number):** values are black or blue when browsing
+
+# Types of variables
+
+- Numbers *can* be stored as text, but text *cannot* be stored as number
+- It is not possible to do computations on numbers stored as text 		
+- Categorical variables are stored as numeric variables with *value labels*
+- Dates and times are stored as numbers, but can be shown in different formats
 
 # The Stata interface - Review window
 
@@ -142,7 +165,7 @@ You will see that Stata will follow all the instructions in the do-file, includi
 
 # Code syntax
 
-- Note that all the content of your conversation with Stata so far consists of single words
+- Note that all the content of your conversation with Stata so far consists of lines with a single verbs
 - These are what we call *commands*
 - Commands are the equivalent of verbs in the Stata language
 - These verbs are pre-defined, and you need to use each of them in the correct way for Stata to understand you
@@ -166,6 +189,7 @@ You will see that Stata will follow all the instructions in the do-file, includi
 
 # Exploring a data set
 
+**Exercise:**
 - Type `codebook` in the command window and press `ENTER`
 - Now type `codebook, compact` 
 - Now type `codebook nr_participants process_type bid_submission_date` 
@@ -179,19 +203,6 @@ There are two ways to find the information you are looking for in a dataset:
 2. You can use the command `lookfor` and type `lookfor` followed by the same expression either in a do-file or in the console
 
 
-# Types of variables
-
-Stata can store information in two formats:
-
-- **String (text):** values are red when browsing
-- **Numeric (number):** values are black or blue when browsing
-
-# Types of variables
-
-- Numbers *can* be stored as text, but text *cannot* be stored as number
-- It is not possible to do computations on numbers stored as text 		
-- Categorical variables are stored as numeric variables with *value labels*
-- Dates and times are stored as numbers, but can be shown in different formats
 
 # Task 2: Create histograms
 
