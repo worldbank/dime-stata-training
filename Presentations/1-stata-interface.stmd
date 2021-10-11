@@ -39,7 +39,7 @@ But it's also good for beginner programmers:
 
 # The Stata interface
 
-![](img/stata_interface.png)
+![](img/stata_interface.png){width=60%}
 
 # How to tell Stata what to do
 
@@ -49,7 +49,7 @@ But it's also good for beginner programmers:
 
 # Opening a data set
 
-![](img/open_dataset_menu.png)
+![](img/open_dataset_menu.png){width=80%}
 
 # Opening a data set
 
@@ -156,7 +156,7 @@ Stata can store information in two formats:
 
 # The Stata interface - Review window
 
-![](img/stata_interface.png)
+![](img/stata_interface.png){width=60%}
 
 
 # The Stata interface - Review window
@@ -182,7 +182,7 @@ Stata can store information in two formats:
 
 # Help files
 
-![](img/help_codebook.png)
+![](img/help_codebook.png){width=60%}
 
 # Help files
 
@@ -257,7 +257,7 @@ In the next exercise, we will use them to explore the process-related variables.
 help histogram
 ~~~
 
-![](img/hist1.PNG)
+![](img/hist1.PNG){width=40%}
 
 # Exploring a data set
 
@@ -270,7 +270,7 @@ help histogram
 histogram process_value
 ~~~
 
-![](img/hist2.PNG)
+![](img/hist2.PNG){width=25%}
 
 # Exploring a data set
 
@@ -284,7 +284,7 @@ histogram process_value
 histogram process_type
 ~~~
 
-![](img/hist3.PNG)
+![](img/hist3.PNG){width=25%}
 
 - What option makes this command easier to use with categorical variables? Look at the help file to find out.
 
@@ -301,7 +301,7 @@ histogram process_type
 histogram process_type, discrete
 ~~~
 
-![](img/hist4.PNG)
+![](img/hist4.PNG){width=25%}
 
 
 # Exploring a data set
@@ -313,7 +313,7 @@ histogram process_type, discrete
 1. Create a histogram for the variable `process_type`
 1. Create a histogram for the variable `process_name`
 
-![](img/hist5.PNG)
+![](img/hist5.PNG){width=40%}
 
 - What is happening here? Why is it happening?
 
@@ -327,7 +327,7 @@ histogram process_type, discrete
 
 # The Stata interface - Variable window
 
-![](img/variable_window.png)
+![](img/variable_window.png){width=25%}
 
 - The variable window lists all the variables in the data set that is currently open
 - You can use the search bar to look for variables based on their names and labels
