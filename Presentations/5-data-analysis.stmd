@@ -512,10 +512,9 @@ graph export newfilename.suffix [, options]
 
 **Exercise:** Export the graph you just created to the `Output` folder. Call it `process-value-by-procurement-type.png`.
 
-```{s}
+~~~
 graph export "../DataWork/Output/process-value-by-procurement-type.png", replace
-```
-
+~~~
 
 # Final analysis: saving do-files
 
