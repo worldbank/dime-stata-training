@@ -70,6 +70,8 @@ As we explore variables of different types, we will learn how to use the followi
 - `describe`: List of all variables in the data set in memory
   - Total number of variables & observations (size of matrix)
   - Variable name, type, format, value label name, variable label
+- `codebook`: List of all variables in the data set in memory
+  - Type of variable, range, unique values, units, number of missing values and descriptive statistics or frequency table
 - `tabulate`: Show a frequency table
 - `histogram`: Visualize the distribution of a continuous or discrete variable
 - `graph bar`: Visualize continuous variables over discrete or categorical variables
@@ -188,6 +190,8 @@ We will learn more about each of these types of variable and how to use them in 
 
 # Exploring numeric variables
 
+Based on what we saw in the result for `describe`, we can tell that the numeric variables in our data set are:
+
 - `bid_id`
 - `unit_id`
 - `process_id`
@@ -200,7 +204,11 @@ We will learn more about each of these types of variable and how to use them in 
 - `process_value`
 - `in_sample`
 
+Let's take a look at how we can see information about them.
+
 # Exploring numeric variables
+
+Let's start with some general information about the variable `nr_participants` using the command `codebook`
 
 ```{s}
 codebook nr_participants
@@ -217,11 +225,11 @@ codebook nr_participants
 - The expression `if` allows us to subset observations, that is, we can choose observations based on a logical condition.
 - For example, if we wanted to see all the observations in the data set for which we don't know the number of participants, we would types
 
-```{s}
+~~~
 browse if nr_participants == .
-```
+~~~
 
-- note that we wrote `==` instead of `=`. This is because we are perfoming a *logical operation*. We will talk more about these soon.
+- Note that we wrote `==` instead of `=`. This is because we are perfoming a *logical operation*. We will talk more about these expressions soon.
 
 
 # Exploring numeric variables
@@ -237,6 +245,16 @@ summarize nr_participants
 - This is a simpler way to visualize the content of numeric variables, particularly when you want to communicate information about many variables in one table
 
 ##  Exploring numeric variables
+
+**Exercise:** use the command `summarize` to explore the distribution of variables `nr_participants`, `nr_nonlocal_bidders`, and `nr_sme_bidders`.
+
+```{s/}
+summarize nr_participants nr_nonlocal_bidders nr_sme_bidders
+```
+
+##  Exploring numeric variables
+
+**Exercise:** use the command `summarize` to explore the distribution of variables `nr_participants`, `nr_nonlocal_bidders`, and `nr_sme_bidders`.
 
 ```{s}
 summarize nr_participants nr_nonlocal_bidders nr_sme_bidders
