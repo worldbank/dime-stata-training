@@ -143,7 +143,6 @@ tabulate varname [if] [in] [weight] [, options]
 tabulate procurement_type
 ```
 
-
 # Exploratory analysis: tabulate two way
 
 ~~~
@@ -183,7 +182,6 @@ Let's expore the minimum, maximum, mean, median, and count for the following var
 ```{s}
 tabstat process_value nr_participants, stat(mean p50 n)
 ```
-
 Are there any other statistics we can explore through this command? What are they?
 
 # Exploratory analysis: `tabstat [var], by(var)`
@@ -194,6 +192,47 @@ What if we wanted to see these statistics for process_value and nr_participants 
 tabstat process_value nr_participants, stat(mean p50 n) by(process_type)
 ```
 
+# Exploratory analysis: `list varlist`
+
+- `list` is a useful command that can display values of variables. 
+
+Let's list `process_values` for the first five observations in the dataset
+
+```{s}
+list process_id process_value in 1/5
+```
+
+# Exploratory analysis: `list varlist`
+
+We can also list the top 5 entities with highest total process values by using `collapse`
+
+```{s}
+collapse (sum) process_value, by(entity)
+gsort -process_value
+list entity process_value in 1/5
+```
+
+# Exploratory analysis: `list varlist` Exercise
+
+**Exercise** Can you list the top 5 counties with the highest total process values? The variable for counties is `entity_counties`
+
+First open the `final_process.dta` again by running the following code
+
+use "${mdfolder}/DataWork/Data/Final/final_process.dta", clear
+
+# Exploratory analysis: `list varlist` Exercise
+
+**Exercise** Can you list the top 5 counties with the highest total process values? The variable for counties is `entity_counties`
+
+```{s}
+use "${mdfolder}/DataWork/Data/Final/final_process.dta", clear
+collapse (sum) process_value, by(entity_county)
+gsort -process_value
+list entity_county process_value in 1/5
+```
+
+How will be list the counties with the lowest total process values?
+
 # Exploratory analysis: `histogram`
 
 ~~~
@@ -201,6 +240,12 @@ histogram varname [if] [in] [weight] [, [continuous_opts | discrete_opts] option
 ~~~
 
 **Exercise:** use `histogram` to explore the distibrution of variable `month_init`
+
+Remember to open the final_process dataset by running the following code
+
+```{s}
+use "${mdfolder}/DataWork/Data/Final/final_process.dta", clear
+```
 
 ![](img/hist_month_init.png){width=40%}
 
@@ -387,6 +432,39 @@ graph hbar (count) process_id, over(procurement_type)
 ~~~
 
 ![](img/process_type_count.png){width=40%}
+
+# Exploratory analysis: `graph bar`
+~~~
+graph bar  yvars [if] [in] [weight] [, options]
+graph hbar yvars [if] [in] [weight] [, options]
+~~~
+
+**Exercise:** Create a horizontal bar graph that shows the top 5 procuring entities with the highest total process value
+
+**Hint**: Refer to our exercise on listing the top 5 procuring entities
+
+![](img/topcounties.png){width=35%}
+
+# Exploratory analysis: `graph bar`
+~~~
+graph bar  yvars [if] [in] [weight] [, options]
+graph hbar yvars [if] [in] [weight] [, options]
+~~~
+
+**Exercise:** Create a horizontal bar graph that shows the top 5 counties with the highest total process value
+
+**Hint**: Refer to our exercise on listing the top 5 counties. 
+
+~~~
+use "${mdfolder}/DataWork/Data/Final/final_process.dta", clear
+collapse (sum) process_value, by(entity_county) // *collapses your data at county level* 
+gsort -process_value // *sorts total process_value in descending order
+gen rank = _n // *generates a new variable that ranks the observations after sorting
+graph hbar (sum) process_value if rank<=5, over(entity_county) // *creates a graph of top counties 
+~~~
+
+![](img/topcounties.png){width=40%}
+
 
 
 # Final analysis

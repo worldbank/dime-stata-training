@@ -113,9 +113,9 @@
 <p>Explore the specific variables:</p>
 <pre class='stata'>. codebook process_value process_type
 
-──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-process_value                                                                                                                                                            Process Value
-──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+process_value                                                                                                     Process Value
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
                   type:  numeric (float)
 
@@ -128,9 +128,9 @@ process_value                                                                   
            percentiles:        10%       25%       50%       75%       90%
                             250000    400000    848000   2.1e+06   6.0e+06
 
-──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-process_type                                                                                                                                                           Processing Type
-──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+process_type                                                                                                    Processing Type
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
                   type:  numeric (long)
                  label:  process_type
@@ -281,10 +281,81 @@ process_type │  proce~ue  nr_par~s
 ─────────────┴────────────────────
 </pre>
 </div>
+<div id="exploratory-analysis-list-varlist" class="slide section level1">
+<h1>Exploratory analysis: <code>list varlist</code></h1>
+<ul>
+<li><code>list</code> is a useful command that can display values of variables.</li>
+</ul>
+<p>Let’s list <code>process_values</code> for the first five observations in the dataset</p>
+<pre class='stata'>. list process_id process_value in 1/5
+
+     ┌────────────────────────────┐
+     │   process_id   process_v~e │
+     ├────────────────────────────┤
+  1. │ DIR-2017-002   800,000,000 │
+  2. │     EVV 1/17    21,607,448 │
+  3. │ DIR-2020-002    63,347,800 │
+  4. │       22/17.    17,701,036 │
+  5. │     EP-26/20       550,000 │
+     └────────────────────────────┘
+</pre>
+</div>
+<div id="exploratory-analysis-list-varlist-1" class="slide section level1">
+<h1>Exploratory analysis: <code>list varlist</code></h1>
+<p>We can also list the top 5 entities with highest total process values by using <code>collapse</code></p>
+<pre class='stata'>. collapse (sum) process_value, by(entity)
+
+. gsort -process_value
+
+. list entity process_value in 1/5
+
+     ┌───────────────────────────────────────────────────────────────────┐
+     │                                            entity   process_value │
+     ├───────────────────────────────────────────────────────────────────┤
+  1. │                                       GRAD ZAGREB   9,279,500,348 │
+  2. │                      HRVATSKE CESTE D.O.O. ZAGREB   8,580,754,751 │
+  3. │                          HŽ INFRASTRUKTURA D.O.O.   5,670,633,077 │
+  4. │                         HRVATSKE AUTOCESTE D.O.O.   3,603,078,854 │
+  5. │ HRVATSKE VODE, PRAVNA OSOBA ZA UPRAVLJANJE VODAMA   3,050,996,577 │
+     └───────────────────────────────────────────────────────────────────┘
+</pre>
+</div>
+<div id="exploratory-analysis-list-varlist-exercise" class="slide section level1">
+<h1>Exploratory analysis: <code>list varlist</code> Exercise</h1>
+<p><strong>Exercise</strong> Can you list the top 5 counties with the highest total process values? The variable for counties is <code>entity_counties</code></p>
+<p>First open the <code>final_process.dta</code> again by running the following code</p>
+<p>use “${mdfolder}/DataWork/Data/Final/final_process.dta”, clear</p>
+</div>
+<div id="exploratory-analysis-list-varlist-exercise-1" class="slide section level1">
+<h1>Exploratory analysis: <code>list varlist</code> Exercise</h1>
+<p><strong>Exercise</strong> Can you list the top 5 counties with the highest total process values? The variable for counties is <code>entity_counties</code></p>
+<pre class='stata'>. use "${mdfolder}/DataWork/Data/Final/final_process.dta", clear
+
+. collapse (sum) process_value, by(entity_county)
+
+. gsort -process_value
+
+. list entity_county process_value in 1/5
+
+     ┌────────────────────────────────────────┐
+     │         entity_county    process_value │
+     ├────────────────────────────────────────┤
+  1. │        CITY OF ZAGREB   72,502,911,704 │
+  2. │ PRIMORJE-GORSKI KOTAR    6,685,129,588 │
+  3. │        SPLIT-DALMATIA    5,719,980,448 │
+  4. │        OSIJEK-BARANJA    3,177,126,116 │
+  5. │                ISTRIA    2,637,678,330 │
+     └────────────────────────────────────────┘
+</pre>
+<p>How will be list the counties with the lowest total process values?</p>
+</div>
 <div id="exploratory-analysis-histogram" class="slide section level1">
 <h1>Exploratory analysis: <code>histogram</code></h1>
 <pre><code>histogram varname [if] [in] [weight] [, [continuous_opts | discrete_opts] options]</code></pre>
 <p><strong>Exercise:</strong> use <code>histogram</code> to explore the distibrution of variable <code>month_init</code></p>
+<p>Remember to open the final_process dataset by running the following code</p>
+<pre class='stata'>. use "${mdfolder}/DataWork/Data/Final/final_process.dta", clear
+</pre>
 <p><img src="img/hist_month_init.png" style="width:40.0%" /></p>
 </div>
 <div id="exploratory-analysis-histogram-1" class="slide section level1">
@@ -388,6 +459,27 @@ graph hbar yvars [if] [in] [weight] [, options]</code></pre>
 <p><strong>Exercise:</strong> Create a horizontal bar graph that shows the number of processes with each procurement type</p>
 <pre><code>graph hbar (count) process_id, over(procurement_type)</code></pre>
 <p><img src="img/process_type_count.png" style="width:40.0%" /></p>
+</div>
+<div id="exploratory-analysis-graph-bar-7" class="slide section level1">
+<h1>Exploratory analysis: <code>graph bar</code></h1>
+<pre><code>graph bar  yvars [if] [in] [weight] [, options]
+graph hbar yvars [if] [in] [weight] [, options]</code></pre>
+<p><strong>Exercise:</strong> Create a horizontal bar graph that shows the top 5 procuring entities with the highest total process value</p>
+<p><strong>Hint</strong>: Refer to our exercise on listing the top 5 procuring entities</p>
+<p><img src="img/topcounties.png" style="width:40.0%" /></p>
+</div>
+<div id="exploratory-analysis-graph-bar-8" class="slide section level1">
+<h1>Exploratory analysis: <code>graph bar</code></h1>
+<pre><code>graph bar  yvars [if] [in] [weight] [, options]
+graph hbar yvars [if] [in] [weight] [, options]</code></pre>
+<p><strong>Exercise:</strong> Create a horizontal bar graph that shows the top 5 counties with the highest total process value</p>
+<p><strong>Hint</strong>: Refer to our exercise on listing the top 5 counties.</p>
+<pre><code>use &quot;${mdfolder}/DataWork/Data/Final/final_process.dta&quot;, clear
+collapse (sum) process_value, by(entity_county) // *collapses your data at county level* 
+gsort -process_value // *sorts total process_value in descending order
+gen rank = _n // *generates a new variable that ranks the observations after sorting
+graph hbar (sum) process_value if rank&lt;=5, over(entity_county) // *creates a graph of top counties </code></pre>
+<p><img src="img/topcounties.png" style="width:40.0%" /></p>
 </div>
 <div id="final-analysis" class="slide section level1">
 <h1>Final analysis</h1>
@@ -617,9 +709,9 @@ Slices as frequencies within over() categories
 <p>This will create the following dataset:</p>
 <pre class='stata'>. codebook
 
-──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-year_init                                                                                                                                                 Year Procedure Was Initiated
-──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+year_init                                                                                          Year Procedure Was Initiated
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
                   type:  numeric (int)
 
@@ -637,9 +729,9 @@ year_init                                                                       
                              1  2021
                              1  .
 
-──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-process_value                                                                                                                                                      (sum) process_value
-──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+process_value                                                                                               (sum) process_value
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
                   type:  numeric (double)
 
