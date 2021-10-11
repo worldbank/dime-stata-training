@@ -99,6 +99,7 @@
 !/**/Output/**/*.eps
 !/**/Output/**/*.svg
 !/**/*.png
+!/**/*.html
 
 #######################
 # Include all the files with passwords or tokens here. All files named
