@@ -318,7 +318,9 @@ codebook entity process_name
 - By default, Stata shows random examples of values in text variables  
 - As mentioned earlier, the easiest way to interact with these variables in Stata is to browse them
 
-# Exploring categorical variables:
+# Exploring categorical variables
+
+As we noted when using `describe`, one way to identify categorical variables is when they have *value labels*. In the process data set, these are the categorical variables we can find:
 
 - `entity_county`
 - `evaluation_method`
@@ -329,15 +331,36 @@ codebook entity process_name
 - `bid_status`
 - `process_type`
 
-# Exploring categorical variables:
+# Exploring categorical variables
+
+As before, let's start by using `codebook` to inspect a categorical variable.
 
 ```{s}
 codebook process_type
 ```
 
-These variables have *value labels*. This means that each numeric value represents one category, and the name of the category is saved in the variable label.
+# Exploring categorical variables
 
-# Exploring categorical variables:
+- Some information here is common to all types of data:
+  - We see the type of variable
+  - The number of unique values is shown
+  - We can also see the number of missing values
+- Most of the information in the codebook is very similar to that of numeric variables:
+  - The type of variable is `numeric`
+  - We see the range of values it takes
+  - Missing values are represented by `.`
+- However, some information is unique to this type of variable:
+  - We see a frequency table instead of summary statistics of random examples
+  - The name of the value label is indicated
+
+# Exploring categorical variables
+
+- As you can see, having *value labels* is a very important feature of categorical variables
+- Just like Stata refers to variables by their *variable names* and humans refer to them using *variable labels*, Stata will refer to the different categories in a categorical variable using *numbers*, while humans will refer to them using *value labels*
+- This is because humans understand descriptive names better than numbers, but that is not the case for computers (computers can't make much sense of natural language, this is why Stata cannot summarize text variables)
+- We connect a label to each value a categorical variable may take so both humans and computers can understand them
+
+# Exploring categorical variables
 
 You can also see the definition of a value label using `labelbook`
 
@@ -345,52 +368,131 @@ You can also see the definition of a value label using `labelbook`
 labelbook process_type
 ```
 
+We will see next how value labels are important for us to understand categorical variables
 
-# Exploring categorical variables:
+# Exploring categorical variables
 
-The command `tabulate` is useful to show us the number of observations with each value in a categorical variable. Note that when we inspect this variable, we are shown the labels of the category automatically
+- The command `tabulate` counts the number of observations that take each value in a categorical variable (that is, it creates a *frequency table*) 
+- Note that when we inspect this variable, we are shown the labels of the category automatically
 
 ```{s}
 tabulate process_type
+```
+
+# Exploring categorical variables
+
+- We can use the option `nolabel` of `tabulate` to hide the value labels
+- This is an *optional argument* of the command
+- As you may remember from the first lab, this means why will use a comma (`,`) to separate it from the other arguments
+
+**Exercise:** use the `tabulate` command with the optional option `nolabel` to display a frequency table of the variable `process_type`
+
+# Exploring categorical variables
+
+```{s}
 tabulate process_type, nolabel
-tabulate process_type, miss
 ```
 
-- Just like in numeric variables, missing values are represented by `.`
-
-# Exploring categorical variables:
-
-When creating graphs that use these variables, we also see the value labels
-
-```{s}
-gr bar, over(process_type)
-gr pie, over(process_type)
-```
-
-# Exploring categorical variables:
-
-When we remove the value label, on the other hand, they become much harder to interpret
-
-```{s}
-label drop process_type
-
-gr pie, over(process_type)
-```
+- This is how Stata reads this variable
+- For us, however, this is much less informative
 
 # Exploring categorical variables
 
-When we open the dataset, we also see the value label. But when we click on a specific observation for that variable, we can see the underlying numeric value
+- We can also explore the relationship between two categorical variables using `tabulate`
+- To do so, list two variable names as arguments for the command instead of only one
 
-```{s}
-browse bid_classification
-```
+**Exercise:** use the `tabulate` command to explore how the variables `process_type` and `procurement_type` are related.
 
 # Exploring categorical variables
-
-We can also explore the relationship between two categorical variables using tabulate
 
 ```{s}
 tabulate process_type procurement_type
+```
+
+# Exploring categorical variables
+
+- When creating graphs that use these variables, we also see the value labels
+- Try running the following two commands to see how graphs can be used to visualize categorical variables
+
+~~~
+gr bar, over(process_type)
+gr pie, over(process_type)
+~~~
+
+# Exploring categorical variables
+
+~~~
+gr bar, over(process_type)
+~~~
+
+![](img/lab2-bar.png){width=40%}
+
+# Exploring categorical variables
+
+~~~
+gr pie, over(process_type)
+~~~
+
+![](img/lab2-pie1.png){width=40%}
+
+# Exploring categorical variables
+
+When we remove the value label, on the other hand, they become much harder to interpret
+
+~~~
+label drop bid_type
+
+gr pie, over(bid_type)
+~~~
+
+![](img/lab2-pie2.png){width=40%}
+
+# Exploring categorical variables
+
+When we open the dataset, we also see the value label. But when we click on a specific observation for that variable, we can see the underlying numeric value.
+
+~~~
+browse bid_classification
+~~~
+
+![](img/lab2-browse.png){width=40%}
+
+# Exploring categorical variables
+
+In summary:
+
+- The numbers we see in categorical variables don't have any *meaning*
+- They are only a way for Stata to store and handle the data efficiently
+- What we humans care about are the categories they represent
+- A *value label* is what connects the number that Stata understands to a category that we humans are interested
+- When communicating to Stata, though, we will refer to the categories using the *numbers* that represent them
+
+# Exploring categorical variables
+
+- When giving instructions to Stata, we will refer to a category by its underlying number
+- To see an example of this, try to use the `tabulate` command with and `if` statement to see a frequency table of the type of process for processes of procurement type *goods*
+
+# Exploring categorical variables
+
+- When giving instructions to Stata, we will refer to a category by its underlying number
+- To see an example of this, try to use the `tabulate` command with and `if` statement to see a frequency table of the type of process for processes of procurement type *goods*
+
+**Exercise:** print a frequency table of process type when procurement type is *goods*
+
+# Exploring categorical variables
+
+**Exercise:** print a frequency table of process type when procurement type is *goods*
+
+```{s}
+labelbook procurement_type
+```
+
+# Exploring categorical variables
+
+**Exercise:** print a frequency table of process type when procurement type is *goods*
+
+```{s}
+tabulate process_type if procurement_type == 1
 ```
 
 
