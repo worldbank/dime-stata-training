@@ -50,6 +50,7 @@ Note that:
 - `codebook`: to describe the dataset and individual variables
 - `summarize`: to see descriptive statistics for continuous variables
 - `tabulate`: to create frequency tables
+- `tabstat`: to create summary statistics for multiple variables
 - `histogram`: to create a histograms
 - `kdensity`: to create a density graph for continuous variables
 - `scatter`: to quickly visualize the relationship between two variables
@@ -86,7 +87,6 @@ Explore the specific variables:
 codebook process_value process_type
 ```
 
-
 # Exploratory analysis: `summarize`
 
 ~~~
@@ -111,7 +111,7 @@ summarize process_value process_type
 
 # Exploratory analysis: `summarize` 
 
-~~~
+~~~ 
 summarize [varlist] [if] [in] [weight] [, options]
 ~~~ 
 
@@ -159,10 +159,39 @@ tabulate varname1 varname2 [if] [in] [weight] [, options]
 tabulate varname1 varname2 [if] [in] [weight] [, options]
 ~~~
 
+
 **Exercise:** use `tabulate` to explore the relationship between variables `procurement_type` and `process_type`
 
 ```{s}
 tabulate procurement_type process_type
+```
+
+# Exploratory analysis: `tabstat`
+
+~~~
+tabstat varlist [if] [in] [weight] [, options]
+~~~
+
+- `tabstat` is a useful command that can provide summary statistics for a series of numeric variables in one table.  
+- It allows you to specify the list of statistics to be displayed.  
+- Statistics can be calculated (conditioned on) another variable.
+  
+# Exploratory analysis: `tabstat`
+
+Let's expore the minimum, maximum, mean, median, and count for the following variables: `process_value`, `nr_participants`
+
+```{s}
+tabstat process_value nr_participants, stat(mean p50 n)
+```
+
+Are there any other statistics we can explore through this command? What are they?
+
+# Exploratory analysis: `tabstat [var], by(var)`
+
+What if we wanted to see these statistics for process_value and nr_participants over some other categorical variable?
+
+```{s}
+tabstat process_value nr_participants, stat(mean p50 n) by(process_type)
 ```
 
 # Exploratory analysis: `histogram`
@@ -247,7 +276,7 @@ kdensity bid_submission_period if bid_submission_period < 100
 scatter varlist [if] [in] [weight] [, options]
 ~~~
 
-**Exercise:** use `scatter` to explore the relationship between variables `nr_nonlocal_bidders` and `nr_participants`
+**Exercise:** use `scatter` to explore the relationship between variables `nr_lots` and `nr_participants`
 
 ![](img/scatter.png){width=40%}
 
@@ -258,10 +287,10 @@ scatter varlist [if] [in] [weight] [, options]
 scatter varlist [if] [in] [weight] [, options]
 ~~~
 
-**Exercise:** use `scatter` to explore the relationship between variables `nr_nonlocal_bidders` and `nr_participants`
+**Exercise:** use `scatter` to explore the relationship between variables `nr_lots` and `nr_participants`
 
 ~~~
-scatter nr_nonlocal_bidders nr_participants
+scatter nr_lots nr_participants
 ~~~
 
 ![](img/scatter.png){width=40%}
@@ -341,7 +370,7 @@ graph hbar yvars [if] [in] [weight] [, options]
 graph hbar (count) process_id, over(procurement_type)
 ~~~
 
-![](img/process_type_count.png){width=40%}
+![](img/process_type_count.png){width=35%}
 
 
 # Exploratory analysis: `graph bar`
@@ -410,7 +439,7 @@ graph bar (count) process_id, ///
 	blabel(total) <----
 ~~~
 
-![](img/blabel.png){width=40%}
+![](img/blabel.png){width=38%}
 
 
 # Final analysis: `graph bar`
@@ -425,7 +454,7 @@ graph bar (count) process_id, ///
 	graphregion(color(white)) <----
 ~~~
 
-![](img/grregion.png){width=40%}
+![](img/grregion.png){width=35%}
 
 
 # Final analysis: `set scheme`
@@ -442,7 +471,7 @@ graph bar (count) process_id, ///
 	blabel(total) 
 ~~~
 
-![](img/plotplain.png){width=40%}
+![](img/plotplain.png){width=30%}
 
 
 # Final analysis: `set scheme`
@@ -460,7 +489,7 @@ graph bar (count) process_id, ///
 	blabel(total) 
 ~~~
 
-![](img/white_tableau.png){width=40%}
+![](img/white_tableau.png){width=30%}
 
 # Final analysis: `graph bar`
 
@@ -485,7 +514,7 @@ gr bar (sum) process_value, ///
 	title("Total awarded value by process type")
 ~~~
 
-![](img/total_value_proctype_bar.png){width=40%}
+![](img/total_value_proctype_bar.png){width=35%}
 
 
 # Final analysis: exporting outputs
@@ -758,7 +787,6 @@ gr export "img/tw5.png", replace
 ~~~
 
 ![](img/tw5.png){width=40%}
-
 
 # Two-way graphs
 

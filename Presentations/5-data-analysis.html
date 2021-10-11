@@ -89,6 +89,7 @@
 <li><code>codebook</code>: to describe the dataset and individual variables</li>
 <li><code>summarize</code>: to see descriptive statistics for continuous variables</li>
 <li><code>tabulate</code>: to create frequency tables</li>
+<li><code>tabstat</code>: to create summary statistics for multiple variables</li>
 <li><code>histogram</code>: to create a histograms</li>
 <li><code>kdensity</code>: to create a density graph for continuous variables</li>
 <li><code>scatter</code>: to quickly visualize the relationship between two variables</li>
@@ -112,9 +113,9 @@
 <p>Explore the specific variables:</p>
 <pre class='stata'>. codebook process_value process_type
 
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-process_value                                                                                                     Process Value
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+process_value                                                                                                                                                            Process Value
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
                   type:  numeric (float)
 
@@ -127,9 +128,9 @@ process_value                                                                   
            percentiles:        10%       25%       50%       75%       90%
                             250000    400000    848000   2.1e+06   6.0e+06
 
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-process_type                                                                                                    Processing Type
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+process_type                                                                                                                                                           Processing Type
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
                   type:  numeric (long)
                  label:  process_type
@@ -227,6 +228,59 @@ Procuremen │         Processing Type
      Total │     1,691     21,028      2,258 │    24,977 
 </pre>
 </div>
+<div id="exploratory-analysis-tabstat" class="slide section level1">
+<h1>Exploratory analysis: <code>tabstat</code></h1>
+<pre><code>tabstat varlist [if] [in] [weight] [, options]</code></pre>
+<ul>
+<li><code>tabstat</code> is a useful command that can provide summary statistics for a series of numeric variables in one table.<br />
+</li>
+<li>It allows you to specify the list of statistics to be displayed.<br />
+</li>
+<li>Statistics can be calculated (conditioned on) another variable.</li>
+</ul>
+</div>
+<div id="exploratory-analysis-tabstat-1" class="slide section level1">
+<h1>Exploratory analysis: <code>tabstat</code></h1>
+<p>Let’s expore the minimum, maximum, mean, median, and count for the following variables: <code>process_value</code>, <code>nr_participants</code></p>
+<pre class='stata'>. tabstat process_value nr_participants, stat(mean p50 n)
+
+   stats │  proce~ue  nr_par~s
+─────────┼────────────────────
+    mean │   4478843  2.450993
+     p50 │    848000         2
+       N │     25000     22548
+─────────┴────────────────────
+</pre>
+<p>Are there any other statistics we can explore through this command? What are they?</p>
+</div>
+<div id="exploratory-analysis-tabstat-var-byvar" class="slide section level1">
+<h1>Exploratory analysis: <code>tabstat [var], by(var)</code></h1>
+<p>What if we wanted to see these statistics for process_value and nr_participants over some other categorical variable?</p>
+<pre class='stata'>. tabstat process_value nr_participants, stat(mean p50 n) by(process_type)
+
+Summary statistics: mean, p50, N
+  by categories of: process_type (Processing Type)
+
+process_type │  proce~ue  nr_par~s
+─────────────┼────────────────────
+      Closed │  577892.7  1.521619
+             │    150000         1
+             │      1691      1087
+─────────────┼────────────────────
+        Open │   4721041  2.581185
+             │  963868.6         2
+             │     21043     19314
+─────────────┼────────────────────
+  Restricted │   5010361  1.750233
+             │    656750         1
+             │      2258      2146
+─────────────┼────────────────────
+       Total │   4466848  2.451013
+             │    846000         2
+             │     24992     22547
+─────────────┴────────────────────
+</pre>
+</div>
 <div id="exploratory-analysis-histogram" class="slide section level1">
 <h1>Exploratory analysis: <code>histogram</code></h1>
 <pre><code>histogram varname [if] [in] [weight] [, [continuous_opts | discrete_opts] options]</code></pre>
@@ -268,14 +322,14 @@ Procuremen │         Processing Type
 <div id="exploratory-analysis-scatter" class="slide section level1">
 <h1>Exploratory analysis: <code>scatter</code></h1>
 <pre><code>scatter varlist [if] [in] [weight] [, options]</code></pre>
-<p><strong>Exercise:</strong> use <code>scatter</code> to explore the relationship between variables <code>nr_nonlocal_bidders</code> and <code>nr_participants</code></p>
+<p><strong>Exercise:</strong> use <code>scatter</code> to explore the relationship between variables <code>nr_lots</code> and <code>nr_participants</code></p>
 <p><img src="img/scatter.png" style="width:40.0%" /></p>
 </div>
 <div id="exploratory-analysis-scatter-1" class="slide section level1">
 <h1>Exploratory analysis: <code>scatter</code></h1>
 <pre><code>scatter varlist [if] [in] [weight] [, options]</code></pre>
-<p><strong>Exercise:</strong> use <code>scatter</code> to explore the relationship between variables <code>nr_nonlocal_bidders</code> and <code>nr_participants</code></p>
-<pre><code>scatter nr_nonlocal_bidders nr_participants</code></pre>
+<p><strong>Exercise:</strong> use <code>scatter</code> to explore the relationship between variables <code>nr_lots</code> and <code>nr_participants</code></p>
+<pre><code>scatter nr_lots nr_participants</code></pre>
 <p><img src="img/scatter.png" style="width:40.0%" /></p>
 </div>
 <div id="exploratory-analysis-graph-bar" class="slide section level1">
@@ -325,7 +379,7 @@ graph hbar yvars [if] [in] [weight] [, options]</code></pre>
 <p><img src="img/process_type_count.png" style="width:40.0%" /></p>
 <p><strong>Exercise:</strong> Create a horizontal bar graph that shows the number of processes with each procurement type</p>
 <pre><code>graph hbar (count) process_id, over(procurement_type)</code></pre>
-<p><img src="img/process_type_count.png" style="width:40.0%" /></p>
+<p><img src="img/process_type_count.png" style="width:35.0%" /></p>
 </div>
 <div id="exploratory-analysis-graph-bar-6" class="slide section level1">
 <h1>Exploratory analysis: <code>graph bar</code></h1>
@@ -374,7 +428,7 @@ graph bar (count) process_id, over(procurement_type) </code></pre>
     over(procurement_type) ///
     ytitle(&quot;Number of processes&quot;) ///
     blabel(total) &lt;----</code></pre>
-<p><img src="img/blabel.png" style="width:40.0%" /></p>
+<p><img src="img/blabel.png" style="width:38.0%" /></p>
 </div>
 <div id="final-analysis-graph-bar-3" class="slide section level1">
 <h1>Final analysis: <code>graph bar</code></h1>
@@ -384,7 +438,7 @@ graph bar (count) process_id, over(procurement_type) </code></pre>
     ytitle(&quot;Number of processes&quot;) ///
     blabel(total)  ///
     graphregion(color(white)) &lt;----</code></pre>
-<p><img src="img/grregion.png" style="width:40.0%" /></p>
+<p><img src="img/grregion.png" style="width:35.0%" /></p>
 </div>
 <div id="final-analysis-set-scheme" class="slide section level1">
 <h1>Final analysis: <code>set scheme</code></h1>
@@ -396,7 +450,7 @@ graph bar (count) process_id, ///
     over(procurement_type) ///
     ytitle(&quot;Number of processes&quot;) ///
     blabel(total) </code></pre>
-<p><img src="img/plotplain.png" style="width:40.0%" /></p>
+<p><img src="img/plotplain.png" style="width:30.0%" /></p>
 </div>
 <div id="final-analysis-set-scheme-1" class="slide section level1">
 <h1>Final analysis: <code>set scheme</code></h1>
@@ -409,7 +463,7 @@ graph bar (count) process_id, ///
     over(procurement_type) ///
     ytitle(&quot;Number of processes&quot;) ///
     blabel(total) </code></pre>
-<p><img src="img/white_tableau.png" style="width:40.0%" /></p>
+<p><img src="img/white_tableau.png" style="width:30.0%" /></p>
 </div>
 <div id="final-analysis-graph-bar-4" class="slide section level1">
 <h1>Final analysis: <code>graph bar</code></h1>
@@ -429,7 +483,7 @@ gr bar (sum) process_value, ///
     ytitle(&quot;Awarded value (Lev)&quot;) ///
     blabel(total) ///
     title(&quot;Total awarded value by process type&quot;)</code></pre>
-<p><img src="img/total_value_proctype_bar.png" style="width:40.0%" /></p>
+<p><img src="img/total_value_proctype_bar.png" style="width:35.0%" /></p>
 </div>
 <div id="final-analysis-exporting-outputs" class="slide section level1">
 <h1>Final analysis: exporting outputs</h1>
@@ -563,9 +617,9 @@ Slices as frequencies within over() categories
 <p>This will create the following dataset:</p>
 <pre class='stata'>. codebook
 
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-year_init                                                                                          Year Procedure Was Initiated
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+year_init                                                                                                                                                 Year Procedure Was Initiated
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
                   type:  numeric (int)
 
@@ -583,9 +637,9 @@ year_init                                                                       
                              1  2021
                              1  .
 
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-process_value                                                                                               (sum) process_value
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+process_value                                                                                                                                                      (sum) process_value
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
                   type:  numeric (double)
 
