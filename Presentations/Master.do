@@ -41,11 +41,20 @@
 	if `paths' {
 
 		* Tell Stata where to find the relevant programs	
-		whereis pdflatex 			"C:\Program Files\MiKTeX 2.9\miktex\bin\x64\pdflatex.exe"
-		whereis pandoc 				"C:\Program Files (x86)\Pandoc\pandoc.exe"
+		cap noi whereis pdflatex 			"C:\Program Files\MiKTeX 2.9\miktex\bin\x64\pdflatex.exe"
+		cap noi whereis pandoc 				"C:\Program Files (x86)\Pandoc\pandoc.exe"
+		
+		if "`c(username)'" == "wb522556" {
+			whereis pandoc 				"C:\Program Files\Pandoc\pandoc.exe"
+		}
 		
 		* Workshop folder
 		global	mdfolder	"C:\Users\wb501238\Documents\GitHub\dime-stata-training\Presentations"
+		
+		if "`c(username)'" == "wb522556" {
+			global mdfolder 	"C:\Users\wb522556\OneDrive - WBG\Documents\GitHub\dime-stata-training\Presentations"
+		}
+		
 	}
 	
 /*******************************************************************************
@@ -63,3 +72,10 @@
 	}
 	
 *============================== THE END =======================================*
+
+	/*shadow link to onedrive created through the following steps
+1. Go to Command Prompt
+2. cd "you/file/path/GitHub\dime-stata-training\DataWork"
+3. mklink /J DataWork "C:\Users\wb522556\OneDrive - WBG\World Bank\Procurement\ECA\Croatia\Training\DataWork"
+}
+

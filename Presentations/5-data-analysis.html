@@ -4,14 +4,15 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="version" content="S5 1.1" />
-  <meta name="author" content="" />
   <title>Data Analysis</title>
   <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <!-- configuration parameters -->
   <meta name="defaultView" content="slideshow" />
@@ -73,7 +74,7 @@
 <li>Open a new do-file in the do-file editor</li>
 <li>Load the dataset that you want to explore</li>
 </ol>
-<pre class='stata'>. use "../DataWork/Data/Final/final_process.dta", clear
+<pre class='stata'>. use "${mdfolder}/DataWork/Data/Final/final_process.dta", clear
 </pre>
 <p>Note that:</p>
 <ul>
@@ -111,9 +112,9 @@
 <p>Explore the specific variables:</p>
 <pre class='stata'>. codebook process_value process_type
 
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-process_value                                                                                                                         Process Value
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+process_value                                                                                                     Process Value
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
                   type:  numeric (float)
 
@@ -126,9 +127,9 @@ process_value                                                                   
            percentiles:        10%       25%       50%       75%       90%
                             250000    400000    848000   2.1e+06   6.0e+06
 
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-process_type                                                                                                                        Processing Type
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+process_type                                                                                                    Processing Type
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
                   type:  numeric (long)
                  label:  process_type
@@ -562,9 +563,9 @@ Slices as frequencies within over() categories
 <p>This will create the following dataset:</p>
 <pre class='stata'>. codebook
 
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-year_init                                                                                                              Year Procedure Was Initiated
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+year_init                                                                                          Year Procedure Was Initiated
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
                   type:  numeric (int)
 
@@ -582,9 +583,9 @@ year_init                                                                       
                              1  2021
                              1  .
 
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-process_value                                                                                                                   (sum) process_value
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+process_value                                                                                               (sum) process_value
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
                   type:  numeric (double)
 

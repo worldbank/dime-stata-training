@@ -35,7 +35,7 @@ set scheme s2color
 2. Load the dataset that you want to explore
 
 ```{s}
-use "../DataWork/Data/Final/final_process.dta", clear
+use "${mdfolder}/DataWork/Data/Final/final_process.dta", clear
 ```
 
 Note that:
