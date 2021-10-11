@@ -3,11 +3,56 @@ title: Introduction to Stata
 author: Luiza Andrade and Sushmita Samaddar
 ---
 
+# Recap
 
-# Useful commands
+In the last session, we learned some Stata basics:
 
-- browse: See all data in spreadsheet format
-- describe: List of all variables in memory
+- How the interface is organized
+- How to use do-files
+- What commands are and how we can use them
+- That data can be stored in different formats
+- What syntax Stata can understand
+- What are help files and how to read them
+
+# Recap
+
+How the interface is organized
+
+![](img/stata_interface.png){width = 50%}
+
+- What do each of these windows do?
+- How are rows and columns called in Stata?
+
+# Recap
+
+How to use do-files
+
+- How do we open the do-file editor?
+- How do we run the code in the do-file?
+
+# Recap
+
+Stata commands
+
+- What are Stata commands?
+- How do we learn how to use a command?
+- What do `[]` mean in a help file?
+
+# Recap
+
+Viewing a dataset
+
+- How can we see the data set that is currently loaded in Stata's memory?
+- How are rows and columns called in Stata?
+
+# Recap
+
+Data types
+
+- What are two different types of data that Stata can store?
+
+# Recap
+
   - Total number of variables & observations (size of matrix)
   - Variable name, type, format, value label name, variable label
 - summarize: Basic statistics for numeric variables
