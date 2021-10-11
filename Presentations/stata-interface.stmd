@@ -209,20 +209,6 @@ There are two ways to find the information you are looking for in a dataset:
 
 # Exploring a data set
 
-There are two ways to find the information you are looking for in a dataset:
-
-1. You can use the search bar in the variable window and type an expression that would be contained in these variables
-2. You can use the command `lookfor` and type `lookfor` followed by the same expression either in a do-file or in the console
-
-# Exploring a data set
-
-There are two ways to find the information you are looking for in a dataset:
-
-1. You can use the search bar in the variable window and type an expression that would be contained in these variables
-2. You can use the command `lookfor` and type `lookfor` followed by the same expression either in a do-file or in the console
-
-# Exploring a data set
-
 **Exercise:** use the command `lookfor` to find all the variables in the data set that contain the word "process" in their names or descriptions.
 
 # Exploring a data set
