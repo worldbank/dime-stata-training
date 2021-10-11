@@ -53,15 +53,42 @@ Data types
 
 # Recap
 
+Data types
+
+- What are two different types of data that Stata can store?
+
+During today's session, we will go into a lot more detail about different types of data, what kind of information they can store and how we interact with them
+
+# Useful commands to explore data sets
+
+As we explore variables of different types, we will learn how to use the following Stata commands:
+
+- `browse`: See all data in spreadsheet format
+- `summarize`: Basic statistics for numeric variables
+  - Obs (Number of observations), Mean, Std. Dev. (Standard deviation), Min (Minimum), Max (Maximum)
+  - Using the option detail provides additional statistics (such as percentiles, 4 smallest values, and 4 largest values)
+- `describe`: List of all variables in the data set in memory
   - Total number of variables & observations (size of matrix)
   - Variable name, type, format, value label name, variable label
-- summarize: Basic statistics for numeric variables
- - Obs (Number of observations), Mean, Std. Dev. (Standard deviation), Min (Minimum), Max (Maximum)
-  -Using the option detail provides additional statistics (such as percentiles, 4 smallest values, and 4 largest values etc.)
-- tabulate: Table of frequencies
-- histogram
-- graph bar
-- graph pie
+- `tabulate`: Show a frequency table
+- `histogram`: Visualize the distribution of a continuous or discrete variable
+- `graph bar`: Visualize continuous variables over discrete or categorical variables
+- `graph pie`: Visualize groups in a categorical variable
+
+
+# Setting the stage
+
+To start our session, let's first set up our work environment
+
+**Exercise:**
+1. Launch Stata by opening the Stata project `Introduction to Stata.stpr`
+2. Open a new do-file
+3. Load the `final_process` data set
+  - In case you don't remember this from the last session, you can use the `use` command and the Stata project features to open a data set by typing
+
+~~~
+use "DataWork/Data/Final/final_process.dta", clear
+~~~
 
 ```{s/}
 use "../DataWork/Data/Final/final_process.dta", clear
