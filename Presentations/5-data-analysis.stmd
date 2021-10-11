@@ -5,15 +5,6 @@ title: Data Analysis
 
 # Data analysis
 
-- What is data analysis?
-
-```{s/}
-set scheme s2color
-```
-
-
-# Data analysis
-
 - Input
   - One or multiple constructed datasets
   
@@ -25,6 +16,10 @@ set scheme s2color
   - Excel tables
   - PNG or JPG images
   - Documentation
+
+```{s/}
+set scheme s2color
+```
 
   
 # Exploratory analysis
@@ -178,15 +173,7 @@ histogram varname [if] [in] [weight] [, [continuous_opts | discrete_opts] option
 
 **Exercise:** use `histogram` to explore the distibrution of variable `month_init`
 
-```{s/}
-
-qui{
-	histogram month_init
-	gr export "img/hist_month_init.png", replace
-}
-
-```
-![](img/hist_month_init.png)
+![](img/hist_month_init.png){width=40%}
 
 # Exploratory analysis: `histogram`
 
@@ -196,11 +183,11 @@ histogram varname [if] [in] [weight] [, [continuous_opts | discrete_opts] option
 
 **Exercise:** use `histogram` to explore the distibrution of variable `month_init`
 
-```{s}
+~~~
 histogram month_init
-```
+~~~
 
-![](img/hist_month_init.png)
+![](img/hist_month_init.png){width=40%}
 
 # Exploratory analysis: `histogram`
 
@@ -212,15 +199,7 @@ histogram varname [if] [in] [weight] [, [continuous_opts | discrete_opts] option
 histogram month_init, discrete
 ~~~
 
-```{s/}
-
-qui{
-	histogram month_init, discrete
-	gr export "img/hist_month_init_discrete.png", replace
-}
-
-```
-![](img/hist_month_init_discrete.png)
+![](img/hist_month_init_discrete.png){width=40%}
 
 
 # Exploratory analysis: `kdensity`
@@ -233,16 +212,7 @@ kdensity varname [if] [in] [weight] [, options]
 kdensity bid_submission_period
 ~~~
 
-```{s/}
-
-qui{
-	kdensity bid_submission_period
-	gr export "img/density_bid_period.png", replace
-}
-
-```
-
-![](img/density_bid_period.png)
+![](img/density_bid_period.png){width=40%}
 
 
 # Exploratory analysis: `kdensity`
@@ -253,14 +223,7 @@ kdensity varname [if] [in] [weight] [, options]
 
 **Exercise:** use `kdensity` to explore the distribution of variable `bid_submission_period` only for processes where the period is shorter than 100 days
 
-```{s/}
-qui{
-	kdensity bid_submission_period if bid_submission_period < 100
-	gr export "img/density_bid_period_restricted.png", replace
-}
-```
-
-![](img/density_bid_period_restricted.png)
+![](img/density_bid_period_restricted.png){width=40%}
 
 
 # Exploratory analysis: `kdensity`
@@ -275,7 +238,7 @@ kdensity varname [if] [in] [weight] [, options]
 kdensity bid_submission_period if bid_submission_period < 100
 ~~~
 
-![](img/density_bid_period_restricted.png)
+![](img/density_bid_period_restricted.png){width=40%}
 
 
 # Exploratory analysis: `scatter`
@@ -286,14 +249,7 @@ scatter varlist [if] [in] [weight] [, options]
 
 **Exercise:** use `scatter` to explore the relationship between variables `nr_nonlocal_bidders` and `nr_participants`
 
-```{s/}
-qui {
-	scatter nr_nonlocal_bidders nr_participants
-	gr export "img/scatter.png", replace
-}
-```
-
-![](img/scatter.png)
+![](img/scatter.png){width=40%}
 
 
 # Exploratory analysis: `scatter`
@@ -308,7 +264,7 @@ scatter varlist [if] [in] [weight] [, options]
 scatter nr_nonlocal_bidders nr_participants
 ~~~
 
-![](img/scatter.png)
+![](img/scatter.png){width=40%}
 
 
 # Exploratory analysis: `graph bar`
@@ -320,14 +276,7 @@ graph hbar yvars [if] [in] [weight] [, options]
 
 **Exercise:** use `graph bar` to explore the variable `process_value`
 
-```{s/}
-qui {
-	graph bar process_value
-	gr export "img/process_value.png", replace
-}
-```
-
-![](img/process_value.png)
+![](img/process_value.png){width=40%}
 
 
 # Exploratory analysis: `graph bar`
@@ -339,7 +288,7 @@ qui {
 graph bar process_value
 ~~~
 
-![](img/process_value.png)
+![](img/process_value.png){width=40%}
 
 *Note that by default a bar graph displays the average value of a continuous variable*
 
@@ -349,17 +298,10 @@ graph bar process_value
 Use the option `over()` to break down a bar graph into groups
 
 ~~~
-graph bar process_value, over(procurement_type)
+graph bar process_value, over(procurement_type){width=40%}
 ~~~
 
-```{s/}
-qui {
-	graph bar process_value, over(procurement_type)
-	gr export "img/process_value_proc_type.png", replace
-}
-```
-
-![](img/process_value_proc_type.png)
+![](img/process_value_proc_type.png){width=40%}
 
 
 # Exploratory analysis: `graph bar`
@@ -370,14 +312,7 @@ Write `(stat)`, where `stat` represents the statistic to be calculated, before a
 graph bar (sum) process_value, over(procurement_type)
 ~~~
 
-```{s/}
-qui {
-	graph bar (sum) process_value, over(procurement_type)
-	gr export "img/process_value_proc_type_total.png", replace
-}
-```
-
-![](img/process_value_proc_type_total.png)
+![](img/process_value_proc_type_total.png){width=40%}
 
 # Exploratory analysis: `graph bar`
 
@@ -398,14 +333,7 @@ graph hbar yvars [if] [in] [weight] [, options]
 
 **Exercise:** Create a horizontal bar graph that shows the number of processes with each procurement type
 
-```{s/}
-qui{
-	graph hbar (count) process_id, over(procurement_type)
-	gr export "img/process_type_count.png", replace
-}
-```
-
-![](img/process_type_count.png)
+![](img/process_type_count.png){width=40%}
 
 **Exercise:** Create a horizontal bar graph that shows the number of processes with each procurement type
 
@@ -413,7 +341,7 @@ qui{
 graph hbar (count) process_id, over(procurement_type)
 ~~~
 
-![](img/process_type_count.png)
+![](img/process_type_count.png){width=40%}
 
 
 # Exploratory analysis: `graph bar`
@@ -429,7 +357,7 @@ graph hbar yvars [if] [in] [weight] [, options]
 graph hbar (count) process_id, over(procurement_type)
 ~~~
 
-![](img/process_type_count.png)
+![](img/process_type_count.png){width=40%}
 
 
 # Final analysis
@@ -468,17 +396,7 @@ graph bar (count) process_id, ///
 	ytitle("Number of processes") <----
 ~~~
 
-```{s/}
-qui {
-	graph bar (count) process_id, ///
-		over(procurement_type) ///
-		ytitle("Number of processes") // 
-		
-	gr export "img/title.png", replace
-}
-```
-
-![](img/title.png)
+![](img/title.png){width=40%}
 
 
 # Final analysis: `graph bar`
@@ -492,18 +410,7 @@ graph bar (count) process_id, ///
 	blabel(total) <----
 ~~~
 
-```{s/}
-qui {
-	graph bar (count) process_id, ///
-		over(procurement_type) ///
-		ytitle("Number of processes") ///
-		blabel(total)
-		
-	gr export "img/blabel.png", replace
-}
-```
-
-![](img/blabel.png)
+![](img/blabel.png){width=40%}
 
 
 # Final analysis: `graph bar`
@@ -518,19 +425,7 @@ graph bar (count) process_id, ///
 	graphregion(color(white)) <----
 ~~~
 
-```{s/}
-qui {
-graph bar (count) process_id, ///
-	over(procurement_type) ///
-	ytitle("Number of processes") ///
-	blabel(total)  ///
-	graphregion(color(white))
-		
-	gr export "img/grregion.png", replace
-}
-```
-
-![](img/grregion.png)
+![](img/grregion.png){width=40%}
 
 
 # Final analysis: `set scheme`
@@ -547,20 +442,7 @@ graph bar (count) process_id, ///
 	blabel(total) 
 ~~~
 
-```{s/}
-qui {
-set scheme plotplain
-
-graph bar (count) process_id, ///
-	over(procurement_type) ///
-	ytitle("Number of processes") ///
-	blabel(total) 
-		
-	gr export "img/plotplain.png", replace
-}
-```
-
-![](img/plotplain.png)
+![](img/plotplain.png){width=40%}
 
 
 # Final analysis: `set scheme`
@@ -578,20 +460,7 @@ graph bar (count) process_id, ///
 	blabel(total) 
 ~~~
 
-```{s/}
-qui {
-set scheme white_tableau
-
-graph bar (count) process_id, ///
-	over(procurement_type) ///
-	ytitle("Number of processes") ///
-	blabel(total) 
-		
-gr export "img/white_tableau.png", replace
-}
-```
-
-![](img/white_tableau.png)
+![](img/white_tableau.png){width=40%}
 
 # Final analysis: `graph bar`
 
@@ -599,23 +468,7 @@ gr export "img/white_tableau.png", replace
 
 - Tip: the color scheme is called `white_w3d`
 
-```{s/}
-qui {
-set scheme white_w3d
-
-use "../DataWork/Data/Final/final_process.dta"
-
-gr bar (sum) process_value, ///
-	over(procurement_type) ///
-	ytitle("Awarded value (Lev)") ///
-	blabel(total) ///
-	title("Total awarded value by process type")
-	
-gr export "img/total_value_proctype_bar.png", replace
-}
-```
-
-![](img/total_value_proctype_bar.png)
+![](img/total_value_proctype_bar.png){width=40%}
 
 
 # Final analysis: `graph bar`
@@ -632,7 +485,7 @@ gr bar (sum) process_value, ///
 	title("Total awarded value by process type")
 ~~~
 
-![](img/total_value_proctype_bar.png)
+![](img/total_value_proctype_bar.png){width=40%}
 
 
 # Final analysis: exporting outputs
@@ -679,8 +532,8 @@ Final analysis scripts should be short and simple:
 
 `process-value-by-procurement-type.do`
 
-```{s}
-set scheme uncluttered
+~~~
+set scheme white_w3d
 
 use "../DataWork/Data/Final/final_process.dta"
 
@@ -690,14 +543,13 @@ gr bar (sum) process_value, ///
 	blabel(total)  
 
 graph export "../DataWork/Output/process-value-by-procurement-type.png", replace
-```
-
+~~~
 
 # Final analysis: saving do-files
 
 `processes-by-procurement-type.do`
 
-```{s}
+~~~
 set scheme white_w3d
 
 use "../DataWork/Data/Final/final_process.dta"
@@ -708,7 +560,7 @@ gr bar (sum) process_id, ///
 	blabel(total)  
 
 graph export "../DataWork/Output/processes-by-procurement-type.png", replace
-```
+~~~
 
 
 # Final analysis: saving do-files
@@ -738,15 +590,7 @@ Slices as frequencies within over() categories
 graph pie, over(procurement_type)
 ~~~
 
-```{s/}
-qui {
-	graph pie, over(procurement_type)
-		
-	gr export "img/pie1.png", replace
-}
-```
-
-![](img/pie1.png)
+![](img/pie1.png){width=40%}
 
 
 # Final analysis: `graph pie`
@@ -755,15 +599,7 @@ qui {
 graph pie process_value, over(procurement_type)
 ~~~
 
-```{s/}
-qui {
-	graph pie process_value, over(procurement_type)
-		
-	gr export "img/pie2.png", replace
-}
-```
-
-![](img/pie2.png)
+![](img/pie2.png){width=40%}
 
 
 # Final analysis: `graph pie`
@@ -772,15 +608,7 @@ qui {
 gr pie process_value, over(procurement_type) plabel(_all percent)
 ~~~
 
-```{s/}
-qui {
-	gr pie process_value, over(procurement_type) plabel(_all percent)
-		
-	gr export "img/pie3.png", replace
-}
-```
-
-![](img/pie3.png)
+![](img/pie3.png){width=40%}
 
 
 # Final analysis: `graph pie`
@@ -789,15 +617,7 @@ qui {
 gr pie process_value, over(procurement_type) plabel(_all percent) legend(position(12) cols(3))
 ~~~
 
-```{s/}
-qui {
-	gr pie process_value, over(procurement_type) plabel(_all percent) legend(position(12) cols(3))
-		
-	gr export "img/pie4.png", replace
-}
-```
-
-![](img/pie4.png)
+![](img/pie4.png){width=40%}
 
 
 # Final analysis: `graph pie`
@@ -806,15 +626,7 @@ qui {
 gr pie process_value, over(procurement_type) plabel(_all percent) legend(position(4) cols(1))
 ~~~
 
-```{s/}
-qui {
-	gr pie process_value, over(procurement_type) plabel(_all percent) legend(position(4) cols(1))
-		
-	gr export "img/pie5.png", replace
-}
-```
-
-![](img/pie5.png)
+![](img/pie5.png){width=40%}
 
 
 # Final analysis: `graph pie`
@@ -823,15 +635,7 @@ qui {
 gr pie process_value, over(procurement_type) plabel(_all percent, gap(10)) legend(on position(4) cols(1)) pie(2, explode)
 ~~~
 
-```{s/}
-qui {
-	gr pie process_value, over(procurement_type) plabel(_all percent, gap(10)) legend(on position(4) cols(1)) pie(2, explode)
-		
-	gr export "img/pie6.png", replace
-}
-```
-
-![](img/pie6.png)
+![](img/pie6.png){width=40%}
 
 
 # Two way graphs
@@ -846,15 +650,7 @@ If we wanted to see how the total process value changes over time, for example, 
 gr bar (sum) process_value, over(year_init) 
 ~~~
 
-```{s/}
-qui {
-	gr bar (sum) process_value, over(year_init)
-		
-	gr export "img/value_year.png", replace
-}
-```
-
-![](img/value_year.png)
+![](img/value_year.png){width=40%}
 
 # Two way graphs
 
@@ -891,15 +687,7 @@ Once the data is at the appropriate level of observation, we can create a two-wa
 graph twoway line process_value year_init
 ~~~
 
-```{s/}
-qui {
-	graph twoway line process_value year_init
-		
-	gr export "img/tw1.png", replace
-}
-```
-
-![](img/tw1.png)
+![](img/tw1.png){width=40%}
 
 
 # Two-way graphs
@@ -912,17 +700,7 @@ graph twoway ///
 	(scatter process_value year_init) // Second layer
 ~~~
 
-```{s/}
-qui {
-	graph twoway ///
-	(line process_value year_init) /// First layer
-	(scatter process_value year_init) // Second layer
-		
-	gr export "img/tw2.png", replace
-}
-```
-
-![](img/tw2.png)
+![](img/tw2.png){width=40%}
 
 
 # Two-way graphs
@@ -938,19 +716,7 @@ graph twoway ///
 	legend(off) // general graph option
 ~~~
 
-```{s/}
-qui {
-	graph twoway ///
-	(line process_value year_init) /// First layer
-	(scatter process_value year_init) /// Second layer
-	, ///
-	legend(off) // general graph option
-		
-	gr export "img/tw3.png", replace
-}
-```
-
-![](img/tw3.png)
+![](img/tw3.png){width=40%}
 
 
 # Two-way graphs
@@ -967,41 +733,14 @@ graph twoway ///
 	legend(off) // General graph option
 ~~~
 
-```{s/}
-qui {
-	graph twoway ///
-	(line process_value year_init) /// First layer
-	(scatter process_value year_init /// Second layer
-		, mlabel(process_value)) /// Option to be applied to the second layer
-	, ///
-	legend(off) // General graph option
-		
-	gr export "img/tw4.png", replace
-}
-```
-
-![](img/tw4.png)
+![](img/tw4.png){width=40%}
 
 
 # Two-way graphs
 
 **Exercise:** add a title to the graph that was created previously
 
-```{s/}
-qui {
-	graph twoway ///
-		(line process_value year_init) /// First layer
-		(scatter process_value year_init /// Second layer
-			, mlabel(process_value)) /// Option to be applied to the second layer
-		, ///
-		legend(off) /// General graph option
-		title(Total process value by over (Lev))
-		
-	gr export "img/tw5.png", replace
-}
-```
-
-![](img/tw5.png)
+![](img/tw5.png){width=40%}
 
 # Two-way graphs
 
@@ -1019,7 +758,7 @@ graph twoway ///
 gr export "img/tw5.png", replace
 ~~~
 
-![](img/tw5.png)
+![](img/tw5.png){width=40%}
 
 
 # Two-way graphs
@@ -1062,7 +801,7 @@ export excel using "../DataWork/Output/Tables.xls", sheet("Bid procedure") sheet
 
 **Exercise:** recreate the table shown below
 
-![](img/table2.png)
+![](img/table2.png){width=40%}
 
 1. Open a new do-file
 2. Load the constructed process dataset
@@ -1075,7 +814,7 @@ export excel using "../DataWork/Output/Tables.xls", sheet("Bid procedure") sheet
 
 **Exercise:** recreate the table shown below
 
-![](img/table2.png)
+![](img/table2.png){width=40%}
 
 ~~~
 use "../DataWork/Data/Final/final_process.dta", clear
