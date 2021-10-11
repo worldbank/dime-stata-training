@@ -262,21 +262,38 @@ summarize nr_participants nr_nonlocal_bidders nr_sme_bidders
 
 # Exploring numeric variables
 
-```
-gr bar, over(year_init)
-```
+- Another, perhaps more intuitive way to present numeric variables is through graphs
+- Let's start by looking at a histogram of the variable `nr_participants`
+- The command to create histograms is called, not surprisingly, `histogram`
+- This command has only one required argument: the name of the variable for which we want to create a histogram
+
+**Exercise:** create a histogram of the variable `nr_participants`.
 
 # Exploring numeric variables
 
-```
+~~~
 histogram nr_participants
-```
+~~~
 
-# If statements
+![](img/lab2-hist1.png){width-40%}
 
-```
+# Subsetting observations
+
+- The previous graph was not very informative because outliers caused the X axis to extend to very high numbers even though there were not many observations to be displayed with more than 50 participants
+- We can improve this graph by displaying only processes with less than 50 participants
+- To do this, we can use the same strategy that we used before to subset observations: *an `if` statement*
+- Can you guess what it should look like?
+
+**Exercise:** create a histogram of the variable `nr_participants` including only cases where a process has less than 50 participants.
+
+# Subsetting observations
+
+~~~
 histogram nr_participants if nr_participants < 50
-```
+~~~
+
+![](img/lab2-hist2.png){width-40%}
+
 
 # Exploring text variables
 
