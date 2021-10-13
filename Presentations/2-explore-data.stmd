@@ -409,9 +409,37 @@ tabulate process_type, nolabel
 tabulate process_type procurement_type
 ```
 
+# Commenting do-files
+
+- When writing a do-file, it is very useful to be able to add notes and comments in *natural language*, that is, in English or Croatian
+- Comments are used to organize and explain the code so it is easier for you to read it and edit it later on
+- We use a few special characters to tell Stata what parts of a do-file it should run, and what parts is should ignore
+
+# Commenting do-files
+
+1. `/* comment */`
+Used for long comments or to explain many lines of code 
+
+2. `* comment`
+Used to explain what happens on the following few rows
+
+3. `// comment`
+Used to explain the same line of code
+
+# Commenting do-files
+
+~~~
+* Explore the categorical variables process_type
+
+tabulate process_type // Simple tabulation
+tabulate process_type, nolabel // Showing underlying numeric values instead of value labels
+tabulate process_type procurement_type // Cross tabulation
+~~~
+
+
 # Exploring categorical variables
 
-- When creating graphs that use these variables, we also see the value labels
+- When creating graphs that use categorical variables, we also see the value labels
 - Try running the following two commands to see how graphs can be used to visualize categorical variables
 
 ~~~
