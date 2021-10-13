@@ -1,5 +1,5 @@
 ---
-title: Constructing datasets
+title: Constructing datasets - Part 1
 author: Luiza Andrade and Sushmita Samaddar
 ---
 
@@ -11,6 +11,10 @@ author: Luiza Andrade and Sushmita Samaddar
 - It is the only stage when changes will be made to data points
 - Construction is closely linked to research design and questionnaire design
 - Ideally, indicator construction should be done right after data cleaning, according to the pre-analysis plan
+
+```{s/}
+use "../DataWork/Data/Clean/process_clean.dta", clear
+```
 
 # What is data construction 
 
@@ -43,18 +47,23 @@ author: Luiza Andrade and Sushmita Samaddar
 
 ![image](img/data-flow-chart){width="0.7\\linewidth"}
 
-# Why is construction a separate task from data analysis?
+# Setting the stage
 
-- In practice, data construction often times happens at the same time as data analysis
-- As you analyze the data, different constructed variables will become necessary, as well as subsets and other alterations to the data
-- However, even if construction ends up coming before analysis only in the order the code is run, it's important to think of them as different steps
+**Exercise**
 
-# Why is construction a separate task from data analysis?
+1. Launch Stata by opening the Stata project in `DataWork/Introduction to Stata.stpr`
+2. Open a new do-file
+3. Load the clean process data set into
+  
+# Setting the stage
 
-- Maintainability: If every analysis script cleans and constructs variables from the raw data, any edits to this process need to be replicated in all scripts that use the same final variable.
-- Preventing errors: The difficulty to maintain such scripts increases the chances that at least one of them will have a different sample or variable definition.
+**Exercise**
 
-Doing all variable construction and data transformation in a unified script, separate from the analysis code, helps avoid this and ensures consistency across different outputs.
+~~~
+use "Data/Clean/process_clean.dta", clear
+~~~  
+  
+# Create new numeric variables
 
 # Create new variables
 
