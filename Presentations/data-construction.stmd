@@ -84,10 +84,82 @@ Here are some simple mathematical operations that can be applied to numeric vari
 gen value_100k = Process_VrijednostNabaven/100000
 ```
 
+# Construct date difference variables
 
-# Construct date-time variables
+The difference between two date-time variables can the calculated using the function `datediff()`:
 
-- Exercise: calculate number of days between two dates
+~~~
+datediff(date1, date2, unit) 
+~~~
+
+where units can be:
+
+- "day" or "d" for day
+- "hour" or "h" for hour
+- "minute", "min", or "m" for minute
+- "second", "sec", or "s" for second
+- "millisecond" or "ms" for millisecond
+- "month", "mon", or "m" for month
+- "year" or "y" for year
+
+# Construct date difference variables
+
+**Exercise:** calculate the difference in days between the initiation of the process and the deadline for bid submission. Call it `bid_period`
+
+# Construct date difference variables
+
+**Exercise:** calculate the number of days between the initiation of the process and the deadline for bid submission. Call it `bid_period`
+
+```{s}
+gen bid_period = datediff(initiation_date, bid_submission_date, "day")
+summarize bid_period
+```
+
+# Extract information from date variables
+
+The following functions can be used to create derived variables can be created from dates in `%td` format
+
+- `year(d)`: numeric year corresponding to date `d`
+- `quarter(d)`: numeric quarter of the year corresponding to date `d`
+- `month(d)`: numeric month corresponding to date `d`
+- `week(d)`: numeric week of the year corresponding to date `d`
+- `day(d)`: numeric day of the month corresponding to `d`
+
+# Extract information from date variables
+
+```{s}
+year_init = year(initiation_date)
+```
+
+**Exercise:** create two new variables, representin the month and quarter when the process was initiated
+
+# Extract information from date variables
+
+**Exercise:** create two new variables, representin the month and quarter when the process was initiated
+
+```{s}
+month_init = month(initiation_date)
+quarter_init = quarter(initiation_date)
+```
+
+# Extract information from date variables
+
+- `mdy(M,D,Y)`: the date corresponding to month M, day D, year Y
+- `yq(Y,Q)`: the quarterly date corresponding to year Y, quarter Q
+
+For example, `gen today = mdy(10,19,2021)` and `gen today = td(19oct2021)` would create the same values.
+
+**Exercise:** create a new variable called `yquarter_init` that indicates 
+
+# Extract information from date variables
+
+**Exercise:** create a new variable called `yquarter_init` that indicates 
+
+```{s}
+gen yquarter_init = yq(year_init, quarter_init) 
+format yquarter_init %tq
+codebook yquarter_init
+```
 
 # Create new variables
 
