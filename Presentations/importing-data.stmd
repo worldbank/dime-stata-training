@@ -48,17 +48,53 @@ import excel "Data/Raw/process_raw.xlsx", /// Path to the file to be loaded
 	clear // Replace the data in memory with this data
 ```
 
-# Saving data into Stata format
+# Importing data from csv files
 
-**Exercise**: load the raw process data into Stata from Excel.
+- Apart from Excel, another format that is commonly used to share data is comma-separated values, or csv
+- The command that imports data from csv into Stata is very similar to the one that import Excel files
 
 ```{s}
-import excel "Data/Raw/process_raw.xlsx", /// Path to the file to be loaded
-	sheet("Sheet1") /// Name of the sheet where the data is
-	firstrow /// Use first row in the data as variable names, not data points
-	clear // Replace the data in memory with this data
+import delimited "Data/Raw/process_raw.csv", /// Path to the file to be loaded
+	encoding(windows-1250) /// How to read non-English characters
+	clear /// Replace the data in memory
+	bindquote(strict) // How to treat quotes found in the data
 ```
 
+# Saving data into Stata format
+
+- Now that we have the data in Stata's memory, we will make sure to save it in a Stata-friendly format
+- The native Stata format is called .dta
+- This format is optimized to be used with Stata, and stores some important meta data that is important for Stata
+- Because of this meta data, Stata can open these data sets a lot more quickly than other formats
+- The difference may not be noticeable when dealing with small data sets such as the one we have now, but it is can be quite dramatic when handling large data sets
+
+# Saving data into Stata format
+
+Save data in memory to file
+
+~~~
+<b>save</b> [filename] [, save_options]
+~~~
+
+**Exercise**: save the data set that is currently in Stata's memory to "Data/Raw/process_raw.dta".
+
+# Saving data into Stata format
+
+**Exercise**: save the data set that is currently in Stata's memory to "Data/Raw/process_raw.dta".
+
+```{s}
+save "Data/Raw/process_raw.dta", replace
+```
+
+- The `replace` options replaces any existing file with the same name with the one you are saving now
+- Without it, Stata will return an error whenever a file with the same name exists
+
+# Exploring the data
+
+- You have now imported your first data set into Stata!
+- This is when the data work process starts
+- We have a fresh new data set that we want to understand so we can use it for analysis
+- Where should we start?
 
 # Unique ID
 
@@ -246,15 +282,3 @@ count if (dup_name == 1) & (Process_Naziv == "uredski materijal" | dup_name == 2
 - Exercise: drop if duplicate ID & ??
 
 # Save data set
-
-# Loading data from csv files
-
-- Apart from Excel, another format that is commonly used to share data is comma-separated values, or csv
-- The command that imports data from csv into Stata is very similar to the one that import Excel files
-
-```{s}
-import delimited "Data/Raw/process_raw.csv", /// Path to the file to be loaded
-	encoding(windows-1250) /// How to read non-English characters
-	clear /// Replace the data in memory
-	bindquote(strict) // How to treat quotes found in the data
-```
