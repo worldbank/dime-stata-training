@@ -3,13 +3,25 @@ title: Cleaning data
 author: Luiza Andrade and Sushmita Samaddar
 ---
 
+# Introduction
+
+- Until now, we have been working with data that has already been processed
+- The data set in `DataWork/Data/Final/process_data.dta` has been *cleaned* and *constructed*
+  - **Cleaning** means changing the format of the data so it is easy to handle in Stata
+  - **Constructing** means using the clean data to create indicators that we care about
+ - These tasks will be the focus of our next X sessions
+ 
 # What is data cleaning?
 
--  Cleaning is [the most time-consuming data work task]{style="color: orange"}, and you will be tempted to skip steps
--  However, this is the time when really get to know your data
--  Take the time to explore your data set using tabulations, summaries, and descriptive plots
--  Knowing your data set well will make it possible to do analysis
--  Cleaning your data well will save you time down the line
+The best way to summarize what data cleaning means is through this image
+
+![](img/cleaning.png)
+
+
+# What is data cleaning?
+
+- Cleaning is about changing the *format* of the data to the format that is the most efficient to store and handle in statistical software and also the easiest for humans to understand
+- We are not making changes to the *information* contained in the data set -- this will come later, in *data construction*
 
 # Input: the raw data
 
@@ -23,8 +35,8 @@ author: Luiza Andrade and Sushmita Samaddar
 
 - At the end of this process, you should have a data set that is essentially the same as the one you originally acquired
  - During data cleaning, we will change the [format]{style="color: orange"} of the data
- - We will [not]{style="color: orange"} add new variables, or make significant changes to individual data points
-- The main difference between the raw and the clean data sets lies in how easy it is to understand them and handle them in statistical software
+ - We will [not]{style="color: orange"} make significant changes to individual data points
+- The main difference between the *raw* and the *clean* data sets lies in how easy it is to understand them and handle them in statistical software
 - One clean dataset will be created for each data source
 	
 # Importing data from Excel	
