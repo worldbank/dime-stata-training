@@ -1,0 +1,95 @@
+---
+title: Cleaning data - Part 2
+author: Luiza Andrade and Sushmita Samaddar
+---
+
+
+# Setting the stage
+
+To start our session, let's first set up our work environment
+
+**Exercise:**
+
+1. Launch Stata by opening the Stata project `Introduction to Stata.stpr`
+2. Open the cleaning do-file we started working on 
+3. Load the `process_clean` data set
+  - In case you don't remember this from the last session, you can use the `use` command and the Stata project features to open a data set by typing
+
+# Dates
+
+- Convert to date
+- Change format
+
+# Destring
+
+
+# Identify and document outliers
+
+-  We do not want our results to be driven by a few individuals. For example, if the village leaders get all benefits
+-  There is no exact rule for what is an outlier. Ask if your PI has a preference of specific rule
+-  Identifying outliers often comes down to common sense: can the outlier be explained by typos?This is especially common when selecting units from multiple choice lists
+-  RAs should try to identify as many discrepant values as possible, even at the cost of not correcting them
+
+# Useful Stata commands to identify outliers
+
+-  `sum detail`
+-  `tabulate`
+-  `inspect`
+-  `assert`
+-  `histogram`
+
+# Identifying outliers
+
+- Inspect the contract value variable and identify outliers
+
+# Label variables 
+
+When cleaning a data set, you should make sure that all variables are properly labeled, so that it is easy to understand what each variable represents:
+
+-  Check that all variables have variable labels
+-  Variable labels should explain what the variable is and, if that's the case, what unit it is in
+-  Labels should be longer than 80 characters
+
+# Label variables: exercise
+
+- Label a variable and see how the label is shown in the graph
+	
+# Ordering variables
+
+-  It is recommended the variables in the final data tables follow the same order as in the questionnaire
+-  If the data was not collected exclusively for you study, you may want to group related variables so they are close to each other
+-  The variables that identify observations should be ordered first in each data table
+
+# Ordering variables: exercise
+
+- `order varlist`
+- `order varlist, before()`
+- `order varlist, after()`
+
+# Recap
+
+-  The main output of data cleaning is a data set that contains the same data points as the acquired data, with the exception of corrections made to data entry error
+-  The main difference between the clean data set and the raw data set is that the first is in a format that is easier for a human to understand and for a statistical software to handle
+-  Ideally, the raw data set should be de-identified before cleaning
+-  The data documentation and quality checks should be archived with the clean data set
+-  During data cleaning, the data set will be thoroughly explored and documented to inform data analysis and construction
+
+# Output: documentation 
+
+A few pieces of documentation should accompany the clean dataset:
+
+-  A variable dictionary/codebook listing details about each variable
+  -  What does this variable mean?
+  -  Summary of its content
+-  A description of how the data was collected
+-  A complete record of any corrections made to the raw data, including careful explanation about the decision-making process involved
+-  A report documenting any irregularities and distributional patterns encountered in the data
+
+
+# What is data cleaning?
+
+-  Cleaning is [the most time-consuming data work task]{style="color: orange"}, and you will be tempted to skip steps
+-  However, this is the time when really get to know your data
+-  Take the time to explore your data set using tabulations, summaries, and descriptive plots
+-  Knowing your data set well will make it possible to do analysis
+-  Cleaning your data well will save you time down the line
