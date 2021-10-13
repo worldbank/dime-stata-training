@@ -236,6 +236,55 @@ There is a number of different statistics that can be used with `collapse`, incl
 - `min`
 - `max`
 
+# Combining data sets
+
+- All the construction operations we have seen so far are using a single data set
+- However, we often have separate tidy data sets that we need to combine to create our final indicators
+- There are two main ways of combining data sets:
+  - *Appending*, when we combine data sets that have more or less the same columns, but different instances of the unit of observation to increase the number of observations
+  - *Merging*, when we combine data sets that comtain more or less the same instances of the unit of observation, but different variables, to create a data set with more columns than the original ones
+  
+Can you think of cases when you would need to perform *merges* or *appends*?
+  
+# Combining data sets
+
+- Examples of *appending* include:
+  - Combining data from different years
+  - Combining data from different countries
+
+- Examples of *merging* include:
+  - Combining data on contracts and bids for a given process
+  - Including product information on contract data set
+  - Adding entity information on a process data set
+
+# Combining data sets: `append`
+
+~~~
+append using filename [filename ...] [, options]
+~~~
+
+- Note that now we have more than one data set, which has not happened so far
+- Stata can only have one data set in memory at once, so we need to call data sets saved as .dta (or as temporary files, but that is a more advanced topic)
+
+```{s}
+append using "Data/Intermediate/entities_2018.dta" "Data/Intermediate/entities_2019.dta"
+```
+
+# Combining data sets: `append`
+
+- When a variable is present in only one of the datasets, its values will be missing for all observations that came from the data set that did not include it
+- If columns with the same name have different types of variables in the two data sets (for example, one is a string and one is numeric), this will cause the append to fail
+- You can use the option `gen(newvar)` to include a new variable indicating from which data set each observation came
+- Note that it only makes sense to append data sets that have the same *unit of observation*
+
+ 
+- Exercise 
+
+# Merging data sets
+
+
+- Merge contract data and process data
+
 # Where things go wrong
 
 - The more complex construction tasks involve changing the structure of the data, such as sample and unit of observation
@@ -262,16 +311,6 @@ There is a number of different statistics that can be used with `collapse`, incl
 - Explore the actual results from the operation
 - Write down in comments what happened
 - Add comments to the code explaining unexpected consequences
-
-# Appending data sets
-
-- Exercise 
-
-# Merging data sets
-
-
-- Merge contract data and process data
-
 
 # Construction indicators in panel data sets
 
