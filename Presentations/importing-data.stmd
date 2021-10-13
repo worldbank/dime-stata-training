@@ -10,6 +10,10 @@ author: Luiza Andrade and Sushmita Samaddar
 - Over the next few sessions, we will take you through the process that is needed to create the data that we were using before
 - Then, we will show you how to create polished graphs and tables using this data
 
+```{s/}
+use "../DataWork/Data/Raw/process_raw.dta", clear
+```
+
 # Introduction
 
 - The data set in `DataWork/Data/Final/process_data.dta` has been *imported*, *cleaned* and *constructed*
@@ -41,24 +45,24 @@ author: Luiza Andrade and Sushmita Samaddar
 
 **Exercise**: load the raw process data into Stata from Excel.
 
-```{s}
+~~~
 import excel "Data/Raw/process_raw.xlsx", /// Path to the file to be loaded
 	sheet("Sheet1") /// Name of the sheet where the data is
 	firstrow /// Use first row in the data as variable names, not data points
 	clear // Replace the data in memory with this data
-```
+~~~
 
 # Importing data from csv files
 
 - Apart from Excel, another format that is commonly used to share data is comma-separated values, or csv
 - The command that imports data from csv into Stata is very similar to the one that import Excel files
 
-```{s}
+~~~
 import delimited "Data/Raw/process_raw.csv", /// Path to the file to be loaded
 	encoding(windows-1250) /// How to read non-English characters
 	clear /// Replace the data in memory
 	bindquote(strict) // How to treat quotes found in the data
-```
+~~~
 
 # Saving data into Stata format
 
@@ -73,7 +77,7 @@ import delimited "Data/Raw/process_raw.csv", /// Path to the file to be loaded
 Save data in memory to file
 
 ~~~
-<b>save</b> [filename] [, save_options]
+save [filename] [, save_options]
 ~~~
 
 **Exercise**: save the data set that is currently in Stata's memory to "Data/Raw/process_raw.dta".
@@ -82,9 +86,9 @@ Save data in memory to file
 
 **Exercise**: save the data set that is currently in Stata's memory to "Data/Raw/process_raw.dta".
 
-```{s}
+~~~
 save "Data/Raw/process_raw.dta", replace
-```
+~~~
 
 - The `replace` options replaces any existing file with the same name with the one you are saving now
 - Without it, Stata will return an error whenever a file with the same name exists
@@ -273,12 +277,55 @@ count if (dup_name == 1 & Process_Naziv == "uredski materijal") | dup_name == 2
 count if (dup_name == 1) & (Process_Naziv == "uredski materijal" | dup_name == 2)
 ```
 
-# Drop observations
+# `drop` and `keep`
 
-- `drop`: remove columns or rows from a dataset
-  - Example
-- `keep`: keep only columns or rows specified from a dataset
-  - Example
-- Exercise: drop if duplicate ID & ??
+- The last two commands we will discuss today are `drop` and `keep`
+- They can be used to *remove* both columns *and* rows from a data set
 
-# Save data set
+Drop variables
+
+~~~
+drop varlist
+~~~
+
+Drop observations
+
+~~~
+drop if exp
+~~~
+
+Keep variables
+
+~~~
+keep varlist
+~~~
+
+Keep observations that satisfy specified condition
+
+~~~
+keep if exp
+~~~
+
+# `drop` and `keep`
+
+- `drop` and `keep` are two opposing ways of choosing columns and rows
+- If you write `drop Entity_county`, Stata will remove the variable `Entity_county` from the data set
+- If you write `keep Entity_county`, Stata will remove all the *other* variables from the data set
+- If you write `drop if dup_name == 0`, Stata will remove all observations that are uniquely identified by `Process_Naziv` from the data set
+- If you write `keep if dup_name == 0`, Stata will remove all *other* observations from the data set
+
+# `drop` and `keep`
+
+**Exercise:** 
+
+1. Create a data set containing *only* observations relating to the entity "GRAD CRES"
+2. Save this data set to "DataWork/Data/Raw/process_grad_cres.dta"
+
+# `drop` and `keep`
+
+**Exercise:** create a data set containing *only* observations relating to the entity "GRAD CRES".
+
+~~~
+keep if Entity_Naziv == "GRAD CRES"
+save "Data/Raw/process_grad_cres.dta", replace
+~~~
