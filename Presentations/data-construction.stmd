@@ -265,6 +265,7 @@ append using filename [filename ...] [, options]
 
 - Note that now we have more than one data set, which has not happened so far
 - Stata can only have one data set in memory at once, so we need to call data sets saved as .dta (or as temporary files, but that is a more advanced topic)
+- `append` will add the observations in the *using* data set (the one referred to by its file name) to the *master* data set (the one that is currently loaded in the memory)
 
 ```{s}
 append using "Data/Intermediate/entities_2018.dta" "Data/Intermediate/entities_2019.dta"
@@ -277,13 +278,36 @@ append using "Data/Intermediate/entities_2018.dta" "Data/Intermediate/entities_2
 - You can use the option `gen(newvar)` to include a new variable indicating from which data set each observation came
 - Note that it only makes sense to append data sets that have the same *unit of observation*
 
- 
-- Exercise 
+# Combining data sets: `append`
 
-# Merging data sets
+**Exercise:** explore the different options of the command `append` using the different years found in the `Data/Intermediate` folder
 
+# Combining data sets: `merge`
 
-- Merge contract data and process data
+One-to-one merge on specified key variables
+
+~~~
+merge 1:1 varlist using filename [, options]
+~~~
+
+Many-to-one merge on specified key variables
+
+~~~
+merge m:1 varlist using filename [, options]
+~~~~
+
+# Combining data sets: `merge`
+
+- It only makes sense to merge two data sets that have **common observations**
+- The syntax of the command makes it clear that when merging two data sets, they need to have at least one variable in common
+- This is one the points in the data work where having uniquely identifying variables is extremely important!
+- When merging two data sets, we first need to load one of them in memory (this will be called the *master* data), and then refer to the other one (the *using* data set) by its filename
+
+```{s}
+use "Data/Clean/process_clean.dta", clear
+
+merge 1:m Nadmetanje_ID usign "Data/Clean/contract_clean.dta"
+```
 
 # Where things go wrong
 
@@ -349,3 +373,38 @@ append using "Data/Intermediate/entities_2018.dta" "Data/Intermediate/entities_2
 - You should maintain **separate cleaning, construction and analysis scripts**, even if they are simultaneously edited and executed by the master script
 - Create **purpose-built analysis datasets**, naming and saving them appropriately, and using them for the corresponding analytical tasks, rather than building a single dataset
 - **Carefully document** each of these steps in plain and clear language, so that the rationale behind each research decision is clear for any research consumer
+
+# Why is construction a separate task from data analysis?
+
+- In practice, data construction often times happens at the same time as data analysis
+- As you analyze the data, different constructed variables will become necessary, as well as subsets and other alterations to the data
+- However, even if construction ends up coming before analysis only in the order the code is run, it's important to think of them as different steps
+
+# Why is construction a separate task from data analysis?
+
+- Maintainability: If every analysis script cleans and constructs variables from the raw data, any edits to this process need to be replicated in all scripts that use the same final variable.
+- Preventing errors: The difficulty to maintain such scripts increases the chances that at least one of them will have a different sample or variable definition.
+
+Doing all variable construction and data transformation in a unified script, separate from the analysis code, helps avoid this and ensures consistency across different outputs.
+
+# Appendix
+
+# Advanced mathematical operations
+
+```{s}
+**Logarithm:** `ln(numvar)`
+**Square root:** `sqrt(numvar)`
+**Exponentiation:** `numvar^num`
+```
+
+# Create new date variable
+
+```{s}
+gen date2 = mdy(m2, d2, 2002)
+```
+
+# Aggregating varaibles
+
+- `gen income_total = income_wage + income_rent + income_sales`
+- `egen income_total = rowtotal(income_wage income_rent income_sales)`
+- `egen income_total = rowtotal(income_wage income_rent income_sales), m`
