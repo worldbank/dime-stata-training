@@ -204,13 +204,37 @@ egen nr_process = count(process_value), by(entity)
 - Look at the distributions of both the original and the constructed variables
 - Be mindful of how missing values are treated
 
-# Creating aggregate measures 
+# Aggregating observations: `collapse`
 
-- Exercise: sum value by type of contract
-- `collapse`
-- `collapse (sum)`
-- `collapse (mean)`
-- `collapse (median)`
+- We have seens how `egen` allows us to aggregate observations by group without changing the unit of observation of the data set
+- Sometimes, however, we do want to change the unit of observation
+- In these cases, we will use the command `collapse`
+- It works as follows:
+
+```{s}
+collapse (sum) total_value = process_value (count) nr_bids = bid_id, by(entity)
+```
+
+# Aggregating observations: `collapse`
+
+Note that running this command will completely change the data set in memory
+
+```{s}
+codebook
+```
+
+# Aggregating observations: `collapse`
+
+There is a number of different statistics that can be used with `collapse`, including:
+
+- `mean`
+- `median`
+- `sd`
+- `sum`
+- `count`
+- `percent`
+- `min`
+- `max`
 
 # Where things go wrong
 
