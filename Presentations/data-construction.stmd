@@ -74,11 +74,11 @@ Here are some simple mathematical operations that can be applied to numeric vari
 
 # Construct numeric variables
 
-**Exercise:** create a new variable in the data set that changes the order of magnitude of contract values from 1 HKR to 100.000 HRK.
+**Exercise:** use the `generate` command to create a new variable in the data set that changes the order of magnitude of contract values from 1 HKR to 100.000 HRK.
 
 # Construct numeric variables
 
-**Exercise:** create a new variable in the data set that changes the order of magnitude of contract values from 1 HKR to 100.000 HRK.
+**Exercise:** use the `generate` command to create a new variable in the data set that changes the order of magnitude of contract values from 1 HKR to 100.000 HRK.
 
 ```{s}
 gen value_100k = Process_VrijednostNabaven/100000
@@ -156,32 +156,49 @@ For example, `gen today = mdy(10,19,2021)` and `gen today = td(19oct2021)` would
 **Exercise:** create a new variable called `yquarter_init` that indicates 
 
 ```{s}
-gen yquarter_init = yq(year_init, quarter_init) 
-format yquarter_init %tq
+gen 	 yquarter_init = yq(year_init, quarter_init) 
+format 	 yquarter_init %tq
 codebook yquarter_init
 ```
 
-# Create new variables
+# Create new variables: `egen`
 
-- `egen`
-- `gen income_total = income_wage + income_rent + income_sales`
-- `egen income_total = rowtotal(income_wage income_rent income_sales)`
-- `egen income_total = rowtotal(income_wage income_rent income_sales), m`
-- max()
-- rank
-- rowmiss
-- rowmax
+- Apart from the `generate` command, there is another command that is very useful when creating new variables
+- It is called `egen`, or "extended generate"
+- There is a number of functions that will only work when used with `egen`
+- There are too many of them, and we will not discuss all, but you can see a complete list by typing `help egen`
 
-# Create new variables
+# Create new variables: `egen`
 
-- Exercise: egen -- count of contracts per procuring agent
+- This command is particularly useful when we want to aggregate information across rows without changing the level of observation in the data set
+- Say, for example, that we want to calculate the weight of one process on the total contracted value by an entity
+- We would need to divide the process value by the total value contracted by the entity
+- `egen` allows us to calcualte the total contracting value without changing the unit of observation of the data set as follows
 
-# Create new variables
+```{s}
+egen total_value = sum(process_value), by(entity)
+```
+
+# Create new variables: `egen`
+
+**Exercise:** create a new variable called `nr_process` that counts the total number of processes started by a procuring entity.
+
+- *Tip:* look at `egen`'s help file to find a function that counts the number of non-missing observations for a variable.
+
+# Create new variables: `egen`
+
+**Exercise:** create a new variable called `nr_process` that counts the total number of processes started by a procuring entity.
+
+```{s}
+egen nr_process = count(process_value), by(entity)
+```
+
+# Create new variables: best practices
 
 - Create new variables instead of overwriting the original information
 - Order the data set so that related variables are close to each other
 
-# Creating aggregate measures
+# Creating aggregate measures: best practices
 
 - Check and double-check the value assignments of questions, as well as their scales, before constructing new variables based on them
 - Look at the distributions of both the original and the constructed variables
