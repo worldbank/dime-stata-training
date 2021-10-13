@@ -71,18 +71,121 @@ import excel "Data/Raw/process_raw.xlsx", /// Path to the file to be loaded
 
 The first thing you want to look for every single time you open a new data set for the first time is
 
-1.  Unit of observation
-2.  Uniquely and fully identifying ID variable
+1. **Unit of observation:** the object or unit that is being described in the data set
+2. **Uniquely and fully identifying ID variable:** the column in the data set that can be used to tell one observation apart from the others
+  - *Uniquely* identifying: cannot have duplicated values
+  - *Fully* identifying: cannot be missing
+  
+# Unique ID
+
+**Why** is it so important to have a unique identifier for our unit of observation?
+
+# Unique ID
+
+**Why** is it so important to have a unique identifier for our unit of observation?
+
+- So we make sure that we are not giving one instace of the unit of observation more weight then others
+- So we can use it to combine different data sets (more on this later in the course)
+
+# Unique ID
+
+- What is the *unit of observation* in the data set we have just loaded?
+- What column identifies different instances of the unit of observation in the data set we have just loaded -- that is, what is its *ID variable*?
+
+**Exercise:** browse the process data set and try to identify its unit of observation and ID variable.
+
+# Unique ID
 
 Commands for testing that a variable is uniquely and fully identifying
 - `isid`
 - `duplicates`
 
-# Unique ID
+# `isid`
 
-- Exercise: identify unique ID variables in dataset
-- `isid` ID var
-- duplicates list ID var
+**`isid`** checks whether the specified variables uniquely identify the observations.
+
+~~~
+isid varlist [using filename] [, sort missok]
+~~~
+
+# `isid`
+
+**Exercise:** use `isid` to test whether the variable `Process_Naziv` or `Process_Oznaka` uniquely identifies the observations in this data set.
+
+~~~
+isid Process_Naziv
+isid Process_Oznaka
+~~~
+
+# `isid`
+
+**Exercise:** use `isid` to test whether the variable `Nadmetanje_ID` uniquely identifies the observations in this data set.
+
+```{s}
+isid Nadmetanje_ID
+```
+
+# `isid`
+
+**Exercise:** use `isid` to test whether the variable `Nadmetanje_ID` uniquely identifies the observations in this data set.
+
+```{s}
+isid Nadmetanje_ID
+```
+
+- Stata did not throw an error because `Nadmetanje_ID` is the ID variable
+
+# `duplicates`
+
+**`duplicates`** -- Report, tag, or drop duplicate observations
+
+Report duplicates
+
+~~~
+duplicates report [varlist] [if] [in]
+~~~
+
+List one example for each group of duplicates
+
+~~~
+duplicates examples [varlist] [if] [in] [, options]
+~~~
+
+Tag duplicates
+
+~~~
+duplicates tag [varlist] [if] [in] , generate(newvar)
+~~~
+
+# `duplicates`
+
+```{s}
+duplicates report Process_Naziv
+```
+
+# `duplicates`
+
+```{s}
+duplicates examples Process_Naziv
+```
+
+# `duplicates`
+
+```{s}
+duplicates tag Process_Naziv, gen(dup_name)
+```
+
+- `duplicates tag` did not print anything in the console because the information it creates is actually stored in a new variable called `dup_name`
+
+# `duplicates`
+
+`dup_name` will take the value of the number of observations that have a given value for the chosen variable
+
+```{s}
+summarize dup_name
+```
+
+
 
 # Logical operators & if conditions
 
