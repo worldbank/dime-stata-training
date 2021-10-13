@@ -340,3 +340,12 @@ A few pieces of documentation should accompany the clean dataset:
 -  A description of how the data was collected
 -  A complete record of any corrections made to the raw data, including careful explanation about the decision-making process involved
 -  A report documenting any irregularities and distributional patterns encountered in the data
+
+
+# What is data cleaning?
+
+-  Cleaning is [the most time-consuming data work task]{style="color: orange"}, and you will be tempted to skip steps
+-  However, this is the time when really get to know your data
+-  Take the time to explore your data set using tabulations, summaries, and descriptive plots
+-  Knowing your data set well will make it possible to do analysis
+-  Cleaning your data well will save you time down the line
