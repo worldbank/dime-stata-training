@@ -11,7 +11,7 @@ author: Luiza Andrade and Sushmita Samaddar
 - Since Stata is a more statistics oriented software, processing the data to create analytical products can be a lot easier
 
 ```{s/}
-qui use "../DataWork/Data/Final/final_process.dta", clear
+qui use "${mdfolder}/DataWork/Data/Final/final_process.dta", clear
 ```
 
 # The main reasons to use Stata
