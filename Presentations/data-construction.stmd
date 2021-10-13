@@ -65,18 +65,25 @@ use "Data/Clean/process_clean.dta", clear
   
 # Create new numeric variables
 
-# Create new variables
+Here are some simple mathematical operations that can be applied to numeric variables:
 
-- `gen`
-- numvar + numvar
-- numvar - numvar
-- numvar * numvar
-- numvar / numvar
-- numvar + num
+- **Addition:** `numvar1 + numvar2` or `numvar + num`
+- **Subtraction:** `numvar1 - numvar2` or `numvar - num`
+- **Multiplication:** `numvar1 * numvar2` or `numvar * num`
+- **Division:** `numvar1 / numvar2` or `numvar / num`
 
 # Construct numeric variables
 
-- Exercise: convert currency by multiplying by exchange rate
+**Exercise:** create a new variable in the data set that changes the order of magnitude of contract values from 1 HKR to 100.000 HRK.
+
+# Construct numeric variables
+
+**Exercise:** create a new variable in the data set that changes the order of magnitude of contract values from 1 HKR to 100.000 HRK.
+
+```{s}
+gen value_100k = Process_VrijednostNabaven/100000
+```
+
 
 # Construct date-time variables
 
