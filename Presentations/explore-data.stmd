@@ -1,5 +1,5 @@
 ---
-title: Introduction to Stata
+title: Exploring data in Stata
 author: Luiza Andrade and Sushmita Samaddar
 ---
 
@@ -14,11 +14,16 @@ In the last session, we learned some Stata basics:
 - What syntax Stata can understand
 - What are help files and how to read them
 
+  
+```{s/}
+use "../DataWork/Data/Final/final_process.dta", clear
+```
+
 # Recap
 
 How the interface is organized
 
-![](img/stata_interface.png){width = 50%}
+![](img/stata_interface.png){width=40%}
 
 - What do each of these windows do?
 - How are rows and columns called in Stata?
@@ -73,6 +78,11 @@ As we explore variables of different types, we will learn how to use the followi
 - `codebook`: List of all variables in the data set in memory
   - Type of variable, range, unique values, units, number of missing values and descriptive statistics or frequency table
 - `tabulate`: Show a frequency table
+
+# Useful commands to explore data sets
+
+As we explore variables of different types, we will learn how to use the following Stata commands for data visualization:
+
 - `histogram`: Visualize the distribution of a continuous or discrete variable
 - `graph bar`: Visualize continuous variables over discrete or categorical variables
 - `graph pie`: Visualize groups in a categorical variable
@@ -83,6 +93,7 @@ As we explore variables of different types, we will learn how to use the followi
 To start our session, let's first set up our work environment
 
 **Exercise:**
+
 1. Launch Stata by opening the Stata project `Introduction to Stata.stpr`
 2. Open a new do-file
 3. Load the `final_process` data set
@@ -91,10 +102,6 @@ To start our session, let's first set up our work environment
 ~~~
 use "DataWork/Data/Final/final_process.dta", clear
 ~~~
-
-```{s/}
-use "../DataWork/Data/Final/final_process.dta", clear
-```
 
 # Exploring a data set: `browse`
 
@@ -109,21 +116,22 @@ use "../DataWork/Data/Final/final_process.dta", clear
 - Another very useful command is `summarize`
 - It can be used to display basic statistics for the entire dataset or for some variables and observations
 
-**Exercise:** use `summarize` for the entire dataset
+**Exercise:** use `summarize` to see descriptive statistics for the entire dataset.
 
 *Tip: if you are not sure how to do that, look at the help file for the command by typing `help summarize`*
 
 # Exploring a data set: `summarize`
 
-**Exercise:** use `summarize` for the entire dataset
+**Exercise:** use `summarize` to see descriptive statistics for the entire dataset.
 
 ~~~
 summarize
 ~~~
 
 ```{s/}
-summarize bid_id process_name unit_id entity entity_county year_init
+summarize bid_id process_name unit_id entity entity_county year_init month_init evaluation_method procurement_type procurement_type
 ```
+
 
 # Exploring a data set: `summarize`
 
@@ -148,7 +156,7 @@ At this point, we should start using the critical thinking about data that we di
 - This command is used it to view metadata, that is, data about the data
 - The syntax for this command is very similar to that of `summarize`: you can use it without any arguments to describe the entire data set, or you can list the variables that you want to describe
 
-**Exercise:** use describe to see infromation for the entire dataset
+**Exercise:** use `describe` to see information for the entire dataset.
 
 
 # Exploring a data set: `describe`
@@ -158,7 +166,7 @@ describe
 ~~~
 
 ```{s/}
-describe bid_id process_name unit_id entity entity_county year_init
+describe
 ```
 
 # Exploring a data set: `describe`
@@ -182,6 +190,11 @@ describe bid_id process_name unit_id entity entity_county year_init
   - This is why when we use `summarize` on these variables we get results that are not very meaningful: because Stata counts time in miliseconds starting on the first millisecond of 1 January 1960
   - We can then choose how to see this information: in dates and time, in date, in months, etc.
   - We will learn more about this on session XX
+  
+# Exploring a data set: `describe`
+
+`describe` is particularly useful to identify types of variables
+
 - Variables whose storage type starts with `str` are `string` variables, that is, they contain text
   - This is why they are not shown when we use summarize - because Stata does not know how to calculate the average of a text
 - All other variables are numeric
@@ -234,6 +247,8 @@ browse if nr_participants == .
 
 # Exploring numeric variables
 
+Another way of seeing descriptive statistics for a numeric variable is using `summarize`
+
 ```{s}
 summarize nr_participants
 ```
@@ -275,7 +290,7 @@ summarize nr_participants nr_nonlocal_bidders nr_sme_bidders
 histogram nr_participants
 ~~~
 
-![](img/lab2-hist1.png){width-40%}
+![](img/lab2-hist1.png){width=40%}
 
 # Subsetting observations
 
@@ -292,14 +307,14 @@ histogram nr_participants
 histogram nr_participants if nr_participants < 50
 ~~~
 
-![](img/lab2-hist2.png){width-40%}
+![](img/lab2-hist2.png){width=40%}
 
 # Exploring text variables
 
 - As we mentioned when discussing the command `describe`, text variables can be identified by the their "string" type
 - The process data set we are using contains two text variables:
-	- `entity`
-	- `process_name`
+  - `entity`
+  - `process_name`
 - These variables typically have a large number of unique values
 - There are not many statistical analysis that we can do with string variables in Stata
 - But they may still be useful to include in a data set, particularly for the purpose of identifying information
@@ -512,44 +527,40 @@ In summary:
 **Exercise:** print a frequency table of process type when procurement type is *goods*
 
 ```{s}
-labelbook procurement_type
-```
-
-# Exploring categorical variables
-
-**Exercise:** print a frequency table of process type when procurement type is *goods*
-
-```{s}
 tabulate process_type if procurement_type == 1
 ```
 
+# Exploring date variables
 
-# Date variables
+The date variables in this data set were identified when we used `describe` as those that have the format `%td`:
 
+- `bid_submission_date`
+- `bid_delivery_date`
+- `bid_subm_del_date` 
+- `bid_submission_deadline`
 
-# Comments to do-files
+# Exploring date variables
 
-- When writing a do-file, it is very useful to be able to add notes and comments in *natural language*, that is, in English or Croatian
-- Comments are used to organize and explain the code so it is easier for you to read it and edit it later on
-- We use a few special characters to tell Stata what parts of a do-file it should run, and what parts is should ignore
+As usual, let's see what `codebook` gives us as we 
 
-# Comments to do-files
+```{s}
+codebook bid_submission_date
+```
 
-1. `/* comment */`
-Used for long comments or to explain many lines of code 
+# Exploring date variables
 
-2. `* comment`
-Used to explain what happens on the following few rows
+Stata clearly recognizes this variable as representing a date:
 
-3. `// comment`
-Used to explain the same line of code
+- Units are *days*
+- Ranges are shown in both dates and numbers
+- Missing values are represented by `.`
+- Percentiles are described in both numbers and dates
 
-# Comments to do-files
+# Exploring date variables
 
-~~~
-* Explore the categorical variables process_type
-
-tabulate process_type // Simple tabulation
-tabulate process_type, nolabel // Showing underlying numeric values instead of value labels
-tabulate process_type, miss // Including information on missing observations
-~~~
+- The relationship between numbers and dates in date variables is even clearer than in categorical variables
+- As discussed earlier, the easiest way for Stata to store information is through numbers
+- Applying a date format is how we let Stata know that these numbers represent dates
+  - There are different formats to represent dates, such as `%td` (15mar2005) and `%%tdnn/DD/YY` (3/15/05)
+  - Stata knows that variables in date format are dates
+- Stata counts time in miliseconds starting on the first millisecond of 1 January 1960
