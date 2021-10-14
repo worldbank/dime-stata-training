@@ -12,9 +12,9 @@ author: Luiza Andrade and Sushmita Samaddar
 - Construction is closely linked to research design and questionnaire design
 - Ideally, indicator construction should be done right after data cleaning, according to the pre-analysis plan
 
-```{s/}
+~~~{s/}
 use "../DataWork/Data/Clean/process_clean.dta", clear
-```
+~~~
 
 # What is data construction 
 
@@ -80,9 +80,9 @@ Here are some simple mathematical operations that can be applied to numeric vari
 
 **Exercise:** use the `generate` command to create a new variable in the data set that changes the order of magnitude of contract values from 1 HKR to 100.000 HRK.
 
-```{s}
+~~~
 gen value_100k = Process_VrijednostNabaven/100000
-```
+~~~
 
 # Construct date difference variables
 
@@ -110,10 +110,10 @@ where units can be:
 
 **Exercise:** calculate the number of days between the initiation of the process and the deadline for bid submission. Call it `bid_period`
 
-```{s}
+~~~
 gen bid_period = datediff(initiation_date, bid_submission_date, "day")
 summarize bid_period
-```
+~~~
 
 # Extract information from date variables
 
@@ -127,9 +127,9 @@ The following functions can be used to create derived variables can be created f
 
 # Extract information from date variables
 
-```{s}
+~~~
 year_init = year(initiation_date)
-```
+~~~
 
 **Exercise:** create two new variables, representin the month and quarter when the process was initiated
 
@@ -137,10 +137,10 @@ year_init = year(initiation_date)
 
 **Exercise:** create two new variables, representin the month and quarter when the process was initiated
 
-```{s}
+~~~
 month_init = month(initiation_date)
 quarter_init = quarter(initiation_date)
-```
+~~~
 
 # Extract information from date variables
 
@@ -155,11 +155,11 @@ For example, `gen today = mdy(10,19,2021)` and `gen today = td(19oct2021)` would
 
 **Exercise:** create a new variable called `yquarter_init` that indicates 
 
-```{s}
+~~~
 gen 	 yquarter_init = yq(year_init, quarter_init) 
 format 	 yquarter_init %tq
 codebook yquarter_init
-```
+~~~
 
 # Create new variables: `egen`
 
@@ -175,9 +175,9 @@ codebook yquarter_init
 - We would need to divide the process value by the total value contracted by the entity
 - `egen` allows us to calcualte the total contracting value without changing the unit of observation of the data set as follows
 
-```{s}
+~~~
 egen total_value = sum(process_value), by(entity)
-```
+~~~
 
 # Create new variables: `egen`
 
@@ -189,9 +189,9 @@ egen total_value = sum(process_value), by(entity)
 
 **Exercise:** create a new variable called `nr_process` that counts the total number of processes started by a procuring entity.
 
-```{s}
+~~~
 egen nr_process = count(process_value), by(entity)
-```
+~~~
 
 # Create new variables: best practices
 
@@ -211,17 +211,17 @@ egen nr_process = count(process_value), by(entity)
 - In these cases, we will use the command `collapse`
 - It works as follows:
 
-```{s}
+~~~
 collapse (sum) total_value = process_value (count) nr_bids = bid_id, by(entity)
-```
+~~~
 
 # Aggregating observations: `collapse`
 
 Note that running this command will completely change the data set in memory
 
-```{s}
+~~~
 codebook
-```
+~~~
 
 # Aggregating observations: `collapse`
 
@@ -267,9 +267,9 @@ append using filename [filename ...] [, options]
 - Stata can only have one data set in memory at once, so we need to call data sets saved as .dta (or as temporary files, but that is a more advanced topic)
 - `append` will add the observations in the *using* data set (the one referred to by its file name) to the *master* data set (the one that is currently loaded in the memory)
 
-```{s}
+~~~
 append using "Data/Intermediate/entities_2018.dta" "Data/Intermediate/entities_2019.dta"
-```
+~~~
 
 # Combining data sets: `append`
 
@@ -311,11 +311,11 @@ merge 1:m Nadmetanje_ID usign "Data/Clean/contract_clean.dta"
 
 # Combining data sets: `merge`
 
-```{s}
+~~~
 use "Data/Clean/process_clean.dta", clear
 
 merge 1:m Nadmetanje_ID usign "Data/Clean/contract_clean.dta"
-```
+~~~
 
 - Note that Stata lets you know how well the match between the two data sets went
 - There are also a series of options that allow you to test the the result of the merge matches your expections
@@ -406,17 +406,17 @@ Doing all variable construction and data transformation in a unified script, sep
 
 # Advanced mathematical operations
 
-```{s}
+~~~
 **Logarithm:** `ln(numvar)`
 **Square root:** `sqrt(numvar)`
 **Exponentiation:** `numvar^num`
-```
+~~~
 
 # Create new date variable
 
-```{s}
+~~~
 gen date2 = mdy(m2, d2, 2002)
-```
+~~~
 
 # Aggregating varaibles
 

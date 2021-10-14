@@ -66,7 +66,7 @@
 		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-    markstat using "${mdfolder}/5-data-analysis", slides(santiago)
+    markstat using "${mdfolder}/data-construction", slides(santiago)
 	
 	}
 	
