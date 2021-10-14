@@ -48,6 +48,9 @@
 			whereis pandoc 				"C:\Program Files\Pandoc\pandoc.exe"
 		}
 		
+		if "`c(username)'" == "wb522556" {
+					whereis pandoc 				"C:\Program Files\Pandoc\pandoc.exe"
+				}		
 		* Workshop folder
 		global	mdfolder	"C:\Users\wb501238\Documents\GitHub\dime-stata-training\Presentations"
 		
