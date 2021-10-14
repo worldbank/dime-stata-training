@@ -54,7 +54,7 @@
 		if "`c(username)'" == "wb522556" {
 			global mdfolder 	"C:\Users\wb522556\OneDrive - WBG\Documents\GitHub\dime-stata-training\Presentations"
 		}
-		
+
 	}
 	
 /*******************************************************************************
@@ -67,7 +67,7 @@
 		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-		markstat using "${mdfolder}/5-data-analysis", slides(santiago)
+    markstat using "${mdfolder}/5-data-analysis", slides(santiago)
 	
 	}
 	
