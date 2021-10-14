@@ -294,7 +294,7 @@ Many-to-one merge on specified key variables
 
 ~~~
 merge m:1 varlist using filename [, options]
-~~~~
+~~~
 
 # Combining data sets: `merge`
 
@@ -303,11 +303,26 @@ merge m:1 varlist using filename [, options]
 - This is one the points in the data work where having uniquely identifying variables is extremely important!
 - When merging two data sets, we first need to load one of them in memory (this will be called the *master* data), and then refer to the other one (the *using* data set) by its filename
 
+~~~
+use "Data/Clean/process_clean.dta", clear
+
+merge 1:m Nadmetanje_ID usign "Data/Clean/contract_clean.dta"
+~~~
+
+# Combining data sets: `merge`
+
 ```{s}
 use "Data/Clean/process_clean.dta", clear
 
 merge 1:m Nadmetanje_ID usign "Data/Clean/contract_clean.dta"
 ```
+
+- Note that Stata lets you know how well the match between the two data sets went
+- There are also a series of options that allow you to test the the result of the merge matches your expections
+
+# Combining data sets: `merge`
+
+![](img/merge-opts.png)
 
 # Where things go wrong
 
@@ -408,3 +423,5 @@ gen date2 = mdy(m2, d2, 2002)
 - `gen income_total = income_wage + income_rent + income_sales`
 - `egen income_total = rowtotal(income_wage income_rent income_sales)`
 - `egen income_total = rowtotal(income_wage income_rent income_sales), m`
+
+# Merge best practices
