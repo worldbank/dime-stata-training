@@ -54,6 +54,7 @@
 		if "`c(username)'" == "wb522556" {
 			global mdfolder 	"C:\Users\wb522556\OneDrive - WBG\Documents\GitHub\dime-stata-training\Presentations"
 		}
+
 	}
 	
 /*******************************************************************************
@@ -71,3 +72,10 @@
 	}
 	
 *============================== THE END =======================================*
+
+	/*shadow link to onedrive created through the following steps
+1. Go to Command Prompt
+2. cd "you/file/path/GitHub\dime-stata-training\DataWork"
+3. mklink /J DataWork "C:\Users\wb522556\OneDrive - WBG\World Bank\Procurement\ECA\Croatia\Training\DataWork"
+}
+
