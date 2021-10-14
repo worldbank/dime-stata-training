@@ -5,11 +5,15 @@ author: Luiza Andrade and Sushmita Samaddar
 
 # What is data cleaning?
 
--  Cleaning is [the most time-consuming data work task]{style="color: orange"}, and you will be tempted to skip steps
--  However, this is the time when really get to know your data
--  Take the time to explore your data set using tabulations, summaries, and descriptive plots
--  Knowing your data set well will make it possible to do analysis
--  Cleaning your data well will save you time down the line
+The best way to summarize what data cleaning means is through this image
+
+![](img/cleaning.png)
+
+
+# What is data cleaning?
+
+- Cleaning is about changing the *format* of the data to the format that is the most efficient to store and handle in statistical software and also the easiest for humans to understand
+- We are not making changes to the *information* contained in the data set -- this will come later, in *data construction*
 
 # Input: the raw data
 
@@ -23,43 +27,10 @@ author: Luiza Andrade and Sushmita Samaddar
 
 - At the end of this process, you should have a data set that is essentially the same as the one you originally acquired
  - During data cleaning, we will change the [format]{style="color: orange"} of the data
- - We will [not]{style="color: orange"} add new variables, or make significant changes to individual data points
-- The main difference between the raw and the clean data sets lies in how easy it is to understand them and handle them in statistical software
+ - We will [not]{style="color: orange"} make significant changes to individual data points
+- The main difference between the *raw* and the *clean* data sets lies in how easy it is to understand them and handle them in statistical software
 - One clean dataset will be created for each data source
-	
-# Importing data from Excel	
 
-# Unique ID
-
-The first thing you want to look for every single time you open a new data set for the first time is
-
-1.  Unit of observation
-2.  Uniquely and fully identifying ID variable
-
-Commands for testing that a variable is uniquely and fully identifying
-- `isid`
-- `duplicates`
-
-# Unique ID
-
-- Exercise: identify unique ID variables in dataset
-- `isid` ID var
-- duplicates list ID var
-
-# Logical operators & if conditions
-
-- br if ID `==`' duplicate ID identified in previous
-- & |
-
-# Drop observations
-
-- `drop`: remove columns or rows from a dataset
-  - Example
-- `keep`: keep only columns or rows specified from a dataset
-  - Example
-- Exercise: drop if duplicate ID & ??
-
-# Save data set
 
 # Cleaning string variables
 
@@ -102,6 +73,7 @@ Commands for testing that a variable is uniquely and fully identifying
 - browse dataset and see the underlying number and the label
 
 # Destring
+
 
 # Identify and document outliers
 
@@ -187,3 +159,12 @@ A few pieces of documentation should accompany the clean dataset:
 -  A description of how the data was collected
 -  A complete record of any corrections made to the raw data, including careful explanation about the decision-making process involved
 -  A report documenting any irregularities and distributional patterns encountered in the data
+
+
+# What is data cleaning?
+
+-  Cleaning is [the most time-consuming data work task]{style="color: orange"}, and you will be tempted to skip steps
+-  However, this is the time when really get to know your data
+-  Take the time to explore your data set using tabulations, summaries, and descriptive plots
+-  Knowing your data set well will make it possible to do analysis
+-  Cleaning your data well will save you time down the line
