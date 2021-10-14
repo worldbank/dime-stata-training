@@ -45,13 +45,18 @@
 		cap noi whereis pandoc 				"C:\Program Files (x86)\Pandoc\pandoc.exe"
 		
 		if "`c(username)'" == "wb522556" {
+			whereis pandoc 				"C:\Program Files\Pandoc\pandoc.exe"
+		}
+		
+		if "`c(username)'" == "wb522556" {
 					whereis pandoc 				"C:\Program Files\Pandoc\pandoc.exe"
 				}		
 		* Workshop folder
 		global	mdfolder	"C:\Users\wb501238\Documents\GitHub\dime-stata-training\Presentations"
+		
 		if "`c(username)'" == "wb522556" {
-					global mdfolder 	"C:\Users\wb522556\OneDrive - WBG\Documents\GitHub\dime-stata-training\Presentations"
-				}
+			global mdfolder 	"C:\Users\wb522556\OneDrive - WBG\Documents\GitHub\dime-stata-training\Presentations"
+		}
 	}
 	
 /*******************************************************************************
@@ -64,10 +69,7 @@
 		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-		*markstat using "${mdfolder}/1-stata-interface", slides(santiago)		
-		*markstat using "${mdfolder}/5-data-analysis", beamer
-		markstat using "${mdfolder}/explore-data", slides(santiago)
-		
+    markstat using "${mdfolder}/5-data-analysis", slides(santiago)
 	
 	}
 	
