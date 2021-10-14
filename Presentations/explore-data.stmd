@@ -16,7 +16,7 @@ In the last session, we learned some Stata basics:
 
   
 ```{s/}
-use "../DataWork/Data/Final/final_process.dta", clear
+use "${mdfolder}/DataWork/Data/Final/final_process.dta", clear
 ```
 
 # Recap
@@ -227,8 +227,8 @@ Let's start with some general information about the variable `nr_participants` u
 codebook nr_participants
 ```
 
-- The number of participants in a process varies from 0 to 247
-- There are 36 unique values for this variable, which means that not all numbers between 0 and 247 are present
+- The number of participants in a process varies from 0 to 68
+- There are 36 unique values for this variable, which means that not all numbers between 0 and 68 are present
 - There are 2,452 missing observations. What does this mean?
   - There are 25,000 processes in the data set. However, we don't know the number of participants for 2,452 of them
   - In the process for which we don't know the number of participants, we will see a `.` in this column when browing the data set
@@ -236,7 +236,7 @@ codebook nr_participants
 # Subsetting observations
 
 - The expression `if` allows us to subset observations, that is, we can choose observations based on a logical condition.
-- For example, if we wanted to see all the observations in the data set for which we don't know the number of participants, we would types
+- For example, if we wanted to see all the observations in the data set for which we don't know the number of participants, we would type
 
 ~~~
 browse if nr_participants == .
@@ -253,7 +253,7 @@ Another way of seeing descriptive statistics for a numeric variable is using `su
 summarize nr_participants
 ```
 
-- Here, we can see the minimum and maximum values of the variable, which are 0 and 247, as we already new
+- Here, we can see the minimum and maximum values of the variable, which are 0 and 68, as we already new
 - It also shows the number of observations with valid information about it, which is 24,548, as we also knew from the codebook
 - We can also see the mean and the standard deviation
 - All this information was already present in the codebook, but the codebook had other data as well
@@ -294,17 +294,17 @@ histogram nr_participants
 
 # Subsetting observations
 
-- The previous graph was not very informative because outliers caused the X axis to extend to very high numbers even though there were not many observations to be displayed with more than 50 participants
-- We can improve this graph by displaying only processes with less than 50 participants
+- The previous graph was not very informative because outliers caused the X axis to extend to very high numbers even though there were not many observations to be displayed with more than 20 participants
+- We can improve this graph by displaying only processes with less than 20 participants
 - To do this, we can use the same strategy that we used before to subset observations: *an `if` statement*
 - Can you guess what it should look like?
 
-**Exercise:** create a histogram of the variable `nr_participants` including only cases where a process has less than 50 participants.
+**Exercise:** create a histogram of the variable `nr_participants` including only cases where a process has less than 20 participants.
 
 # Subsetting observations
 
 ~~~
-histogram nr_participants if nr_participants < 50
+histogram nr_participants if nr_participants < 20
 ~~~
 
 ![](img/lab2-hist2.png){width=40%}
