@@ -47,23 +47,19 @@ The sessions will mostly be hands-on labs where you can work on Stata while lear
 
 # How will the sessions be organized?
 
-The training will use public procurement data extracted from the eProcurement system in Croatia. 
+- The training will use public procurement data extracted from the eProcurement system in Croatia. 
+- [However]{style="color: orange"} please note that the only a [small sample]{style="color: orange"} of the data will be used for practice sessions. 
+- This is because the full dataset is too heavy for light practice sessions. You should however, use what you learn in this training to apply to the full dataset after the training.
+- The goal of this training is to learn how to use Stata for data analysis. 
+- The analysis you do in this training will have results that you may not expect - this is because we are looking at only a small sample of the data. 
 
-[However]{style="color: orange"} please note that the only a [small sample]{style="color: orange"} of the data will be used for practice sessions. 
-
-This is because the full dataset is too heavy for light practice sessions. You should however, use what you learn in this training to apply to the full dataset after the training
-
-The goal of this training is to learn how to use STATA for data analysis. 
-
-The analysis you do in this training will have results that you may not expect - this is because we are looking at only a small sample of the data. 
-
-[*Don't focus on the results - let's focus on the way to get there.*]{style="color: orange"}
+[*Don't focus on the results -- let's focus on the way to get there.*]{style="color: orange; text-align: center;"}
 
 # Where do we start before we start?
 
-- Work closely with your partners and set the right expectations on what can be achieved given data availability.
+- Work closely with your partners and [set the right expectations]{style="color: orange; text-align: center;"} on what can be achieved given data availability.
 - These are long and very time-consuming steps even if not complicated from a technical standpoint.
-- Establish a solid communication line with your team and project leaders for the next steps of the work.
+- Establish a [solid communication line]{style="color: orange; text-align: center;"} with your team and project leaders for the next steps of the work.
 
 ![](img/Pre-analysis-plan.png)
 
