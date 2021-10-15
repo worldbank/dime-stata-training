@@ -17,21 +17,21 @@ Tell us more about yourself. What are your learning goals in this training progr
 
 # Learning Objectives
 
-- Participants will thoroughly familiarize themselves with the Stata interface.
+- Participants will thoroughly familiarize themselves with the [Stata interface]{style="color: orange"}.
 
-- Participants will be learn and practice the foundational functions in Stata for data analysis.
+- Participants will be [learn and practice]{style="color: orange"} the foundational functions in Stata for data analysis.
 
-- Participants will learn how to find the answers and troubleshoot on data analysis and coding questions
+- Participants will learn how to [find the answers and troubleshoot]{style="color: orange"} on data analysis and coding questions
 
-- Participants will learn about the best practices in conducting data analysis and reproducible research.
+- Participants will learn about the [best practices]{style="color: orange"} in conducting data analysis and reproducible research.
 
 # What happens after the training?
 
-- The training will provide the basics on how to code on Stata and how to do data analysis using public procurement data. 
+- The training will provide the [basics]{style="color: orange"} on how to code on Stata and how to do data analysis using public procurement data. 
 
-- The way to solidify knowledge on data analysis in Stata is to practice, practice, practice!
+- The way to solidify knowledge on data analysis in Stata is to [practice, practice, practice!]{style="color: orange"}
 
-- No data scientist has all the answers, but all data scientists know how to ask for help.
+- No data scientist has all the answers, but all data scientists know how to [ask for help]{style="color: orange"}.
 
 # How will the sessions be organized?
 
@@ -45,16 +45,39 @@ The sessions will mostly be hands-on labs where you can work on Stata while lear
 - Introduction to data visualization in Tableau
 - Best practices for coding in Stata
 
+# How will the sessions be organized?
+
+The training will use public procurement data extracted from the eProcurement system in Croatia. 
+
+[However]{style="color: orange"} please note that the only a [small sample]{style="color: orange"} of the data will be used for practice sessions. 
+
+This is because the full dataset is too heavy for light practice sessions. You should however, use what you learn in this training to apply to the full dataset after the training
+
+The goal of this training is to learn how to use STATA for data analysis. 
+
+The analysis you do in this training will have results that you may not expect - this is because we are looking at only a small sample of the data. 
+
+[*Don't focus on the results - let's focus on the way to get there.*]{style="color: orange"}
+
 # Where do we start before we start?
+
+- Work closely with your partners and set the right expectations on what can be achieved given data availability.
+- These are long and very time-consuming steps even if not complicated from a technical standpoint.
+- Establish a solid communication line with your team and project leaders for the next steps of the work.
 
 ![](img/Pre-analysis-plan.png)
 
 # Collection of relevant data
 
+- You can go beyond traditional sources of procurement data to answer novel and relevant questions on public procurement
+  - For example, is there an effect of motivation, resources and incentives on procurement outcomes like processing time?
+  - Does payment regularity have an effect on firm participation and competition in future contracts?
+- Procurement is more than just transactions between the government and firms. It is driven by people and motivations
+
 ![](img/datacollection.png)
 
 # Collection of relevant data
-  
+
 ![](img/datasets-in-proc.png)
 
 # Making sense of your data - is it complete?
@@ -79,4 +102,5 @@ The sessions will mostly be hands-on labs where you can work on Stata while lear
 # Construction of relevant indicators
 
 ![](img/construction.png)
+
 
