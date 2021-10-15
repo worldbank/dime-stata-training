@@ -42,17 +42,24 @@
 
 		* Tell Stata where to find the relevant programs	
 		cap noi whereis pdflatex 			"C:\Program Files\MiKTeX 2.9\miktex\bin\x64\pdflatex.exe"
-		cap noi whereis pandoc 				"C:\Program Files (x86)\Pandoc\pandoc.exe"
-		
-		if "`c(username)'" == "wb522556" {
-			whereis pandoc 				"C:\Program Files\Pandoc\pandoc.exe"
+
+		* Luiza's computer
+		if lower("`c(username)'") == "wb501238" {
+			
+			* Folder where markdown files are
+			global mdfolder 	"C:\Users\wb501238\Documents\GitHub\dime-stata-training\Presentations"
+			
+			* Tell Stata where to find pandoc
+			whereis pandoc 		"C:\Program Files (x86)\Pandoc\pandoc.exe"
 		}
 		
-		* Workshop folder
-		global	mdfolder	"C:\Users\wb501238\Documents\GitHub\dime-stata-training\Presentations"
-		
 		if "`c(username)'" == "wb522556" {
+			
+			* Folder where markdown files are
 			global mdfolder 	"C:\Users\wb522556\OneDrive - WBG\Documents\GitHub\dime-stata-training\Presentations"
+			
+			* Tell Stata where to find pandoc
+			whereis pandoc 		"C:\Program Files\Pandoc\pandoc.exe"
 		}
 	}
 	
@@ -66,7 +73,11 @@
 		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-    markstat using "${mdfolder}/intro", slides(santiago)
+		markstat using "intro", slides(santiago)
+		
+		filefilter 	"intro.html" "Introduction.html", ///
+					from("c:/ado/plus/m/s5/santiago") to("www") replace
+
 	
 	}
 	
