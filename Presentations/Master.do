@@ -73,7 +73,11 @@
 		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-		markstat using "${mdfolder}/1-stata-interface", slides(santiago)
+		markstat using "cleaning-str-cat", slides(santiago)
+		
+		filefilter 	"cleaning-str-cat.html" "Cleaning - text and categorical variables.html", ///
+					from("c:/ado/plus/m/s5/santiago") to("www") replace
+
 	
 	}
 	

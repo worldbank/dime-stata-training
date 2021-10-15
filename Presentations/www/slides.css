@@ -1,0 +1,196 @@
+/* slides.css combines s5-core.css, framing.css and pretty.css */
+/* s5-core.css */
+/* Do not edit or override these styles! The system will likely break if you do. */
+
+div#header, div#footer, div#controls, .slide {position: absolute;}
+html>body div#header, html>body div#footer,
+  html>body div#controls, html>body .slide {position: fixed;}
+.handout {display: none;}
+.layout {display: block;}
+.slide, .hideme, .incremental {visibility: hidden;}
+#slide0 {visibility: visible;}
+/* framing.css */
+/* The following styles size, place, and layer the slide components.
+   Edit these if you want to change the overall slide layout.
+   The commented lines can be uncommented (and modified, if necessary)
+    to help you with the rearrangement process. */
+
+/* target = 1024x768 */
+
+body {
+  font-family: 'Fira Sans','Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+}
+
+#header, #footer, .slide {
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+#header {
+  height: 2.5em;
+  z-index: 1;
+  line-height: 1px;
+}
+
+#footer {
+  top: auto;
+  bottom: 0;
+  height: 1.2em;
+  z-index: 5;
+  font-size: 0.5em;
+  padding: 0.4em 0;
+  text-align:center
+}
+
+#header, #footer {
+  background-color: #1f7ba6;
+  color: white;
+  font-family: Verdana, Helvetica, sans-serif;
+}
+
+
+#footer h1, #footer h2 {display: block; padding: 0 1em;}
+#footer h1 {float:left; padding-left:1em; font-size:80%}
+
+
+.slide {top: 0; width: 92%; padding: 2.2em 4% 0 4%; z-index: 2;  list-style: none;}
+div#controls {position:fixed; left: 75%; top: 0; width: 25%; z-index: 100; height:2.2em}
+div#controls form {position: absolute; top: 0; right: 0; width: 50%;  margin: 0;}
+#currentSlide {position: fixed; height:1.2em; bottom:0; right:0;  z-index: 10;}
+
+/*
+div#header {background: #FCC;}
+div#footer {background: #CCF;}
+div#controls {background: #BBD;}
+div#currentSlide {background: #FFC;}
+*/
+/* pretty.css */
+/* Following are the presentation styles -- edit away! */
+/* [gr] Santiago style for markstat */
+
+body {background: #FFF color: #000; font-size: 2em;}
+:link, :visited {text-decoration: none; color: #00C;}
+#controls :active {color: #88A !important;}
+#controls :focus {outline: 1px dotted #227;}
+h1, h2, h3, h4 {font-size: 100%; margin: 0; padding: 0; font-weight: inherit;}
+ul, pre {margin: 0; line-height: 1em;}
+html, body {margin: 0; padding: 0;}
+
+
+kbd {font-weight: bold; font-size: 1em;}
+sup {font-size: smaller; line-height: 1px;}
+
+.slide code {
+  padding: 2px 0.25em;
+  background-color: #E8E8E8;
+}
+
+.slide code.bad, code del {color: blue;} /* test */
+.slide code.old {color: silver;}
+
+.slide pre {
+  padding: 0;
+  margin: 0.25em 0 0.5em 0.5em;
+  font-size: 90%;}
+
+.slide pre code {
+  display: block;
+}
+
+.slide h1 {
+  position: absolute; top: 0;
+  left: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 20px 0 0 30px;
+  white-space: nowrap;
+  color: white;
+  font-size: 120%;
+}
+
+.slide h1 code {
+  background-color: transparent;
+}
+
+.slide ul {margin-left: 5%; margin-right: 7%; list-style: disc;}
+.slide li {margin-top: 0.75em; margin-right: 0;}
+.slide ul ul {line-height: 1;}
+.slide ul ul li {margin: .2em; font-size: 85%; }
+.slide img.leader {display: block; margin: 0 auto;}
+
+div.long {font-size: 0.75em;}
+
+
+.slide h3 {
+  font-size: 130%;
+}
+h1 abbr {font-variant: small-caps;}
+
+div#controls {position: absolute; left: 75%; bottom: 0;
+  width: 25%; height: 20%; /* same as header */
+  text-align: right; font: bold 0.9em Verdana, Helvetica, sans-serif;}
+html>body div#controls {position: fixed; padding: 0 0 1em 0;
+  top: 0;}
+div#controls form {position: fixed;  top: 0; right: 0; width: 100%;
+  margin: 0; padding: 0;}
+
+#controls #navLinks a {
+}
+#controls #navList {height:1em;}
+#controls #navList #jumplist {position: absolute; bottom: 0; right: 0;
+  color: black;background-color:#fafafa;  border:1px solid #c0c0c0;}
+#currentSlide {font-size: 0.5em; color: white; padding: 0 1em 0.2em 0;}
+
+#slide0 {padding-top: 3.5em; font-size: 90%;}
+
+#slide0 h1 {
+  position: static;
+  margin: 1em 0 0;
+  padding: 0;
+  font: bold 2em Helvetica, sans-serif;
+  white-space: normal;
+  color: #000;
+  text-align:center}
+#slide0 h2 {font: bold italic 1em Helvetica, sans-serif; margin: 0.25em;text-align:center; color:#3333b3}
+#slide0 h3 {margin-top: 1.5em; font-size: 1.5em;text-align:center}
+#slide0 h4 {margin-top: 0; font-size: 1em;text-align:center}
+
+ul.urls {list-style: none; display: inline; margin: 0;}
+.urls li {display: inline; margin: 0;}
+.note {display: none;}
+.external {border-bottom: 1px dotted gray;}
+html>body .external {border-bottom: none;}
+.external:after {content: " \274F"; font-size: smaller; color: #77B;}
+
+.incremental, .incremental *, .incremental *:after {color: white; visibility: visible;}
+.incremental code {color: white; visibility: visible;}
+
+img.incremental {visibility: hidden;}
+.slide .current {color: black}
+
+/* [gr] added for Pandoc */
+
+.slide pre.stata {
+  padding-top: 20px;
+  font-family: "Lucida Console",
+  monospace;
+  font-size: 60%
+}
+
+img {display: block; margin:auto;}
+p.caption {text-align:center;}
+table { margin:auto; border-collapse:collapse; }
+table caption { margin-bottom:1ex;}
+th, td { padding:4px 6px;}
+thead tr:first-child th {border-top:1px solid black; padding-top:6px}
+thead tr:last-child  th {padding-bottom:6px}
+tbody tr:first-child td {border-top:1px solid black; padding-top:6px}
+tbody tr:last-child  td {padding-bottom:6px;}
+table tbody:last-child tr:last-child td {border-bottom:1px solid black;}
+
+
+/* diagnostics
+
+li:after {content: " [" attr(class) "]"; color: #F88;}
+ */

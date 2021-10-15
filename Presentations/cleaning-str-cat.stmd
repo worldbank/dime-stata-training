@@ -1,13 +1,18 @@
 ---
 title: Cleaning data - Part 1
 author: Luiza Andrade and Sushmita Samaddar
+output: 
+ html_document:
+  css: www/style.css
 ---
 
 # What is data cleaning?
 
-The best way to summarize what data cleaning means is through this image
+![](img/cleaning.png){width=45%}
 
-![](img/cleaning.png)
+```{s/}
+use "../DataWork/Data/Raw/process_raw.dta", clear
+```
 
 # What is data cleaning?
 
@@ -32,31 +37,33 @@ The best way to summarize what data cleaning means is through this image
 
 # Setting the stage
 
-To start our session, let's first set up our work environment
-
 **Exercise:**
 
 1. Launch Stata by opening the Stata project `Introduction to Stata.stpr`
 2. Open a new do-file
 3. Load the `process_raw` data set
-  - In case you don't remember this from the last session, you can use the `use` command and the Stata project features to open a data set by typing
+
+[
+In case you don't remember this from the last session, you can use the `use` command and the Stata project features to open a data set by typing
+]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 # Setting the stage
 
-To start our session, let's first set up our work environment
-
 **Exercise:**
 
 1. Launch Stata by opening the Stata project `Introduction to Stata.stpr`
 2. Open a new do-file
 3. Load the `process_raw` data set
-  - In case you don't remember this from the last session, you can use the `use` command and the Stata project features to open a data set by typing
+
+[
+In case you don't remember this from the last session, you can use the `use` command and the Stata project features to open a data set by typing
+]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
   
 ~~~
 use "Data/Raw/process_raw.dta", clear
 ~~~
 
-# Cleaning string variables
+# Identifying string variables
 
 What are different ways to identify the string variables in our data set?
 
@@ -65,7 +72,7 @@ What are different ways to identify the string variables in our data set?
 What are different ways to identify the string variables in our data set?
 
 - `codebook`
-- Variables and Properties window
+- Variables and Properties windows
 - Browsing the dataset
 
 # Identifying string variables
@@ -80,88 +87,128 @@ codebook, compact
 codebook Entity_county Entity_Naziv Process_Naziv Process_Oznaka PostupakNadmetanja_Naziv_tr TipNadmetanja_Naziv_tr StatusNadmetanja_Naziv_tr VrstaNadmetanja_Naziv_tr TipNabave_Naziv_tr MetodaEvaluacije_tr RokZaDostavuZahtSudj
 ```
 
-- quite a few variables also have the value "NULL" in them
-- we also see a warning about spaces
+- Quite a few variables also have the value "NULL" in them
+- We also see a warning about spaces
 
 ![](img/trailing-spaces.png)
 
 
 # Cleaning string variables: `replace`
 
-Replace contents of existing variable
+![](img/replace.png){width=60%}
 
-~~~
-replace oldvar =exp [if] [in] [, nopromote]
-~~~
-
-- Replace works with all types of variables
+[*Tip:* Replace works with all types of variables, not only strings.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 # Cleaning string variables: `replace`
 
-**Exercise:** replace all 
+**Exercise:** replace all occurrences of the value "NULL" in the variable `Process_Naziv` with the missing value `""`
+
+# Cleaning string variables: `replace`
+
+**Exercise:** replace all occurrences of the value "NULL" in the variable `Process_Naziv` with the missing value `""`
+
 ```{s}
 replace Process_Naziv = "" if Process_Naziv == "NULL"
 ```
 
-- strings between quotes
+# Cleaning string variables: `replace`
+
+**Exercise:** replace all occurrences of the value "NULL" in the variable `Process_Naziv` with the missing value `""`
+
+```{s}
+replace Process_Naziv = "" if Process_Naziv == "NULL"
+```
+
+[Note that whenever we refer to text, that is, to the content of string variables, use write this content between quotes.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 # Cleaning string variables
+
+We can use the `problems` option of `codebook` to get more detail about the issue with spaces
 
 ```{s}
 codebook Entity_county Entity_Naziv Process_Naziv Process_Oznaka PostupakNadmetanja_Naziv_tr TipNadmetanja_Naziv_tr StatusNadmetanja_Naziv_tr VrstaNadmetanja_Naziv_tr TipNabave_Naziv_tr MetodaEvaluacije_tr RokZaDostavuZahtSudj, problems
 ```
 
-- Humans can tell that a word regardless of cases, spaces and typos, but Stata is not that smar
-- Similarly, it may be hard for the human eye to see one extra space, but not for Stata 
+# Cleaning string variables
+
+- Humans can tell the meaning of a word regardless of which letters are capitalized or not, of how spaces are used, and even if they are misstyped, but Stata is not that smart
+- It may be hard for the human eye to see one extra space, but not for Stata 
 
 # Cleaning string variables
+
+Let's take a closer look at the values of `StatusNadmetanja_Naziv_tr`:
 
 ```{s}
 tab StatusNadmetanja_Naziv_tr
 ```
 
+# Cleaning string variables
+
 - AGREED and Agreed mean the same thing
-- So to "In contracting" and "In contracting "
+- So do "In contracting" and "In contracting "
+- In order for Stata to consider these as the same information, however, we need to make sure they contain exactly the same characters, including which letters are in lower or upper case.
 
 
-# Changes cases
+# Change cases
 
-~~~
-upper(s) 	: capitalize all characters in string s
+**`upper(s)`** 	capitalize all characters in string `s`
 
-lower(s)	: make all characters in string s lower case
+**`lower(s)`**	make all characters in string `s` lower case
 
-proper(s)	: capitalize only the first letter of each word in string s
-~~~
+**`proper(s)`**	capitalize only the first letter of each word in string `s`
 
-Note these are *functions*, not *commands*. They cannot be used by themselves, but rather need to be used inside a command.
-- h proper()
 
-# Changes cases
+- Note these are *functions*, not *commands*
+- Functions cannot be used by themselves, but rather need to be used inside a command.
+- To see the help file for functions we need to add parentheses after their names: `help proper()`
+
+# Change cases
+
+Here is an example of how to use them:
+
+```{s}
+replace StatusNadmetanja_Naziv_tr = upper(StatusNadmetanja_Naziv_tr)
+tab StatusNadmetanja_Naziv_tr
+```
+
+# Change cases
+
+**Exercise:** test using `upper()` and `lower()` on a text variable and see how they affect it's content.
+
+# Change cases
+
+**Exercise:** test using `upper()` and `lower()` on a text variable and see how they affect it's content.
+
+```{s}
+replace StatusNadmetanja_Naziv_tr = lower(StatusNadmetanja_Naziv_tr)
+tab StatusNadmetanja_Naziv_tr
+```
+
+# Change cases
+
+**Exercise:** test using `upper()` and `lower()` on a text variable and see how they affect it's content.
 
 ```{s}
 replace StatusNadmetanja_Naziv_tr = proper(StatusNadmetanja_Naziv_tr)
 tab StatusNadmetanja_Naziv_tr
 ```
 
-# Changes cases
+# Changing the content of string variables
 
-**Exercise**
-
-```{s}
-replace StatusNadmetanja_Naziv_tr = upper(StatusNadmetanja_Naziv_tr)
-tab StatusNadmetanja_Naziv_tr
-
-replace StatusNadmetanja_Naziv_tr = lower(StatusNadmetanja_Naziv_tr)
-tab StatusNadmetanja_Naziv_tr
-```
+- The functions we have just explored chance only the capitalization of text, not necessarily the letters and other characters in it
+- As we have seen earlier, however, we also need to make adjustments to themselves
+- In particular, we need to remove *extra* spaces that are difficult for the human eye to catch, but that make strings that should be considered the same as different values in Stata
+- The next two functions we will learn about remove extra spaces and substitute specific characters in a string
 
 # `strtrim(s)`
 
-~~~
-Description:  s without leading and trailing blanks (ASCII space character char(32)); equivalent to strltrim(strrtrim(s))
-			 strtrim(" this ") = "this"
-~~~
+![](img/strtrim.png){width=80%}
+
+**Exercise:** use `strtrim()` with `replace` to remove extra spaces from `StatusNadmetanja_Naziv_tr`
+
+# `strtrim(s)`
+
+**Exercise:** use `strtrim()` with `replace` to remove extra spaces from `StatusNadmetanja_Naziv_tr`
 
 ```{s}
 replace StatusNadmetanja_Naziv_tr = strtrim(StatusNadmetanja_Naziv_tr)
@@ -170,15 +217,15 @@ tab StatusNadmetanja_Naziv_tr
 
 # `subinstr(s1,s2,s3,n)`
 
-~~~
-Description:  s1, where the first n occurrences in s1 of s2 have been replaced with s3
- 			 subinstr("this is the day","is","X",1) = "thX is the day"
-			 subinstr("this is the hour","is","X",2) = "thX X the hour"
-			 subinstr("this is this","is","X",.) = "thX X thX"
-~~~
+![](img/subinstr.png){width=80%}
 
 ```{s}
-replace RokZaDostavuZahtSudj = subinstr(RokZaDostavuZahtSudj, "NULL", "", .)
+replace RokZaDostavuZahtSudj = subinstr(RokZaDostavuZahtSudj, "NULL", "*", .)
+```
+
+# `subinstr(s1,s2,s3,n)`
+
+```{s}
 codebook RokZaDostavuZahtSudj
 ```
 
@@ -186,10 +233,8 @@ codebook RokZaDostavuZahtSudj
 
 -  Each statistical software has optimized the formats it uses to store and handle different types if information
 -  The clean data set should contain no string variables, except for
-
-  1.  Proper nouns that are not categories
-  2.  Digits with leading zeros or long IDs (over 15 digits)
-
+  - Proper nouns that are not categories
+  - Digits with leading zeros or long IDs (over 15 digits)
 -  That means categorical string variables must be transformed into labeled variables or factors
 -  Check that all categorical variables have value labels
 
@@ -201,7 +246,7 @@ How do you tell categorical variables from text variables when they don't yet ha
 
 How do you tell categorical variables from text variables when they don't yet have value labels?
 
-- By the number of different values they take
+[By the number of different values they take]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 # Encode variables
 
@@ -215,91 +260,150 @@ codebook, compact
 
 Which variables below are categorical?
 
-- Entity_county
-- PostupakNadmetanja_Naziv_tr
-- TipNadmetanja_Naziv_tr
-- StatusNadmetanja_Naziv_tr
-- VrstaNadmetanja_Naziv_tr
-- TipNabave_Naziv_tr
-- MetodaEvaluacije_tr
+- `Entity_county`
+- `PostupakNadmetanja_Naziv_tr`
+- `TipNadmetanja_Naziv_tr`
+- `StatusNadmetanja_Naziv_tr`
+- `VrstaNadmetanja_Naziv_tr`
+- `TipNabave_Naziv_tr`
+- `MetodaEvaluacije_tr`
 
-The process of transforming text variables into categorical variables in Stata is called "encoding"
+The process of transforming text variables into categorical variables in Stata is called "encoding".
 
 # Encoding variables in Stata
 
--  In Stata, the best practice is to use `encode` with both the `label` and the `noextend` options
+![](img/encode.png){width=60%}
+
+
+# Encoding variables in Stata
+
+- Note that there is a required option called `gen()`
+- This option will create a new variable with the encoded version of the original one
 
 ```{s}
-codebook StatusNadmetanja_Naziv_tr
 encode StatusNadmetanja_Naziv_tr, gen(bid_status)
-codebook bid_status
+```
+
+# Encoding variables in Stata
+
+```{s}
+codebook  bid_status
+```
+
+# Encoding variables in Stata
+
+```{s}
 labelbook bid_status
 ```
 
-# Value labels
+# Encoding variables in Stata
 
-**Exercise**
+**Exercise:** use `encode` to create a new variable called `evaluation_method` containing the encoded version of `MetodaEvaluacije_tr`
+
+# Encoding variables in Stata
+
+**Exercise:** use `encode` to create a new variable called `evaluation_method` containing the encoded version of `MetodaEvaluacije_tr`
 
 ```{s}
 encode MetodaEvaluacije_tr, gen(evaluation_method)
 tab evaluation_method
+```
+
+# Encoding variables in Stata
+
+**Exercise:** use `encode` to create a new variable called `evaluation_method` containing the encoded version of `MetodaEvaluacije_tr`
+
+```{s}
 labelbook evaluation_method
 ```
 
 # Value labels
 
+We have seen how value labels work in session X. Now let's talk about how we can handle them.
+
+![](img/label.png){width=60%}
+
+# Value labels
+
+Modify an existing value label:
+
 ```{s}
-label define eval 1 "Lowest price" ///
-				  2 "Most economically advantageous tender"
-				  
-label values evaluation_method eval
+label define evaluation_method 2 "Most economically advantageous tender", modify
 tab evaluation_method
 ```
 
 # Value labels
 
+Create a new value label:
+
 ```{s}
-label define evaluation_method 2 "Most economically advantageous tender", modify
+label define eval 1 "Lowest price" ///
+				  2 "Most economically advantageous tender"
 ```
 
-# Value labels
+Assign (new) value label to a variable:
 
-see help label for more
+```{s}
+label values evaluation_method eval
+tab evaluation_method
+```
 
-# Recoding
+# Encoding variables in Stata
+
+**Exercise:** use `encode` to create a new variable called `bidding_type` containing the encoded version of `TipNadmetanja_Naziv_tr`
+
+# Encoding variables in Stata
+
+**Exercise:** use `encode` to create a new variable called `bidding_type` containing the encoded version of `TipNadmetanja_Naziv_tr`
 
 ```{s}
 encode TipNadmetanja_Naziv_tr, gen(bidding_type)
 codebook bidding_type
 ```
 
-# Recoding
+# Recoding variables in Stata
 
-~~~
-recode varlist (erule) [(erule) ...] [if] [in] [, options]
-~~~
+**`recode`** changes the values of numeric variables according to the rules specified.  Values that do not meet any of the conditions of the rules are left unchanged, unless an otherwise rule is specified.
 
 ![](img/recode.png)
 
 
-# Recoding
+# Recoding variables in Stata
+
+Running
 
 ~~~
 recode bidding_type (4 = 3)
 ~~~
 
+is the same as running
+
 ~~~
 replace bidding_type  = 3 if bidding_type == 4
 ~~~
 
+So why do why use recode?
+
+[Because it allows us to write multiple rules at once.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
 # Recoding
 
-**Exercise**:
+**Exercise**: use `recode` to replace all the occurrences of 4 in the variable `bidding_type` with 3, and all 5 with 6.
+
+# Recoding
+
+**Exercise**: use `recode` to replace all the occurrences of 4 in the variable `bidding_type` with 3, and all 5 with 6.
 
 ```{s}
 recode bidding_type (4 = 3) (5 = 6)
 tab bidding_type
 ```
+
+# Saving your work
+
+- The work for this session is complete
+- You can now save your work on the do-file as well as the data set
+- But before you do that, let's talk about how to name files
 
 # Naming files
 
@@ -308,7 +412,25 @@ tab bidding_type
 -  Do not use _v1, _v2 etc. for any final files. This leads to bugs in do-files that depend on these files when a new versions is added.
 -  It's ok to use _v1, _v2 etc. for old versions of files if you [really]{style="color: orange"} need to keep an archive
 
-# Exercise
+# Saving your work
 
-- Save do-file, call it "cleaning-process"
-- Save data, call it "clean-process-data"
+**Exercise:** save the do-file you've been working on.
+
+1. Click on the *Save* shortcut on the do-file editor
+2. Save the do-file to `DataWork/Code/Cleaning/clean_process.do`
+
+# Saving your work
+
+![](img/save.png){width=60%}
+
+# Saving your work
+
+**Exercise:** save the data set you've been working on to `DataWork/Data/Clean/process_clean.dta`
+
+# Saving your work
+
+**Exercise:** save the data set you've been working on to `DataWork/Data/Clean/process_clean.dta`
+
+~~~
+save "Data/Clean/process_clean", replace
+~~~
