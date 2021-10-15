@@ -73,12 +73,20 @@
 		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-		markstat using "intro", slides(santiago)
+		foreach pres in intro {
+			
+			if "`pres'" == "intro" local name  Introduction
 		
-		filefilter 	"intro.html" "Introduction.html", ///
-					from("c:/ado/plus/m/s5/santiago") to("www") replace
+			markstat using "`pres'", slides(santiago)
+			
+			filefilter 	"`pres'.html" "`name'.html", ///
+						from("c:/ado/plus/m/s5/santiago") to("www") replace
+						
+			cap erase "`pres'.smcl"
+			cap erase "`pres'.do"
+			cap erase "`pres'.html"
 
-	
+		}
 	}
 	
 *============================== THE END =======================================*
