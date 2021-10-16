@@ -1,0 +1,125 @@
+---
+author: Luíza Andrade & Kristoffer Bjarkefür
+title: Creating a data map
+---
+
+# The DIME Analytics Data Map
+
+[*Communication about data and data needs too often rely on oral tradition, which is very error prone -- a **data map** is a better way to do that*]{style="text-align: center"}
+
+**Data Map:**
+
+- **Data Linkage Table:** metadata about the whole dataset
+- **Master Dataset:** how ID variables can be used to link observations across data tables
+- **Data Flowchart:** how to create analysis data
+
+[Create the data map as early as possible in the project and update it as needed]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
+# Some semantics
+
+**Dataset:**
+**Data table:**
+**Variable:**
+**Observation:**
+**Unit of observation:**
+
+# Data Linkage Table
+
+The data linkage table lists all the different original data sets for your project, as all as metadata about each of them:
+
+- What is the source of the data?
+- What is the *unit of observation* for each data table?
+- Which data tables can be linked to each other? Which column or combination of columns can be used to link them?
+- How will you refer to each data table? Where are each of them stored? Where are they back up?
+
+# Data Linkage Table
+
+![](img/data-map.png)
+
+[*Download this example at https://osf.io/9yxd6*]{style-"font-size:60%"}
+
+# Master Data Sets
+
+- One master data set for each main level of observation in your data set
+- Create a list of all observations ever encountered -- even if they are not in the analysis sample
+- The Master Data Set is the authoritative source for all IDs and identifying information
+
+# Data Flowchart
+
+- Creates an overview of key steps for processing data, creating a model for your data work and a shared understanding within the team of what needs to be done and in which order
+- Lists all the data tables needed for analysis, all the raw data tables, and indicate how to create one from the other 
+- Include in the flowchart the main steps for data processing, and take note of more complex and error-prone tasks
+
+# Data Flowchart
+
+![](img/flowchart-complete.png)
+
+# Data Flowchart
+
+![](img/flowchart1.png)
+
+# Data Flowchart
+
+1. Start by listing all the final indicators that you are looking to create
+
+  - You can list them in one file to start drafting you data dictionaries
+  - At what level of observation are each of them?
+
+2. Group the indicators by level of observation to determine what data tables you will need to complete your analysis
+
+  - You will create one final data table for each unit of observation that is relevant for your analysis
+  - Your data flowchart will indicate how to create each of these data tables, so all of them should be included once you are done creating your flowcharts
+  - If two or more final data tables are created in a similar way or depend on one another, they can share the same flow chart
+  - There is no hard rule that there needs to be one flowchart per analysis data set, the only rule is that each analysis data set should be in a flowchart
+ 
+# Data Flowchart
+
+![](img/flowchart2.png)
+
+# Data Flowchart
+
+3. List all the original or master data sets that contain information needed to create a given analysis data table
+
+  - These will be the starting points of your data flowcharts
+  - Having a data dictionary for each original data set will help you find the information that you need
+  - At this point, you may realize you need data that has not been inclued in the data linkage table
+  - This is why we want to do this before the team starts to acquire data: so you can make changes to the data linkage table and make sure that all the data that will be need is acquired before it is too late to do so
+
+# Data Flowchart
+
+![](img/flowchart-complete.png)
+
+# Data Flowchart
+
+4. Fill in the steps to link the two sets of data by listing all the steps where
+  
+  - 2 or more data tables are combined
+  - A data table is modified in such a way that its unit of observation changes
+
+# Data Flowchart
+
+- As you connect the start and end points of data processing, you may realize you will need more data than you had originally included in your data map
+- Creating the data map is an iterative process where you go back and forth between the different components
+- As you create the data flowchart, you should think of what could go wrong
+- This will help identify steps that are extra complex or prone to errors, when you have to be extra careful
+
+# Data Map
+
+- Once you are done with all three components of the data map, you have a tool that will help your team execute the necessary data work with a common understanding and shared intent
+- The time you invest into making the data map will pay off in a smoother data work process and higher quality data
+-  While the data map should be created before you start your data work, it should still be seen as a living document that is kept up to date as you learn more abut the data and come up with more questions that can be answered with the data you have
+
+# Exercise - Data Linkage Table
+
+1. List all the different data sources for your project. Do you have a variable dictionary for each of those?
+2. Identify the unit of observation and the ID variable in each original data set
+3. Discuss with your team how you want to call each of these data tables, where you want to store them and under which name, and how to back them up
+4. Identify the relationship (if any) between the data sets in your lists
+
+# Exercise - Final Data Dictionary
+
+1. List all the final indicators that you want to include in your analysis
+2. Agree on a definition for each of them
+3. Identify the relevant level of observation for each indicator
+4. List the data that is needed to create each indicator and at which level it was originally observed
+
