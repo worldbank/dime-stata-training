@@ -190,7 +190,19 @@ Stata can store information in two formats:
 - Under syntax, you will how to use the command correctly
   - Everything inside square bracket (`[]`) is *not* required
   - Whenever `varlist` is shown in a help file, it means the command takes a list of variable names as a complement
+ 
+# Help file usage and coding knowledge
 
+![](img/help-file-graph-1.png)
+
+# Help file usage and coding knowledge
+
+![](img/help-file-graph-2.png)
+
+# Help file usage and coding knowledge
+
+![](img/help-file-graph-3.png)
+ 
 # Exploring a data set
 
 **Exercise:**
