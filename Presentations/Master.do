@@ -76,7 +76,9 @@
 		foreach pres in intro {
 			
 			if "`pres'" == "intro" local name  Introduction
-		
+		  if "`presentation'" == "data-map"	        local name Lecture 2 - Data Map
+      if "`presentation'" == "cleaning-str-cat"	local name Cleaning - text and categorical variables
+
 			markstat using "`pres'", slides(santiago)
 			
 			filefilter 	"`pres'.html" "`name'.html", ///

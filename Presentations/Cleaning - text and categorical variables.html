@@ -1,0 +1,860 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="version" content="S5 1.1" />
+  <meta name="author" content="Luiza Andrade and Sushmita Samaddar" />
+  <title>Cleaning data - Part 1</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <!-- configuration parameters -->
+  <meta name="defaultView" content="slideshow" />
+  <meta name="controlVis" content="hidden" />
+  <!-- style sheet links -->
+  <link rel="stylesheet" href="www/slides.css" type="text/css" media="projection" id="slideProj" />
+  <link rel="stylesheet" href="www/outline.css" type="text/css" media="screen" id="outlineStyle" />
+  <link rel="stylesheet" href="www/print.css" type="text/css" media="print" id="slidePrint" />
+  <link rel="stylesheet" href="www/opera.css" type="text/css" media="projection" id="operaFix" />
+  <!-- S5 JS -->
+  <script src="www/slides.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="layout">
+<div id="controls"></div>
+<div id="currentSlide"></div>
+<div id="header"></div>
+<div id="footer">
+  <h1></h1>
+  <h2>Cleaning data - Part 1</h2>
+</div>
+</div>
+<div class="presentation">
+<div class="title-slide slide">
+  <h1 class="title">Cleaning data - Part 1</h1>
+  <h3 class="author">Luiza Andrade and Sushmita Samaddar</h3>
+</div>
+<div id="what-is-data-cleaning" class="slide section level1">
+<h1>What is data cleaning?</h1>
+<p><img src="img/cleaning.png" style="width:45.0%" /></p>
+
+</div>
+<div id="what-is-data-cleaning-1" class="slide section level1">
+<h1>What is data cleaning?</h1>
+<ul>
+<li>Cleaning is about changing the <em>format</em> of the data to the format that is the most efficient to store and handle in statistical software and also the easiest for humans to understand</li>
+<li>We are not making changes to the <em>information</em> contained in the data set – this will come later, in <em>data construction</em></li>
+</ul>
+</div>
+<div id="input-the-raw-data" class="slide section level1">
+<h1>Input: the raw data</h1>
+<ul>
+<li>Contains only information originally received during data acquisition</li>
+<li>Raw data files should be stored in the raw data folder <span style="color: orange">exactly</span> as they were acquired
+<ul>
+<li>The raw data files should <span style="color: orange">never</span> be edited directly</li>
+<li>Be mindful of how and where they are stored: they cannot be re-created and nearly always contain confidential data</li>
+</ul></li>
+<li>If the raw data contains confidential information, it <span style="color: orange">must be safely stored</span></li>
+</ul>
+</div>
+<div id="output-the-cleaned-data-set" class="slide section level1">
+<h1>Output: the cleaned data set</h1>
+<ul>
+<li>At the end of this process, you should have a data set that is essentially the same as the one you originally acquired</li>
+<li>During data cleaning, we will change the <span style="color: orange">format</span> of the data</li>
+<li>We will <span style="color: orange">not</span> make significant changes to individual data points</li>
+<li>The main difference between the <em>raw</em> and the <em>clean</em> data sets lies in how easy it is to understand them and handle them in statistical software</li>
+<li>One clean dataset will be created for each data source</li>
+</ul>
+</div>
+<div id="setting-the-stage" class="slide section level1">
+<h1>Setting the stage</h1>
+<p><strong>Exercise:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Launch Stata by opening the Stata project <code>Introduction to Stata.stpr</code></li>
+<li>Open a new do-file</li>
+<li>Load the <code>process_raw</code> data set</li>
+</ol>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">In case you don’t remember this from the last session, you can use the <code>use</code> command and the Stata project features to open a data set by typing</span></p>
+</div>
+<div id="setting-the-stage-1" class="slide section level1">
+<h1>Setting the stage</h1>
+<p><strong>Exercise:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Launch Stata by opening the Stata project <code>Introduction to Stata.stpr</code></li>
+<li>Open a new do-file</li>
+<li>Load the <code>process_raw</code> data set</li>
+</ol>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">In case you don’t remember this from the last session, you can use the <code>use</code> command and the Stata project features to open a data set by typing</span></p>
+<pre><code>use &quot;Data/Raw/process_raw.dta&quot;, clear</code></pre>
+</div>
+<div id="identifying-string-variables" class="slide section level1">
+<h1>Identifying string variables</h1>
+<p>What are different ways to identify the string variables in our data set?</p>
+</div>
+<div id="identifying-string-variables-1" class="slide section level1">
+<h1>Identifying string variables</h1>
+<p>What are different ways to identify the string variables in our data set?</p>
+<ul>
+<li><code>codebook</code></li>
+<li>Variables and Properties windows</li>
+<li>Browsing the dataset</li>
+</ul>
+</div>
+<div id="identifying-string-variables-2" class="slide section level1">
+<h1>Identifying string variables</h1>
+<pre class='stata'>. codebook, compact
+
+Variable        Obs Unique      Mean     Min       Max  Label
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Nadmetanje~D  25000  25000  230197.9  168120    312400  Nadmetanje_ID
+Ustrojstve~D  25000   1903         .       .         .  UstrojstvenaJedinica_ID
+Entity_cou~y  24998     21         .       .         .  Entity_county
+Entity_Naziv  24999   1892         .       .         .  Entity_Naziv
+Process_Na~v  24999  21656         .       .         .  Process_Naziv
+Process_Oz~a  24999  22722         .       .         .  Process_Oznaka
+PostupakNa~r  24991     11         .       .         .  PostupakNadmetanja_Naziv_tr
+TipNadmeta~r  24999      6         .       .         .  TipNadmetanja_Naziv_tr
+StatusNadm~r  24999     10         .       .         .  StatusNadmetanja_Naziv_tr
+VrstaNadme~r  24999     26         .       .         .  VrstaNadmetanja_Naziv_tr
+TipNabave_~r  24984      3         .       .         .  TipNabave_Naziv_tr
+MetodaEval~r  24999      2         .       .         .  MetodaEvaluacije_tr
+RokZ~uPonuda  22649   1615  21368.51   20108     22459  RokZaDostavuPonuda
+RokZaDosta~j  24999    400         .       .         .  RokZaDostavuZahtSudj
+RokZ~hPonuda  24999   1024         .       .         .  RokZaDostavuInicijalnihPonuda
+Process_Vr~e  24999   7305   4296435   294.8  2.04e+09  Process_VrijednostNabave
+Process_In~o  24999  24639         .       .         .  Process_InsertDateTimeo
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+</pre>
+</div>
+<div id="cleaning-string-variables" class="slide section level1">
+<h1>Cleaning string variables</h1>
+<pre class='stata'>. codebook Entity_county Entity_Naziv Process_Naziv Process_Oznaka PostupakNadmetanja_Naziv_tr TipNadmetanja_Naziv_tr StatusNadmetanja_Na
+> ziv_tr VrstaNadmetanja_Naziv_tr TipNabave_Naziv_tr MetodaEvaluacije_tr RokZaDostavuZahtSudj
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Entity_county                                                                                                               Entity_county
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  string (str23)
+
+         unique values:  21                       missing "":  2/25,000
+
+              examples:  "CITY OF ZAGREB"
+                         "CITY OF ZAGREB"
+                         "KOPRIVNICA-KRIZEVCI"
+                         "SISAK-MOSLAVINA"
+
+               warning:  variable has embedded blanks
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Entity_Naziv                                                                                                                 Entity_Naziv
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  string (str131)
+
+         unique values:  1,892                    missing "":  1/25,000
+
+              examples:  "GRAD ZAGREB"
+                         "HRVATSKE CESTE D.O.O. ZAGREB"
+                         "KLINIčKI BOLNIčKI CENTAR OSIJEK"
+                         "OPćINA KRAPINSKE TOPLICE"
+
+               warning:  variable has embedded and trailing blanks
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Process_Naziv                                                                                                               Process_Naziv
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  string (str1013)
+
+         unique values:  21,656                   missing "":  1/25,000
+
+              examples:  "Izvođenje građevinsko-obrtničkih radova na
+                         građevinama domova zdravlja"
+                         "Nabava potrošnog materijala-CD-DVD za RTG"
+                         "Poštanske usluge"
+                         "UNIFORME ZA ZAŠTITARE - ČUVARE"
+
+               warning:  variable has embedded and trailing blanks
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Process_Oznaka                                                                                                             Process_Oznaka
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  string (str290)
+
+         unique values:  22,722                   missing "":  1/25,000
+
+              examples:  "2019-2276"
+                         "451O14MŠ-Održavanje"
+                         "Feb-18"
+                         "MV-28/16"
+
+               warning:  variable has leading and embedded blanks
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+PostupakNadmetanja_Naziv_tr                                                                                   PostupakNadmetanja_Naziv_tr
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  string (str57)
+
+         unique values:  11                       missing "":  9/25,000
+
+              examples:  "Open procedure"
+                         "Open procedure"
+                         "Open procedure"
+                         "Open procedure"
+
+               warning:  variable has embedded blanks
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+TipNadmetanja_Naziv_tr                                                                                             TipNadmetanja_Naziv_tr
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  string (str26)
+
+         unique values:  6                        missing "":  1/25,000
+
+            tabulation:  Freq.  Value
+                             1  ""
+                            34  "Exemption procurement"
+                         4,101  "Procurement of great value"
+                        19,411  "Procurement of small value"
+                            26  "Small value"
+                            23  "Trivial"
+                         1,404  "Trivial procurement"
+
+               warning:  variable has embedded blanks
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+StatusNadmetanja_Naziv_tr                                                                                       StatusNadmetanja_Naziv_tr
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  string (str33)
+
+         unique values:  10                       missing "":  1/25,000
+
+              examples:  "Agreed"
+                         "Agreed"
+                         "Agreed"
+                         "Canceled"
+
+               warning:  variable has embedded and trailing blanks
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+VrstaNadmetanja_Naziv_tr                                                                                         VrstaNadmetanja_Naziv_tr
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  string (str92)
+
+         unique values:  26                       missing "":  1/25,000
+
+              examples:  "Open public procurement procedure"
+                         "Open public procurement procedure"
+                         "Open public procurement procedure"
+                         "Open public procurement procedure"
+
+               warning:  variable has embedded blanks
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+TipNabave_Naziv_tr                                                                                                     TipNabave_Naziv_tr
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  string (str8)
+
+         unique values:  3                        missing "":  16/25,000
+
+            tabulation:  Freq.  Value
+                            16  ""
+                        11,150  "Goods"
+                         8,118  "Services"
+                         5,716  "Works"
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+MetodaEvaluacije_tr                                                                                                   MetodaEvaluacije_tr
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  string (str12)
+
+         unique values:  2                        missing "":  1/25,000
+
+            tabulation:  Freq.  Value
+                             1  ""
+                         8,625  "Lowest price"
+                        16,374  "MEAT"
+
+               warning:  variable has embedded blanks
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+RokZaDostavuZahtSudj                                                                                                 RokZaDostavuZahtSudj
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  string (str23)
+
+         unique values:  400                      missing "":  1/25,000
+
+              examples:  "NULL"
+                         "NULL"
+                         "NULL"
+                         "NULL"
+
+               warning:  variable has embedded blanks
+</pre>
+<ul>
+<li>Quite a few variables also have the value “NULL” in them</li>
+<li>We also see a warning about spaces</li>
+</ul>
+<p><img src="img/trailing-spaces.png" /></p>
+</div>
+<div id="cleaning-string-variables-replace" class="slide section level1">
+<h1>Cleaning string variables: <code>replace</code></h1>
+<p><img src="img/replace.png" style="width:60.0%" /></p>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"><em>Tip:</em> Replace works with all types of variables, not only strings.</span></p>
+</div>
+<div id="cleaning-string-variables-replace-1" class="slide section level1">
+<h1>Cleaning string variables: <code>replace</code></h1>
+<p><strong>Exercise:</strong> replace all occurrences of the value “NULL” in the variable <code>Process_Naziv</code> with the missing value <code>""</code></p>
+</div>
+<div id="cleaning-string-variables-replace-2" class="slide section level1">
+<h1>Cleaning string variables: <code>replace</code></h1>
+<p><strong>Exercise:</strong> replace all occurrences of the value “NULL” in the variable <code>Process_Naziv</code> with the missing value <code>""</code></p>
+<pre class='stata'>. replace Process_Naziv = "" if Process_Naziv == "NULL"
+(1 real change made)
+</pre>
+</div>
+<div id="cleaning-string-variables-replace-3" class="slide section level1">
+<h1>Cleaning string variables: <code>replace</code></h1>
+<p><strong>Exercise:</strong> replace all occurrences of the value “NULL” in the variable <code>Process_Naziv</code> with the missing value <code>""</code></p>
+<pre class='stata'>. replace Process_Naziv = "" if Process_Naziv == "NULL"
+(0 real changes made)
+</pre>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">Note that whenever we refer to text, that is, to the content of string variables, use write this content between quotes.</span></p>
+</div>
+<div id="cleaning-string-variables-1" class="slide section level1">
+<h1>Cleaning string variables</h1>
+<p>We can use the <code>problems</code> option of <code>codebook</code> to get more detail about the issue with spaces</p>
+<pre class='stata'>. codebook Entity_county Entity_Naziv Process_Naziv Process_Oznaka PostupakNadmetanja_Naziv_tr TipNadmetanja_Naziv_tr StatusNadmetanja_Na
+> ziv_tr VrstaNadmetanja_Naziv_tr TipNabave_Naziv_tr MetodaEvaluacije_tr RokZaDostavuZahtSudj, problems
+
+   Potential problems in dataset   ../DataWork/Data/Raw/process_raw.dta
+
+               potential problem   variables
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ string vars with leading blanks   Process_Oznaka
+  string vars with trailing blanks   Entity_Naziv Process_Naziv StatusNadmetanja_Naziv_tr
+  string vars with embedded blanks   Entity_county Entity_Naziv Process_Naziv Process_Oznaka PostupakNadmetanja_Naziv_tr
+                                   TipNadmetanja_Naziv_tr StatusNadmetanja_Naziv_tr VrstaNadmetanja_Naziv_tr MetodaEvaluacije_tr
+                                   RokZaDostavuZahtSudj
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+</pre>
+</div>
+<div id="cleaning-string-variables-2" class="slide section level1">
+<h1>Cleaning string variables</h1>
+<ul>
+<li>Humans can tell the meaning of a word regardless of which letters are capitalized or not, of how spaces are used, and even if they are misstyped, but Stata is not that smart</li>
+<li>It may be hard for the human eye to see one extra space, but not for Stata</li>
+</ul>
+</div>
+<div id="cleaning-string-variables-3" class="slide section level1">
+<h1>Cleaning string variables</h1>
+<p>Let’s take a closer look at the values of <code>StatusNadmetanja_Naziv_tr</code>:</p>
+<pre class='stata'>. tab StatusNadmetanja_Naziv_tr
+
+        StatusNadmetanja_Naziv_tr │      Freq.     Percent        Cum.
+──────────────────────────────────┼───────────────────────────────────
+                           AGREED │        174        0.70        0.70
+                           Agreed │     19,241       76.97       77.66
+                         Canceled │      1,718        6.87       84.54
+                   In contracting │        665        2.66       87.20
+                  In contracting  │         78        0.31       87.51
+                        On appeal │         14        0.06       87.56
+Published / queries for quotation │        999        4.00       91.56
+           Registration of offers │      1,687        6.75       98.31
+               Selection decision │        422        1.69      100.00
+                        Suggested │          1        0.00      100.00
+──────────────────────────────────┼───────────────────────────────────
+                            Total │     24,999      100.00
+</pre>
+</div>
+<div id="cleaning-string-variables-4" class="slide section level1">
+<h1>Cleaning string variables</h1>
+<ul>
+<li>AGREED and Agreed mean the same thing</li>
+<li>So do “In contracting” and “In contracting”</li>
+<li>In order for Stata to consider these as the same information, however, we need to make sure they contain exactly the same characters, including which letters are in lower or upper case.</li>
+</ul>
+</div>
+<div id="change-cases" class="slide section level1">
+<h1>Change cases</h1>
+<p><strong><code>upper(s)</code></strong> capitalize all characters in string <code>s</code></p>
+<p><strong><code>lower(s)</code></strong> make all characters in string <code>s</code> lower case</p>
+<p><strong><code>proper(s)</code></strong> capitalize only the first letter of each word in string <code>s</code></p>
+<ul>
+<li>Note these are <em>functions</em>, not <em>commands</em></li>
+<li>Functions cannot be used by themselves, but rather need to be used inside a command.</li>
+<li>To see the help file for functions we need to add parentheses after their names: <code>help proper()</code></li>
+</ul>
+</div>
+<div id="change-cases-1" class="slide section level1">
+<h1>Change cases</h1>
+<p>Here is an example of how to use them:</p>
+<pre class='stata'>. replace StatusNadmetanja_Naziv_tr = upper(StatusNadmetanja_Naziv_tr)
+(24,825 real changes made)
+
+. tab StatusNadmetanja_Naziv_tr
+
+        StatusNadmetanja_Naziv_tr │      Freq.     Percent        Cum.
+──────────────────────────────────┼───────────────────────────────────
+                           AGREED │     19,415       77.66       77.66
+                         CANCELED │      1,718        6.87       84.54
+                   IN CONTRACTING │        665        2.66       87.20
+                  IN CONTRACTING  │         78        0.31       87.51
+                        ON APPEAL │         14        0.06       87.56
+PUBLISHED / QUERIES FOR QUOTATION │        999        4.00       91.56
+           REGISTRATION OF OFFERS │      1,687        6.75       98.31
+               SELECTION DECISION │        422        1.69      100.00
+                        SUGGESTED │          1        0.00      100.00
+──────────────────────────────────┼───────────────────────────────────
+                            Total │     24,999      100.00
+</pre>
+</div>
+<div id="change-cases-2" class="slide section level1">
+<h1>Change cases</h1>
+<p><strong>Exercise:</strong> test using <code>upper()</code> and <code>lower()</code> on a text variable and see how they affect it’s content.</p>
+</div>
+<div id="change-cases-3" class="slide section level1">
+<h1>Change cases</h1>
+<p><strong>Exercise:</strong> test using <code>upper()</code> and <code>lower()</code> on a text variable and see how they affect it’s content.</p>
+<pre class='stata'>. replace StatusNadmetanja_Naziv_tr = lower(StatusNadmetanja_Naziv_tr)
+(24,999 real changes made)
+
+. tab StatusNadmetanja_Naziv_tr
+
+        StatusNadmetanja_Naziv_tr │      Freq.     Percent        Cum.
+──────────────────────────────────┼───────────────────────────────────
+                           agreed │     19,415       77.66       77.66
+                         canceled │      1,718        6.87       84.54
+                   in contracting │        665        2.66       87.20
+                  in contracting  │         78        0.31       87.51
+                        on appeal │         14        0.06       87.56
+published / queries for quotation │        999        4.00       91.56
+           registration of offers │      1,687        6.75       98.31
+               selection decision │        422        1.69      100.00
+                        suggested │          1        0.00      100.00
+──────────────────────────────────┼───────────────────────────────────
+                            Total │     24,999      100.00
+</pre>
+</div>
+<div id="change-cases-4" class="slide section level1">
+<h1>Change cases</h1>
+<p><strong>Exercise:</strong> test using <code>upper()</code> and <code>lower()</code> on a text variable and see how they affect it’s content.</p>
+<pre class='stata'>. replace StatusNadmetanja_Naziv_tr = proper(StatusNadmetanja_Naziv_tr)
+(24,999 real changes made)
+
+. tab StatusNadmetanja_Naziv_tr
+
+        StatusNadmetanja_Naziv_tr │      Freq.     Percent        Cum.
+──────────────────────────────────┼───────────────────────────────────
+                           Agreed │     19,415       77.66       77.66
+                         Canceled │      1,718        6.87       84.54
+                   In Contracting │        665        2.66       87.20
+                  In Contracting  │         78        0.31       87.51
+                        On Appeal │         14        0.06       87.56
+Published / Queries For Quotation │        999        4.00       91.56
+           Registration Of Offers │      1,687        6.75       98.31
+               Selection Decision │        422        1.69      100.00
+                        Suggested │          1        0.00      100.00
+──────────────────────────────────┼───────────────────────────────────
+                            Total │     24,999      100.00
+</pre>
+</div>
+<div id="changing-the-content-of-string-variables" class="slide section level1">
+<h1>Changing the content of string variables</h1>
+<ul>
+<li>The functions we have just explored chance only the capitalization of text, not necessarily the letters and other characters in it</li>
+<li>As we have seen earlier, however, we also need to make adjustments to themselves</li>
+<li>In particular, we need to remove <em>extra</em> spaces that are difficult for the human eye to catch, but that make strings that should be considered the same as different values in Stata</li>
+<li>The next two functions we will learn about remove extra spaces and substitute specific characters in a string</li>
+</ul>
+</div>
+<div id="strtrims" class="slide section level1">
+<h1><code>strtrim(s)</code></h1>
+<p><img src="img/strtrim.png" style="width:80.0%" /></p>
+<p><strong>Exercise:</strong> use <code>strtrim()</code> with <code>replace</code> to remove extra spaces from <code>StatusNadmetanja_Naziv_tr</code></p>
+</div>
+<div id="strtrims-1" class="slide section level1">
+<h1><code>strtrim(s)</code></h1>
+<p><strong>Exercise:</strong> use <code>strtrim()</code> with <code>replace</code> to remove extra spaces from <code>StatusNadmetanja_Naziv_tr</code></p>
+<pre class='stata'>. replace StatusNadmetanja_Naziv_tr = strtrim(StatusNadmetanja_Naziv_tr)
+(78 real changes made)
+
+. tab StatusNadmetanja_Naziv_tr
+
+        StatusNadmetanja_Naziv_tr │      Freq.     Percent        Cum.
+──────────────────────────────────┼───────────────────────────────────
+                           Agreed │     19,415       77.66       77.66
+                         Canceled │      1,718        6.87       84.54
+                   In Contracting │        743        2.97       87.51
+                        On Appeal │         14        0.06       87.56
+Published / Queries For Quotation │        999        4.00       91.56
+           Registration Of Offers │      1,687        6.75       98.31
+               Selection Decision │        422        1.69      100.00
+                        Suggested │          1        0.00      100.00
+──────────────────────────────────┼───────────────────────────────────
+                            Total │     24,999      100.00
+</pre>
+</div>
+<div id="subinstrs1s2s3n" class="slide section level1">
+<h1><code>subinstr(s1,s2,s3,n)</code></h1>
+<p><img src="img/subinstr.png" style="width:80.0%" /></p>
+<pre class='stata'>. replace RokZaDostavuZahtSudj = subinstr(RokZaDostavuZahtSudj, "NULL", "*", .)
+(24,587 real changes made)
+</pre>
+</div>
+<div id="subinstrs1s2s3n-1" class="slide section level1">
+<h1><code>subinstr(s1,s2,s3,n)</code></h1>
+<pre class='stata'>. codebook RokZaDostavuZahtSudj
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+RokZaDostavuZahtSudj                                                                                                 RokZaDostavuZahtSudj
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  string (str23)
+
+         unique values:  400                      missing "":  1/25,000
+
+              examples:  "*"
+                         "*"
+                         "*"
+                         "*"
+
+               warning:  variable has embedded blanks
+</pre>
+</div>
+<div id="encode-variables" class="slide section level1">
+<h1>Encode variables</h1>
+<ul>
+<li>Each statistical software has optimized the formats it uses to store and handle different types if information</li>
+<li>The clean data set should contain no string variables, except for</li>
+<li>Proper nouns that are not categories</li>
+<li>Digits with leading zeros or long IDs (over 15 digits)</li>
+<li>That means categorical string variables must be transformed into labeled variables or factors</li>
+<li>Check that all categorical variables have value labels</li>
+</ul>
+</div>
+<div id="encode-variables-1" class="slide section level1">
+<h1>Encode variables</h1>
+<p>How do you tell categorical variables from text variables when they don’t yet have value labels?</p>
+</div>
+<div id="encode-variables-2" class="slide section level1">
+<h1>Encode variables</h1>
+<p>How do you tell categorical variables from text variables when they don’t yet have value labels?</p>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">By the number of different values they take</span></p>
+</div>
+<div id="encode-variables-3" class="slide section level1">
+<h1>Encode variables</h1>
+<p>Which variables below are categorical?</p>
+<pre class='stata'>. codebook, compact
+
+Variable        Obs Unique      Mean     Min       Max  Label
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Nadmetanje~D  25000  25000  230197.9  168120    312400  Nadmetanje_ID
+Ustrojstve~D  25000   1903         .       .         .  UstrojstvenaJedinica_ID
+Entity_cou~y  24998     21         .       .         .  Entity_county
+Entity_Naziv  24999   1892         .       .         .  Entity_Naziv
+Process_Na~v  24998  21655         .       .         .  Process_Naziv
+Process_Oz~a  24999  22722         .       .         .  Process_Oznaka
+PostupakNa~r  24991     11         .       .         .  PostupakNadmetanja_Naziv_tr
+TipNadmeta~r  24999      6         .       .         .  TipNadmetanja_Naziv_tr
+StatusNadm~r  24999      8         .       .         .  StatusNadmetanja_Naziv_tr
+VrstaNadme~r  24999     26         .       .         .  VrstaNadmetanja_Naziv_tr
+TipNabave_~r  24984      3         .       .         .  TipNabave_Naziv_tr
+MetodaEval~r  24999      2         .       .         .  MetodaEvaluacije_tr
+RokZ~uPonuda  22649   1615  21368.51   20108     22459  RokZaDostavuPonuda
+RokZaDosta~j  24999    400         .       .         .  RokZaDostavuZahtSudj
+RokZ~hPonuda  24999   1024         .       .         .  RokZaDostavuInicijalnihPonuda
+Process_Vr~e  24999   7305   4296435   294.8  2.04e+09  Process_VrijednostNabave
+Process_In~o  24999  24639         .       .         .  Process_InsertDateTimeo
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+</pre>
+</div>
+<div id="encode-variables-4" class="slide section level1">
+<h1>Encode variables</h1>
+<p>Which variables below are categorical?</p>
+<ul>
+<li><code>Entity_county</code></li>
+<li><code>PostupakNadmetanja_Naziv_tr</code></li>
+<li><code>TipNadmetanja_Naziv_tr</code></li>
+<li><code>StatusNadmetanja_Naziv_tr</code></li>
+<li><code>VrstaNadmetanja_Naziv_tr</code></li>
+<li><code>TipNabave_Naziv_tr</code></li>
+<li><code>MetodaEvaluacije_tr</code></li>
+</ul>
+<p>The process of transforming text variables into categorical variables in Stata is called “encoding”.</p>
+</div>
+<div id="encoding-variables-in-stata" class="slide section level1">
+<h1>Encoding variables in Stata</h1>
+<p><img src="img/encode.png" style="width:60.0%" /></p>
+</div>
+<div id="encoding-variables-in-stata-1" class="slide section level1">
+<h1>Encoding variables in Stata</h1>
+<ul>
+<li>Note that there is a required option called <code>gen()</code></li>
+<li>This option will create a new variable with the encoded version of the original one</li>
+</ul>
+<pre class='stata'>. encode StatusNadmetanja_Naziv_tr, gen(bid_status)
+</pre>
+</div>
+<div id="encoding-variables-in-stata-2" class="slide section level1">
+<h1>Encoding variables in Stata</h1>
+<pre class='stata'>. codebook  bid_status
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+bid_status                                                                                                      StatusNadmetanja_Naziv_tr
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  numeric (long)
+                 label:  bid_status
+
+                 range:  [1,8]                        units:  1
+         unique values:  8                        missing .:  1/25,000
+
+            tabulation:  Freq.   Numeric  Label
+                        19,415         1  Agreed
+                         1,718         2  Canceled
+                           743         3  In Contracting
+                            14         4  On Appeal
+                           999         5  Published / Queries For
+                                          Quotation
+                         1,687         6  Registration Of Offers
+                           422         7  Selection Decision
+                             1         8  Suggested
+                             1         .  
+</pre>
+</div>
+<div id="encoding-variables-in-stata-3" class="slide section level1">
+<h1>Encoding variables in Stata</h1>
+<pre class='stata'>. labelbook bid_status
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+value label bid_status 
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+      values                                    labels
+       range:  [1,8]                     string length:  [6,33]
+           N:  8                 unique at full length:  yes
+        gaps:  no                  unique at length 12:  yes
+  missing .*:  0                           null string:  no
+                               leading/trailing blanks:  no
+                                    numeric -> numeric:  no
+  definition
+           1   Agreed
+           2   Canceled
+           3   In Contracting
+           4   On Appeal
+           5   Published / Queries For Quotation
+           6   Registration Of Offers
+           7   Selection Decision
+           8   Suggested
+
+   variables:  bid_status
+</pre>
+</div>
+<div id="encoding-variables-in-stata-4" class="slide section level1">
+<h1>Encoding variables in Stata</h1>
+<p><strong>Exercise:</strong> use <code>encode</code> to create a new variable called <code>evaluation_method</code> containing the encoded version of <code>MetodaEvaluacije_tr</code></p>
+</div>
+<div id="encoding-variables-in-stata-5" class="slide section level1">
+<h1>Encoding variables in Stata</h1>
+<p><strong>Exercise:</strong> use <code>encode</code> to create a new variable called <code>evaluation_method</code> containing the encoded version of <code>MetodaEvaluacije_tr</code></p>
+<pre class='stata'>. encode MetodaEvaluacije_tr, gen(evaluation_method)
+
+. tab evaluation_method
+
+MetodaEvalua │
+     cije_tr │      Freq.     Percent        Cum.
+─────────────┼───────────────────────────────────
+Lowest price │      8,625       34.50       34.50
+        MEAT │     16,374       65.50      100.00
+─────────────┼───────────────────────────────────
+       Total │     24,999      100.00
+</pre>
+</div>
+<div id="encoding-variables-in-stata-6" class="slide section level1">
+<h1>Encoding variables in Stata</h1>
+<p><strong>Exercise:</strong> use <code>encode</code> to create a new variable called <code>evaluation_method</code> containing the encoded version of <code>MetodaEvaluacije_tr</code></p>
+<pre class='stata'>. labelbook evaluation_method
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+value label evaluation_method 
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+      values                                    labels
+       range:  [1,2]                     string length:  [4,12]
+           N:  2                 unique at full length:  yes
+        gaps:  no                  unique at length 12:  yes
+  missing .*:  0                           null string:  no
+                               leading/trailing blanks:  no
+                                    numeric -> numeric:  no
+  definition
+           1   Lowest price
+           2   MEAT
+
+   variables:  evaluation_method
+</pre>
+</div>
+<div id="value-labels" class="slide section level1">
+<h1>Value labels</h1>
+<p>We have seen how value labels work in session X. Now let’s talk about how we can handle them.</p>
+<p><img src="img/label.png" style="width:60.0%" /></p>
+</div>
+<div id="value-labels-1" class="slide section level1">
+<h1>Value labels</h1>
+<p>Modify an existing value label:</p>
+<pre class='stata'>. label define evaluation_method 2 "Most economically advantageous tender", modify
+
+. tab evaluation_method
+
+                  MetodaEvaluacije_tr │      Freq.     Percent        Cum.
+──────────────────────────────────────┼───────────────────────────────────
+                         Lowest price │      8,625       34.50       34.50
+Most economically advantageous tender │     16,374       65.50      100.00
+──────────────────────────────────────┼───────────────────────────────────
+                                Total │     24,999      100.00
+</pre>
+</div>
+<div id="value-labels-2" class="slide section level1">
+<h1>Value labels</h1>
+<p>Create a new value label:</p>
+<pre class='stata'>. label define eval 1 "Lowest price" ///
+>               2 "Most economically advantageous tender"
+</pre>
+<p>Assign (new) value label to a variable:</p>
+<pre class='stata'>. label values evaluation_method eval
+
+. tab evaluation_method
+
+                  MetodaEvaluacije_tr │      Freq.     Percent        Cum.
+──────────────────────────────────────┼───────────────────────────────────
+                         Lowest price │      8,625       34.50       34.50
+Most economically advantageous tender │     16,374       65.50      100.00
+──────────────────────────────────────┼───────────────────────────────────
+                                Total │     24,999      100.00
+</pre>
+</div>
+<div id="encoding-variables-in-stata-7" class="slide section level1">
+<h1>Encoding variables in Stata</h1>
+<p><strong>Exercise:</strong> use <code>encode</code> to create a new variable called <code>bidding_type</code> containing the encoded version of <code>TipNadmetanja_Naziv_tr</code></p>
+</div>
+<div id="encoding-variables-in-stata-8" class="slide section level1">
+<h1>Encoding variables in Stata</h1>
+<p><strong>Exercise:</strong> use <code>encode</code> to create a new variable called <code>bidding_type</code> containing the encoded version of <code>TipNadmetanja_Naziv_tr</code></p>
+<pre class='stata'>. encode TipNadmetanja_Naziv_tr, gen(bidding_type)
+
+. codebook bidding_type
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+bidding_type                                                                                                       TipNadmetanja_Naziv_tr
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  numeric (long)
+                 label:  bidding_type
+
+                 range:  [1,6]                        units:  1
+         unique values:  6                        missing .:  1/25,000
+
+            tabulation:  Freq.   Numeric  Label
+                            34         1  Exemption procurement
+                         4,101         2  Procurement of great value
+                        19,411         3  Procurement of small value
+                            26         4  Small value
+                            23         5  Trivial
+                         1,404         6  Trivial procurement
+                             1         .  
+</pre>
+</div>
+<div id="recoding-variables-in-stata" class="slide section level1">
+<h1>Recoding variables in Stata</h1>
+<p><strong><code>recode</code></strong> changes the values of numeric variables according to the rules specified. Values that do not meet any of the conditions of the rules are left unchanged, unless an otherwise rule is specified.</p>
+<pre><code>recode varlist (erule) [(erule) ...] [if] [in] [, options]</code></pre>
+<p><img src="img/recode.png" /></p>
+</div>
+<div id="recoding-variables-in-stata-1" class="slide section level1">
+<h1>Recoding variables in Stata</h1>
+<p>Running</p>
+<pre><code>recode bidding_type (4 = 3)</code></pre>
+<p>is the same as running</p>
+<pre><code>replace bidding_type  = 3 if bidding_type == 4</code></pre>
+<p>So why do why use recode?</p>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">Because it allows us to write multiple rules at once.</span></p>
+</div>
+<div id="recoding" class="slide section level1">
+<h1>Recoding</h1>
+<p><strong>Exercise</strong>: use <code>recode</code> to replace all the occurrences of 4 in the variable <code>bidding_type</code> with 3, and all 5 with 6.</p>
+</div>
+<div id="recoding-1" class="slide section level1">
+<h1>Recoding</h1>
+<p><strong>Exercise</strong>: use <code>recode</code> to replace all the occurrences of 4 in the variable <code>bidding_type</code> with 3, and all 5 with 6.</p>
+<pre class='stata'>. recode bidding_type (4 = 3) (5 = 6)
+(bidding_type: 49 changes made)
+
+. tab bidding_type
+
+    TipNadmetanja_Naziv_tr │      Freq.     Percent        Cum.
+───────────────────────────┼───────────────────────────────────
+     Exemption procurement │         34        0.14        0.14
+Procurement of great value │      4,101       16.40       16.54
+Procurement of small value │     19,437       77.75       94.29
+       Trivial procurement │      1,427        5.71      100.00
+───────────────────────────┼───────────────────────────────────
+                     Total │     24,999      100.00
+</pre>
+</div>
+<div id="saving-your-work" class="slide section level1">
+<h1>Saving your work</h1>
+<ul>
+<li>The work for this session is complete</li>
+<li>You can now save your work on the do-file as well as the data set</li>
+<li>But before you do that, let’s talk about how to name files</li>
+</ul>
+</div>
+<div id="naming-files" class="slide section level1">
+<h1>Naming files</h1>
+<ul>
+<li>Make sure all output files, datasets and others are clearly and uniquely named</li>
+<li>It’s often desirable to have the names of your data sets and do-files linked, so it is easy to understand which do-files is creating which data set, such as “merge.do” and “merged.dta” or “cleaning.do” and “clean.dta”</li>
+<li>Do not use _v1, _v2 etc. for any final files. This leads to bugs in do-files that depend on these files when a new versions is added.</li>
+<li>It’s ok to use _v1, _v2 etc. for old versions of files if you <span style="color: orange">really</span> need to keep an archive</li>
+</ul>
+</div>
+<div id="saving-your-work-1" class="slide section level1">
+<h1>Saving your work</h1>
+<p><strong>Exercise:</strong> save the do-file you’ve been working on.</p>
+<ol style="list-style-type: decimal">
+<li>Click on the <em>Save</em> shortcut on the do-file editor</li>
+<li>Save the do-file to <code>DataWork/Code/Cleaning/clean_process.do</code></li>
+</ol>
+</div>
+<div id="saving-your-work-2" class="slide section level1">
+<h1>Saving your work</h1>
+<p><img src="img/save.png" style="width:60.0%" /></p>
+</div>
+<div id="saving-your-work-3" class="slide section level1">
+<h1>Saving your work</h1>
+<p><strong>Exercise:</strong> save the data set you’ve been working on to <code>DataWork/Data/Clean/process_clean.dta</code></p>
+</div>
+<div id="saving-your-work-4" class="slide section level1">
+<h1>Saving your work</h1>
+<p><strong>Exercise:</strong> save the data set you’ve been working on to <code>DataWork/Data/Clean/process_clean.dta</code></p>
+<pre><code>save &quot;Data/Clean/process_clean&quot;, replace</code></pre>
+</div>
+</div>
+</body>
+</html>

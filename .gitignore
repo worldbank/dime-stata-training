@@ -41,7 +41,9 @@
 
 # Stata
 !/**/*.do
+!/**/*.stmd
 !/**/*.ado
+!/**/*.stmd
 
 # R
 !/**/*.R
@@ -76,6 +78,7 @@
 # in dashboards, markdown notebooks, bookdown etc.
 !/**/*.css
 !/**/*.js
+!/**/*.html
 
 #Bash scripts
 !/**/*.sh
@@ -96,6 +99,8 @@
 !/**/Output/**/*.xml
 !/**/Output/**/*.eps
 !/**/Output/**/*.svg
+!/**/*.png
+!/**/*.html
 
 #######################
 # Include all the files with passwords or tokens here. All files named
