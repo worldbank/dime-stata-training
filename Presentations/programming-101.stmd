@@ -89,6 +89,10 @@ What is the first thing you want to look for every single time you open a new da
 - Test that the ID variable is uniquely and fully identifying
 - Use only one variable per level of observation as ID variable
 
+# ID variables
+
+**Exercise:** Open `DataWork/Data/Clean/item_clean.dta` and use `browse` to see contents of the data table. Can you tell what is the unique identifier?
+
 # Lay out your ingradients before your start cooking
 
 - How do I code so it is the most helpful for other people in my team?
