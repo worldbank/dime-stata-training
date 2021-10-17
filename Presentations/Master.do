@@ -74,7 +74,20 @@
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
     markstat using "${mdfolder}/5-data-analysis", slides(santiago)
-	
+
+		foreach presentation in "data-map" {
+		
+			if "`presentation'" == "data-map"	local name Lecture 2 - Data Map
+		
+			markstat using "data-map", slides(santiago)
+		
+			filefilter 	"`presentation'.html" "`name'.html", ///
+						from("c:/ado/plus/m/s5/santiago") to("www") replace
+						
+			erase "`presentation'.html"
+					
+		}
+		
 	}
 	
 *============================== THE END =======================================*
