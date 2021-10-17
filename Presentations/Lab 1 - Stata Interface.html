@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="version" content="S5 1.1" />
+  <meta name="author" content="Luíza Andrade and Sushmita Samaddar" />
+  <title>Introduction to Stata</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <!-- configuration parameters -->
+  <meta name="defaultView" content="slideshow" />
+  <meta name="controlVis" content="hidden" />
+  <!-- style sheet links -->
+  <link rel="stylesheet" href="www/slides.css" type="text/css" media="projection" id="slideProj" />
+  <link rel="stylesheet" href="www/outline.css" type="text/css" media="screen" id="outlineStyle" />
+  <link rel="stylesheet" href="www/print.css" type="text/css" media="print" id="slidePrint" />
+  <link rel="stylesheet" href="www/opera.css" type="text/css" media="projection" id="operaFix" />
+  <!-- S5 JS -->
+  <script src="www/slides.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="layout">
+<div id="controls"></div>
+<div id="currentSlide"></div>
+<div id="header"></div>
+<div id="footer">
+  <h1></h1>
+  <h2>Introduction to Stata</h2>
+</div>
+</div>
+<div class="presentation">
+<div class="title-slide slide">
+  <h1 class="title">Introduction to Stata</h1>
+  <h3 class="author">Luíza Andrade and Sushmita Samaddar</h3>
+</div>
+<div id="the-main-reasons-to-use-stata" class="slide section level1">
+<h1>The main reasons to use Stata</h1>
+<ul>
+<li>In <span style="color:orange">Excel</span> you make changes directly to the data and save new versions of the data set</li>
+<li>In <span style="color:orange">Stata</span> you make changes to the instructions on how to get from the raw data to the final analysis and save new versions of the instructions</li>
+<li>Since Stata is a more statistics-oriented software, processing the data to create analytical products can be a lot easier</li>
+</ul>
+
+</div>
+<div id="the-main-reasons-to-use-stata-1" class="slide section level1">
+<h1>The main reasons to use Stata</h1>
+<p>Powerful tool with many capabilities:</p>
+<ul>
+<li>Descriptive statistics</li>
+<li>Inference statistics</li>
+<li>Complex data analysis</li>
+</ul>
+</div>
+<div id="the-main-reasons-to-use-stata-2" class="slide section level1">
+<h1>The main reasons to use Stata</h1>
+<p>Powerful tool with many capabilities:</p>
+<ul>
+<li>Descriptive statistics</li>
+<li>Inference statistics</li>
+<li>Complex data analysis</li>
+</ul>
+<p>But it’s also good for beginner programmers:</p>
+<ul>
+<li>User friendly interface</li>
+<li>Relatively easy programming language that can be learned while you’re using the software</li>
+</ul>
+</div>
+<div id="the-stata-interface" class="slide section level1">
+<h1>The Stata interface</h1>
+<p><img src="img/stata_interface.png" style="width:60.0%" /></p>
+</div>
+<div id="how-to-tell-stata-what-to-do" class="slide section level1">
+<h1>How to tell Stata what to do</h1>
+<ul>
+<li><span style="color:orange">Drop-down menus:</span> An easy place to start but quickly becomes inefficient</li>
+<li><span style="color:orange">Write code in the command window:</span> Faster than menus but require that you are familiar with the command</li>
+<li><span style="color:orange">Write code in a do-file:</span> The only feasible way to run long instructions</li>
+</ul>
+</div>
+<div id="opening-a-data-set" class="slide section level1">
+<h1>Opening a data set</h1>
+<p><img src="img/open_dataset_menu.png" style="width:80.0%" /></p>
+</div>
+<div id="opening-a-data-set-1" class="slide section level1">
+<h1>Opening a data set</h1>
+<p><strong>Exercise:</strong> Load the dataset <code>contract_clean.dta</code> into Stata</p>
+<p><strong>1.</strong> Open Stata</p>
+<p><strong>2.</strong> Click on <code>File &gt; Open...</code></p>
+<p><strong>3.</strong> Navigate to <code>DataWork &gt; Data &gt; Final</code></p>
+<p><strong>4.</strong> Select the file called <code>contract_clean.dta</code></p>
+<p><strong>5.</strong> Click <code>Open</code></p>
+</div>
+<div id="opening-a-data-set-2" class="slide section level1">
+<h1>Opening a data set</h1>
+<p><strong>1.</strong> When you use the menus, Stata prints the code for that action in the results window. Highlight, right-click, and copy the code.</p>
+<p><strong>2.</strong> Paste the code in the command window.</p>
+<p><strong>3.</strong> Replace <code>contract_clean</code> with <code>item_clean</code>.</p>
+<p><strong>4.</strong> Hit <code>Enter</code>.</p>
+<p><span style="color:orange">What happened?</span></p>
+</div>
+<div id="opening-a-data-set-3" class="slide section level1">
+<h1>Opening a data set</h1>
+<p><strong>1.</strong> Open the do-file editor by typing <code>doedit</code> in the command window or through the shortcut icon on the top ribbon</p>
+<p><strong>2.</strong> Paste the code in the do-file</p>
+<p><strong>3.</strong> Replace <code>contract_clean</code> with <code>process_clean</code></p>
+<p><strong>4.</strong> Press <code>CTRL + D</code></p>
+<p><strong>5.</strong> Go back to the Stata console</p>
+<p><span style="color:orange">What happened?</span></p>
+</div>
+<div id="opening-a-data-set-4" class="slide section level1">
+<h1>Opening a data set</h1>
+<ul>
+<li>You have just used all the three ways that can be used to interact with Stata</li>
+<li>Using the point-and-click method through Stata’s user interface may seem the easiest way to interact with it</li>
+<li>However, when we use this method, we are “cooking a meal”, not “writing a recipe”</li>
+<li><span style="color:orange">Our preferred way to interact with Stata, the one we will focus on during this training, are do-files</span></li>
+<li>Do-files are the last method you just tried</li>
+<li>We prefer them over the over methods because they <span style="color:orange">allow us to re-do every step we have taken in our work and re-create all its outputs</span></li>
+</ul>
+</div>
+<div id="using-a-do-file" class="slide section level1">
+<h1>Using a do-file</h1>
+<p><strong>Exercise:</strong> to understand how useful and easy to use do-files can be do the following:</p>
+<p><strong>1.</strong> Open the do-file in <code>DataWork &gt; Code &gt; Example do-file.do</code> by going to the do-file editor, then clicking <code>Open</code> and navigating to this file</p>
+<p><strong>2.</strong> Now press <code>CTRL + D</code> or click in the <code>Execute</code> button at the right corner of the buttons ribbon in the do-file editor</p>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">You will see that Stata will follow all the instructions in the do-file, including create and export some tables and graphs. This will allow anyone to re-use this code to do similar tasks in the future, as well as make small changes to the outputs.</span></p>
+</div>
+<div id="code-syntax" class="slide section level1">
+<h1>Code syntax</h1>
+<ul>
+<li>The do-file you have just opened is giving instructions to Stata using code</li>
+<li>Writing code is like speaking a language (such as English, Croatian, etc.)</li>
+<li>One needs to speak to Stata in the language it understands</li>
+<li>Don’t worry if you don’t understand everything in this do-file: the purpose of this course is to teach you how to speak this languages well enough to keep using it in the future</li>
+</ul>
+</div>
+<div id="code-syntax-1" class="slide section level1">
+<h1>Code syntax</h1>
+<ul>
+<li>Computers are not as intelligent as humans, so we need to be very precise in how we communicate with them, as they are unable to guess or to infer what we were trying to say</li>
+<li>This means that a single character out of place will make your instructions completely indecipherable for a computer</li>
+<li>Just like a human language, computer languages have a syntax that makes sentences correct</li>
+<li>The equivalent of a sentence in computer language is a line of code</li>
+<li>In the next few slides, we will see an example of the most simple sentence when can use in Stata</li>
+</ul>
+</div>
+<div id="browsing-a-data-set" class="slide section level1">
+<h1>Browsing a data set</h1>
+<p>You can view the data that is open in Stata by typing <code>browse</code> in a new line of the do-file, then running it by pressing <code>CTRL + D</code> or the <code>Execute</code> shortcut</p>
+<p><strong>Exercise:</strong> use the <code>browse</code> command to view the data set that we opened earlier.</p>
+<ul>
+<li>Note that the content of different columns is in different colors</li>
+<li>Each column in this data set is called a <code>variable</code></li>
+<li>Each row in this data set is called an <code>observation</code></li>
+<li>We will use these expressions interchangeably from now on</li>
+</ul>
+</div>
+<div id="exploring-a-data-set" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p><strong>Exercise:</strong> explore the data set in memory by using the command <code>describe</code></p>
+</div>
+<div id="exploring-a-data-set-1" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p><strong>Exercise:</strong> explore the data set in memory by using the command <code>describe</code></p>
+<ul>
+<li>Note that this command has printed information in your console</li>
+<li>The first part, that is preceded by a <code>.</code>, is the command you entered</li>
+<li>The second part is the output of this command</li>
+<li>Read the command’s output and compare it to the data set that you have open</li>
+<li>What are the values shown in the column <code>storage type</code> for columns with different colors?</li>
+</ul>
+</div>
+<div id="types-of-variables" class="slide section level1">
+<h1>Types of variables</h1>
+<p>Stata can store information in two formats:</p>
+<ul>
+<li><strong>String (text):</strong> values are <span style="color:orange">red</span> when browsing</li>
+<li><strong>Numeric (number):</strong> values are <span style="color:orange">black</span> or <span style="color:orange">blue</span> when browsing</li>
+</ul>
+</div>
+<div id="types-of-variables-1" class="slide section level1">
+<h1>Types of variables</h1>
+<ul>
+<li>Numbers <em>can</em> be stored as text, but text <em>cannot</em> be stored as number</li>
+<li>It is not possible to do computations on numbers stored as text<br />
+</li>
+<li>Categorical variables are stored as numeric variables with <em>value labels</em></li>
+<li>Dates and times are stored as numbers, but can be shown in different formats</li>
+</ul>
+</div>
+<div id="the-stata-interface---review-window" class="slide section level1">
+<h1>The Stata interface - Review window</h1>
+<p><img src="img/stata_interface.png" style="width:60.0%" /></p>
+</div>
+<div id="the-stata-interface---review-window-1" class="slide section level1">
+<h1>The Stata interface - Review window</h1>
+<ul>
+<li>The review window provides records your conversation with Stata</li>
+<li>It is a convenient way to bring back your previous commands and modify it to do something new</li>
+<li>Double click on a command you want to use again and it will appear in your command window</li>
+<li>You can also click in command window and select the commands in the result window by using the <code>PageUp</code> and <code>PageDown</code> buttons in your keyboard</li>
+<li>If a command is <span style="color:orange">red</span> in the review window, it means it did not run because of an <span style="color:orange">error</span></li>
+</ul>
+</div>
+<div id="code-syntax-2" class="slide section level1">
+<h1>Code syntax</h1>
+<ul>
+<li>Note that all the content of your conversation with Stata so far consists of lines with a single <span style="color:orange">verbs</span></li>
+<li>These are what we call <span style="color:orange"><em>commands</em></span></li>
+<li>Commands are the equivalent of verbs in the Stata language</li>
+<li>These verbs are pre-defined, and you need to use each of them in the correct way for Stata to understand you</li>
+</ul>
+</div>
+<div id="code-syntax-3" class="slide section level1">
+<h1>Code syntax</h1>
+<ul>
+<li>When you are not sure how to use a command, you can look for help</li>
+<li>To look for help, we use the <code>help</code> command</li>
+<li>To see how it works, type <code>help codebook</code> in the command window and then press <code>ENTER</code></li>
+</ul>
+</div>
+<div id="help-files" class="slide section level1">
+<h1>Help files</h1>
+<p><img src="img/help_codebook.png" style="width:60.0%" /></p>
+</div>
+<div id="help-files-1" class="slide section level1">
+<h1>Help files</h1>
+<ul>
+<li>At the top of the help file, you will find a very short description of what the command does</li>
+<li>Under syntax, you will how to use the command correctly
+<ul>
+<li>Everything inside square bracket (<code>[]</code>) is <em>not</em> required</li>
+<li>Whenever <code>varlist</code> is shown in a help file, it means the command takes a list of variable names as a complement</li>
+</ul></li>
+</ul>
+</div>
+<div id="help-file-usage-and-coding-knowledge" class="slide section level1">
+<h1>Help file usage and coding knowledge</h1>
+<p><img src="img/help-file-graph-1.png" /></p>
+</div>
+<div id="help-file-usage-and-coding-knowledge-1" class="slide section level1">
+<h1>Help file usage and coding knowledge</h1>
+<p><img src="img/help-file-graph-2.png" /></p>
+</div>
+<div id="help-file-usage-and-coding-knowledge-2" class="slide section level1">
+<h1>Help file usage and coding knowledge</h1>
+<p><img src="img/help-file-graph-3.png" /></p>
+</div>
+<div id="exploring-a-data-set-2" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p><strong>Exercise:</strong></p>
+<ul>
+<li>Type <code>codebook</code> in the command window and press <code>ENTER</code></li>
+<li>Now type <code>codebook, compact</code></li>
+<li>Now type <code>codebook nr_participants process_type bid_submission_date</code></li>
+<li>How does the output of the command look for columns with different “storage types”?</li>
+</ul>
+</div>
+<div id="exploring-a-data-set-3" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p>There are two ways to find the information you are looking for in a dataset:</p>
+<p><strong>1.</strong> You can use the <span style="color:orange">search bar in the variable window</span> and type an expression that would be contained in these variables</p>
+<p><strong>2.</strong> You can use the <span style="color:orange">command <code>lookfor</code></span> and type <code>lookfor</code> followed by the same expression either in a do-file or in the console</p>
+</div>
+<div id="exploring-a-data-set-4" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p><strong>Exercise:</strong> use the command <code>lookfor</code> to find all the variables in the data set that contain the word “process” in their names or descriptions.</p>
+</div>
+<div id="exploring-a-data-set-5" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p><strong>Exercise:</strong> use the command <code>lookfor</code> to find all the variables in the data set that contain the word “process” in their names or descriptions.</p>
+<pre class='stata'>. lookfor process
+
+              storage   display    value
+variable name   type    format     label      variable label
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+process_name    str1013 %1013s                Process Name
+process_value   float   %20.0fc               Process Value
+process_type    long    %10.0g     process_type
+                                              Processing Type
+process_id      long    %290.0g    oi         Process Tag
+</pre>
+</div>
+<div id="exploring-a-data-set-6" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p><strong>Exercise:</strong> use the command <code>lookfor</code> to find all the variables in the data set that contain the word “process” in their names or descriptions.</p>
+<pre class='stata'>. lookfor process
+
+              storage   display    value
+variable name   type    format     label      variable label
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+process_name    str1013 %1013s                Process Name
+process_value   float   %20.0fc               Process Value
+process_type    long    %10.0g     process_type
+                                              Processing Type
+process_id      long    %290.0g    oi         Process Tag
+</pre>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">Note that the second column in the output is telling use which variables contain numbers and which contain text.</span></p>
+</div>
+<div id="exploring-a-data-set-7" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p>Histograms are a common way to display the distribution of a variable. In the next exercise, we will use them to explore the process-related variables.</p>
+<p><strong>Exercise:</strong></p>
+<p><strong>1.</strong> Type <code>help histogram</code> to see the syntax for the comand <code>histogram</code></p>
+<p><strong>2.</strong> Create a histogram for the variable <code>process_value</code></p>
+<p><strong>3.</strong> Create a histogram for the variable <code>process_type</code></p>
+<p><strong>4.</strong> Create a histogram for the variable <code>process_name</code></p>
+</div>
+<div id="exploring-a-data-set-8" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p><strong>Exercise:</strong></p>
+<p><strong>1.</strong> Type <code>help histogram</code> to see the syntax for the comand <code>histogram</code></p>
+<pre><code>help histogram</code></pre>
+<p><img src="img/hist1.PNG" style="width:40.0%" /></p>
+</div>
+<div id="exploring-a-data-set-9" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p><strong>Exercise:</strong></p>
+<p><strong>2.</strong> Create a histogram for the variable <code>process_value</code></p>
+<pre><code>histogram process_value</code></pre>
+<p><img src="img/hist2.PNG" style="width:35.0%" /></p>
+</div>
+<div id="exploring-a-data-set-10" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p><strong>Exercise:</strong></p>
+<p><strong>3.</strong> Create a histogram for the variable <code>process_type</code></p>
+<pre><code>histogram process_type</code></pre>
+<p><img src="img/hist3.PNG" style="width:35.0%" /></p>
+</div>
+<div id="exploring-a-data-set-11" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p><strong>Exercise:</strong></p>
+<p><strong>3.</strong> Create a histogram for the variable <code>process_type</code></p>
+<pre><code>histogram process_type</code></pre>
+<p><img src="img/hist3.PNG" style="width:25.0%" /></p>
+<p><span style="color:orange"><em>What option makes this command easier to use with categorical variables? Look at the help file to find out.</em></span></p>
+</div>
+<div id="exploring-a-data-set-12" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p><strong>Exercise:</strong></p>
+<p><strong>3.</strong> Create a histogram for the variable <code>process_type</code></p>
+<pre><code>histogram process_type, discrete</code></pre>
+<p><img src="img/hist4.PNG" style="width:25.0%" /></p>
+</div>
+<div id="exploring-a-data-set-13" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p><strong>Exercise:</strong></p>
+<p><strong>4.</strong> Create a histogram for the variable <code>process_name</code></p>
+<p><img src="img/hist5.PNG" style="width:40.0%" /></p>
+</div>
+<div id="exploring-a-data-set-14" class="slide section level1">
+<h1>Exploring a data set</h1>
+<p><strong>Exercise:</strong></p>
+<p><strong>4.</strong> Create a histogram for the variable <code>process_name</code></p>
+<p><img src="img/hist5.PNG" style="width:40.0%" /></p>
+<p><span style="color:orange"><em>What is happening here? Why is it happening?</em></span></p>
+</div>
+<div id="error-messages" class="slide section level1">
+<h1>Error messages</h1>
+<ul>
+<li>When there is an error in how you used a command, Stata will print a message in red
+<ul>
+<li>This message explains what is wrong with your “sentence”</li>
+<li>You can always Google the error if you can not understand it</li>
+</ul></li>
+<li>Some commands can only be used with certain types of variables</li>
+<li>In this case, we are trying to analyze text as if it were a number</li>
+</ul>
+</div>
+<div id="the-stata-interface---variable-window" class="slide section level1">
+<h1>The Stata interface - Variable window</h1>
+<p><img src="img/variable_window.png" style="width:20.0%" /></p>
+<ul>
+<li>The variable window lists all the variables in the data set that is currently open</li>
+<li>You can use the search bar to look for variables based on their names and labels</li>
+<li>Clicking on a variable will show some information about it on the <em>Properties</em> window</li>
+<li>If you click in the variable <code>process_name</code>, you will see that it contains text rather than numbers</li>
+</ul>
+</div>
+<div id="saving-a-do-file" class="slide section level1">
+<h1>Saving a do-file</h1>
+<p>For us to be able to re-do the same tasks we have done today next time we work with Stata, we need to save our instructions</p>
+<p><strong>Exercise:</strong> on the do-file editor, click on the <em>Save</em> shortcut on the top ribbon. Save the do-file as <code>DataWork &gt; Code &gt; Lecture notes &gt; Intro to Stata.do</code></p>
+</div>
+<div id="recap" class="slide section level1">
+<h1>Recap</h1>
+<p>We have learned</p>
+<ul>
+<li>How the Stata interface is organized</li>
+<li>Three different ways to interact with Stata</li>
+<li>How to open and explore a data set in Stata</li>
+<li>How to find help</li>
+<li>How data can be stored in different formats</li>
+</ul>
+</div>
+</div>
+</body>
+</html>

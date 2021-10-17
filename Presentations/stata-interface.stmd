@@ -75,7 +75,7 @@ But it's also good for beginner programmers:
 
 **4.** Hit `Enter`.
 
-What happened?
+[What happened?]{style="color:orange"}
 
 # Opening a data set
 
@@ -89,7 +89,7 @@ What happened?
 
 **5.** Go back to the Stata console
 
-What happened?
+[What happened?]{style="color:orange"}
 
 # Opening a data set
 
@@ -104,11 +104,11 @@ What happened?
 
 **Exercise:** to understand how useful and easy to use do-files can be do the following:
 
-**1.** Open the do-file in `DataWork > Code > XXX` by going to the do-file editor, then clicking `Open` and navigating to this file
+**1.** Open the do-file in `DataWork > Code > Example do-file.do` by going to the do-file editor, then clicking `Open` and navigating to this file
 
 **2.** Now press `CTRL + D` or click in the `Execute` button at the right corner of the buttons ribbon in the do-file editor
 
-- You will see that Stata will follow all the instructions in the do-file, including create and export some tables and graphs. This will allow anyone to re-use this code to do similar tasks in the future, as well as make small changes to the outputs.
+[You will see that Stata will follow all the instructions in the do-file, including create and export some tables and graphs. This will allow anyone to re-use this code to do similar tasks in the future, as well as make small changes to the outputs.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 
 # Code syntax
@@ -243,6 +243,14 @@ There are two ways to find the information you are looking for in a dataset:
 lookfor process
 ```
 
+# Exploring a data set
+
+**Exercise:** use the command `lookfor` to find all the variables in the data set that contain the word "process" in their names or descriptions.
+
+```{s}
+lookfor process
+```
+
 [Note that the second column in the output is telling use which variables contain numbers and which contain text.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 # Exploring a data set
@@ -282,7 +290,19 @@ help histogram
 histogram process_value
 ~~~
 
-![](img/hist2.PNG){width=25%}
+![](img/hist2.PNG){width=35%}
+
+# Exploring a data set
+
+**Exercise:**
+
+**3.** Create a histogram for the variable `process_type`
+
+~~~
+histogram process_type
+~~~
+
+![](img/hist3.PNG){width=35%}
 
 # Exploring a data set
 
@@ -296,15 +316,7 @@ histogram process_type
 
 ![](img/hist3.PNG){width=25%}
 
-**3.** Create a histogram for the variable `process_type`
-
-~~~
-histogram process_type
-~~~
-
-![](img/hist3.PNG){width=25%}
-
-[*What option makes this command easier to use with categorical variables? Look at the help file to find out.*]{style="text-color:orange"}
+[*What option makes this command easier to use with categorical variables? Look at the help file to find out.*]{style="color:orange"}
 
 
 # Exploring a data set
@@ -328,13 +340,15 @@ histogram process_type, discrete
 
 ![](img/hist5.PNG){width=40%}
 
+# Exploring a data set
+
 **Exercise:**
 
 **4.** Create a histogram for the variable `process_name`
 
 ![](img/hist5.PNG){width=40%}
 
-[*What is happening here? Why is it happening?*]{style="text-color:orange"}
+[*What is happening here? Why is it happening?*]{style="color:orange"}
 
 # Error messages
  
