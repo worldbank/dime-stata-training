@@ -73,8 +73,6 @@
 		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-    markstat using "${mdfolder}/5-data-analysis", slides(santiago)
-
 		foreach presentation in "data-map" {
 		
 			if "`presentation'" == "data-map"	local name Lecture 2 - Data Map
