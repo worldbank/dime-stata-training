@@ -1,5 +1,5 @@
 ---
-author: Kristoffer Bjarkefur, Luiza Andrade, Sushmita Samaddar
+author: Kristoffer Bjarkefür, Luíza Andrade, Sushmita Samaddar
 title: Introduction to statistical programming
 ---
 
@@ -12,10 +12,10 @@ The main reason why we code
 
 # Your code is an output
 
-![](img/cookbook.png){style="display: inline; margin: 0 50px;" width=25%}
-![](img/pasta.png){style="display: inline; margin: 0 50px;" width=75%}
+[Create recipes, not just meals]{style="color:orange; block-align:center"}
 
-[*Create recipes, not just meals*]{style="text-align: center"}
+![](img/cookbook.png){width=65%}
+
 
 # We are tempted not to write recipes
 
@@ -79,6 +79,8 @@ What is the first thing you want to look for every single time you open a new da
 
 # `household_data.csv`
 
+<br>
+
 | hh_id | comid | dist_id | hh_number | hh_head | hhh_age |
 |-------|----|---|---|--------|------|
 | 22501 | 25 | 2 | 1 | Andrew | 52  | 
@@ -92,6 +94,8 @@ What is the first thing you want to look for every single time you open a new da
 | 24501 | 45 | 2 | 1 | Nancy | 41 | 
 
 # `clinic_data.csv`
+
+<br>
 
 |clinic_id | clinic_number | dist_id | patient | age | 
 |------|-----|---|--------|----|

@@ -79,14 +79,14 @@ Data flowcharts show an [overview of key steps for data processing]{style="color
 
 # Data Flowchart
 
-1. Start by [listing all the final indicators]{style="color:orange"} that you are looking to create
+**1.** Start by [listing all the final indicators]{style="color:orange"} that you are looking to create
 
   - You can list them in one file to start drafting you **data dictionaries**
   - Make note of the **level of observation** that each of them represent
 
 # Data Flowchart
  
-2. [Group indicators by level of observation]{style="color: orange"} to determine what data tables you will need to complete your analysis
+**2.** [Group indicators by level of observation]{style="color: orange"} to determine what data tables you will need to complete your analysis
 
   - You will create **one final data table for each level of observation** that is relevant for your analysis
   - Your data flowchart will indicate how to create each of these data tables, so all of them should be included once you are done creating your flowcharts
@@ -99,7 +99,7 @@ Data flowcharts show an [overview of key steps for data processing]{style="color
 
 # Data Flowchart
 
-3. List all the [original or master data sets that contain information needed to create a given analysis data table]{style="color:orange"}
+**3.** List all the [original or master data sets that contain information needed to create a given analysis data table]{style="color:orange"}
 
   - These will be the **starting points** of your data flowcharts
   - Having a **data dictionary** for each original data set will help you find the information that you need
@@ -112,7 +112,7 @@ Data flowcharts show an [overview of key steps for data processing]{style="color
 
 # Data Flowchart
 
-4. Fill in the steps to link the two sets of data by listing all the steps where
+**4.** Fill in the steps to link the two sets of data by listing all the steps where
   
   - 2 or more **data tables are combined**
   - A data table is modified in such a way that its **unit of observation changes**
