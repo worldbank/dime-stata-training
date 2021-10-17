@@ -1,6 +1,6 @@
 ---
 title: Exploring data in Stata
-author: Luiza Andrade and Sushmita Samaddar
+author: Luíza Andrade and Sushmita Samaddar
 ---
 
 # Recap
@@ -16,7 +16,7 @@ In the last session, we learned some Stata basics:
 
   
 ```{s/}
-use "${mdfolder}/DataWork/Data/Final/final_process.dta", clear
+use "../DataWork/Data/Final/final_process.dta", clear
 ```
 
 # Recap
@@ -62,7 +62,8 @@ Data types
 
 - What are two different types of data that Stata can store?
 
-During today's session, we will go into a lot more detail about different types of data, what kind of information they can store and how we interact with them
+[During today's session, we will go into a lot more detail about different types of data, what kind of information they can store and how we interact with them]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
 
 # Useful commands to explore data sets
 
@@ -72,6 +73,11 @@ As we explore variables of different types, we will learn how to use the followi
 - `summarize`: Basic statistics for numeric variables
   - Obs (Number of observations), Mean, Std. Dev. (Standard deviation), Min (Minimum), Max (Maximum)
   - Using the option detail provides additional statistics (such as percentiles, 4 smallest values, and 4 largest values)
+
+# Useful commands to explore data sets
+
+As we explore variables of different types, we will learn how to use the following Stata commands:
+
 - `describe`: List of all variables in the data set in memory
   - Total number of variables & observations (size of matrix)
   - Variable name, type, format, value label name, variable label
@@ -94,14 +100,14 @@ To start our session, let's first set up our work environment
 
 **Exercise:**
 
-1. Launch Stata by opening the Stata project `Introduction to Stata.stpr`
-2. Open a new do-file
-3. Load the `final_process` data set
-  - In case you don't remember this from the last session, you can use the `use` command and the Stata project features to open a data set by typing
+**1.** Launch Stata by opening the Stata project `Introduction to Stata.stpr`
 
-~~~
-use "DataWork/Data/Final/final_process.dta", clear
-~~~
+**2.** Open a new do-file
+
+**3.** Load the `final_process` data set
+
+
+[In case you don't remember this from the last session, you can use the `use` command and the Stata project features to open a data set by typing <br> `use "DataWork/Data/Final/final_process.dta", clear`]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 # Exploring a data set: `browse`
 
@@ -109,16 +115,18 @@ use "DataWork/Data/Final/final_process.dta", clear
 - `browse` can be used to view all data set or some variables and observations
 - It is particularly useful to explore text variables, as they are difficult to summarize in Stata, and this allows us to see each entry at once
 
-**Do you remember how to use the command `browse` to see the data set?**
+[Do you remember how to use the command `browse` to see the data set?]{style="color:orange"}
 
 # Exploring a data set: `summarize`
 
 - Another very useful command is `summarize`
 - It can be used to display basic statistics for the entire dataset or for some variables and observations
 
+# Exploring a data set: `summarize`
+
 **Exercise:** use `summarize` to see descriptive statistics for the entire dataset.
 
-*Tip: if you are not sure how to do that, look at the help file for the command by typing `help summarize`*
+[**Tip:** if you are not sure how to do that, look at the help file for the command by typing `help summarize`]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 # Exploring a data set: `summarize`
 
@@ -147,7 +155,7 @@ At this point, we should start using the critical thinking about data that we di
 - Are there any statistics that might not make sense to interpret?
 - What do they have in common?
 
-*`summarize` is particularly useful for numeric variables*
+[`summarize` is particularly useful for numeric variables]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 
 # Exploring a data set: `describe`
@@ -156,10 +164,13 @@ At this point, we should start using the critical thinking about data that we di
 - This command is used it to view metadata, that is, data about the data
 - The syntax for this command is very similar to that of `summarize`: you can use it without any arguments to describe the entire data set, or you can list the variables that you want to describe
 
+# Exploring a data set: `describe`
+
 **Exercise:** use `describe` to see information for the entire dataset.
 
-
 # Exploring a data set: `describe`
+
+[ ]{style="font-size:10%"}
 
 ~~~
 describe
@@ -173,11 +184,11 @@ describe
 
 `describe` is giving us the following information about the data set:
 
-  - Variable names: the names we use to reference a column in Stata
-  - Storage types: the type of information that the data contains -- is it a number? A text?
-  - Display formats: how that number is formatted so that we humans can best interpret it -- how many decimals are shown, for example
-  - Value labels: the names used for humans to best interpret the values in this variable -- more about this soon
-  - Variable labels: the description of the column, or the names that we would use to reference a column to other humans
+  - **Variable names:** the names we use to reference a column in Stata
+  - **Storage types:** the type of information that the data contains -- is it a number? A text?
+  - **Display formats:** how that number is formatted so that we humans can best interpret it -- how many decimals are shown, for example
+  - **Value labels:** the names used for humans to best interpret the values in this variable -- more about this soon
+  - **Variable labels:** the description of the column, or the names that we would use to reference a column to other humans
   
 # Exploring a data set: `describe`
 
@@ -186,10 +197,19 @@ describe
 - Variables with a *value label* are categorical variables
   - This is why when we use `summarize` on these variables we get results that are not very meaningful: because the numbers are only stand-ins for categories
   - For example, 0 is commonly used to represent "No", and 1 is commonly used to represent "Yes"
+  
+# Exploring a data set: `describe`
+
+`describe` is particularly useful to identify types of variables
+
+- Variables with a *value label* are categorical variables
+  - This is why when we use `summarize` on these variables we get results that are not very meaningful: because the numbers are only stand-ins for categories
+  - For example, 0 is commonly used to represent "No", and 1 is commonly used to represent "Yes"
+ 
 - Variables that have the display format `%td` are date variables
   - This is why when we use `summarize` on these variables we get results that are not very meaningful: because Stata counts time in miliseconds starting on the first millisecond of 1 January 1960
   - We can then choose how to see this information: in dates and time, in date, in months, etc.
-  - We will learn more about this on session XX
+  - We will learn more about this when we talk about cleaning date variables
   
 # Exploring a data set: `describe`
 
@@ -199,23 +219,13 @@ describe
   - This is why they are not shown when we use summarize - because Stata does not know how to calculate the average of a text
 - All other variables are numeric
 
-We will learn more about each of these types of variable and how to use them in this session.
+[We will learn more about each of these types of variable and how to use them in this session.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 # Exploring numeric variables
 
 Based on what we saw in the result for `describe`, we can tell that the numeric variables in our data set are:
 
-- `bid_id`
-- `unit_id`
-- `process_id`
-- `year_init`
-- `month_init`
-- `nr_participants`
-- `nr_nonlocal_bidders`
-- `nr_sme_bidders`
-- `nr_lots`
-- `process_value`
-- `in_sample`
+[`bid_id` <br> `unit_id` <br> `process_id` <br> `year_init` <br> `month_init` <br> `nr_participants` <br> `nr_nonlocal_bidders` <br> `nr_sme_bidders` <br> `nr_lots` <br> `process_value` <br> `in_sample`]{style="font-size:80%"}
 
 Let's take a look at how we can see information about them.
 
@@ -226,6 +236,8 @@ Let's start with some general information about the variable `nr_participants` u
 ```{s}
 codebook nr_participants
 ```
+
+# Exploring numeric variables
 
 - The number of participants in a process varies from 0 to 68
 - There are 36 unique values for this variable, which means that not all numbers between 0 and 68 are present
@@ -242,7 +254,7 @@ codebook nr_participants
 browse if nr_participants == .
 ~~~
 
-- Note that we wrote `==` instead of `=`. This is because we are perfoming a *logical operation*. We will talk more about these expressions soon.
+[Note that we wrote `==` instead of `=`. This is because we are perfoming a *logical operation*. We will talk more about these expressions soon.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 
 # Exploring numeric variables
@@ -253,13 +265,15 @@ Another way of seeing descriptive statistics for a numeric variable is using `su
 summarize nr_participants
 ```
 
-- Here, we can see the minimum and maximum values of the variable, which are 0 and 68, as we already new
+# Exploring numeric variables
+
+- Here, we can see the minimum and maximum values of the variable, which are 0 and 68, as we already knew
 - It also shows the number of observations with valid information about it, which is 24,548, as we also knew from the codebook
 - We can also see the mean and the standard deviation
 - All this information was already present in the codebook, but the codebook had other data as well
 - This is a simpler way to visualize the content of numeric variables, particularly when you want to communicate information about many variables in one table
 
-##  Exploring numeric variables
+# Exploring numeric variables
 
 **Exercise:** use the command `summarize` to explore the distribution of variables `nr_participants`, `nr_nonlocal_bidders`, and `nr_sme_bidders`.
 
@@ -267,7 +281,7 @@ summarize nr_participants
 summarize nr_participants nr_nonlocal_bidders nr_sme_bidders
 ```
 
-##  Exploring numeric variables
+# Exploring numeric variables
 
 **Exercise:** use the command `summarize` to explore the distribution of variables `nr_participants`, `nr_nonlocal_bidders`, and `nr_sme_bidders`.
 
@@ -282,15 +296,19 @@ summarize nr_participants nr_nonlocal_bidders nr_sme_bidders
 - The command to create histograms is called, not surprisingly, `histogram`
 - This command has only one required argument: the name of the variable for which we want to create a histogram
 
+# Exploring numeric variables
+
 **Exercise:** create a histogram of the variable `nr_participants`.
 
 # Exploring numeric variables
+
+[ ]{style="font-size:10%"}
 
 ~~~
 histogram nr_participants
 ~~~
 
-![](img/lab2-hist1.png){width=40%}
+![](img/lab2-hist1.png){width=55%}
 
 # Subsetting observations
 
@@ -299,9 +317,13 @@ histogram nr_participants
 - To do this, we can use the same strategy that we used before to subset observations: *an `if` statement*
 - Can you guess what it should look like?
 
+# Subsetting observations
+
 **Exercise:** create a histogram of the variable `nr_participants` including only cases where a process has less than 20 participants.
 
 # Subsetting observations
+
+**Exercise:** create a histogram of the variable `nr_participants` including only cases where a process has less than 20 participants.
 
 ~~~
 histogram nr_participants if nr_participants < 20
@@ -393,12 +415,13 @@ We will see next how value labels are important for us to understand categorical
 ```{s}
 tabulate process_type
 ```
-
 # Exploring categorical variables
 
 - We can use the option `nolabel` of `tabulate` to hide the value labels
 - This is an *optional argument* of the command
 - As you may remember from the first lab, this means why will use a comma (`,`) to separate it from the other arguments
+
+# Exploring categorical variables
 
 **Exercise:** use the `tabulate` command with the optional option `nolabel` to display a frequency table of the variable `process_type`
 
@@ -416,9 +439,13 @@ tabulate process_type, nolabel
 - We can also explore the relationship between two categorical variables using `tabulate`
 - To do so, list two variable names as arguments for the command instead of only one
 
+# Exploring categorical variables
+
 **Exercise:** use the `tabulate` command to explore how the variables `process_type` and `procurement_type` are related.
 
 # Exploring categorical variables
+
+**Exercise:** use the `tabulate` command to explore how the variables `process_type` and `procurement_type` are related.
 
 ```{s}
 tabulate process_type procurement_type
@@ -443,6 +470,8 @@ Used to explain the same line of code
 
 # Commenting do-files
 
+[ ]{style="font-size:10%"}
+
 ~~~
 * Explore the categorical variables process_type
 
@@ -464,19 +493,23 @@ gr pie, over(process_type)
 
 # Exploring categorical variables
 
+[ ]{style="font-size:10%"}
+
 ~~~
 gr bar, over(process_type)
 ~~~
 
-![](img/lab2-bar.png){width=40%}
+![](img/lab2-bar.png){width=55%}
 
 # Exploring categorical variables
+
+[ ]{style="font-size:10%"}
 
 ~~~
 gr pie, over(process_type)
 ~~~
 
-![](img/lab2-pie1.png){width=40%}
+![](img/lab2-pie1.png){width=55%}
 
 # Exploring categorical variables
 
@@ -484,7 +517,6 @@ When we remove the value label, on the other hand, they become much harder to in
 
 ~~~
 label drop bid_type
-
 gr pie, over(bid_type)
 ~~~
 
@@ -520,6 +552,8 @@ In summary:
 - When giving instructions to Stata, we will refer to a category by its underlying number
 - To see an example of this, try to use the `tabulate` command with and `if` statement to see a frequency table of the type of process for processes of procurement type *goods*
 
+# Exploring categorical variables
+
 **Exercise:** print a frequency table of process type when procurement type is *goods*
 
 # Exploring categorical variables
@@ -541,7 +575,7 @@ The date variables in this data set were identified when we used `describe` as t
 
 # Exploring date variables
 
-As usual, let's see what `codebook` gives us as we 
+As usual, let's see what `codebook` gives us when we use `codebook`
 
 ```{s}
 codebook bid_submission_date
