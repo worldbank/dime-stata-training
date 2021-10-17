@@ -73,12 +73,19 @@
 		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-		markstat using "cleaning-str-cat", slides(santiago)
+		foreach presentation in "data-map" "cleaning-str-cat" {
 		
-		filefilter 	"cleaning-str-cat.html" "Cleaning - text and categorical variables.html", ///
-					from("c:/ado/plus/m/s5/santiago") to("www") replace
-
-	
+			if "`presentation'" == "data-map"	        local name Lecture 2 - Data Map
+      if "`presentation'" == "cleaning-str-cat"	local name Cleaning - text and categorical variables
+		
+			markstat using "data-map", slides(santiago)
+		
+			filefilter 	"`presentation'.html" "`name'.html", ///
+						from("c:/ado/plus/m/s5/santiago") to("www") replace
+						
+			erase "`presentation'.html"
+					
+		}
 	}
 	
 *============================== THE END =======================================*
