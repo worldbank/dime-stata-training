@@ -73,9 +73,10 @@
 		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-		foreach presentation in "data-map" {
+		foreach presentation in "data-map" "cleaning-str-cat" {
 		
-			if "`presentation'" == "data-map"	local name Lecture 2 - Data Map
+			if "`presentation'" == "data-map"	        local name Lecture 2 - Data Map
+      if "`presentation'" == "cleaning-str-cat"	local name Cleaning - text and categorical variables
 		
 			markstat using "data-map", slides(santiago)
 		
