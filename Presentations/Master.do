@@ -73,15 +73,17 @@
 		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-		foreach pres in "explore-data" {
+		foreach pres in "importing-data" "cleaning-str-cat" {
 			
 			if "`pres'" == "intro" 				local name Introduction
 			if "`pres'" == "stata-interface" 	local name Lab 1 - Stata Interface
-			if "`pres'" == "data-map"	        local name Lecture 2 - Data Map
 			if "`pres'" == "programming-101"	local name Lecture 1 - Introduction to Statistical Programming
+			if "`pres'" == "data-map"	        local name Lecture 2 - Data Map
+			if "`pres'" == "data-management"    local name Lecture 3 - Data Management
 			if "`pres'" == "explore-data"	    local name Lab 2 - Exploring Data in Stata
-			if "`pres'" == "cleaning-str-cat"	local name Cleaning - text and categorical variables
-
+			if "`pres'" == "importing-data"		local name Lab 3 - Importing and Exploring New Data
+			if "`pres'" == "cleaning-str-cat"	local name Lab 4 - Cleaning Text and Categorical Variables
+			
 			markstat using "`pres'", slides(santiago)
 			
 			filefilter 	"`pres'.html" "`name'.html", ///

@@ -21,23 +21,22 @@ use "../DataWork/Data/Final/final_process.dta", clear
 
 # Recap
 
-How the interface is organized
+**How the interface is organized**
 
 ![](img/stata_interface.png){width=40%}
 
 - What do each of these windows do?
-- How are rows and columns called in Stata?
 
 # Recap
 
-How to use do-files
+**How to use do-files**
 
 - How do we open the do-file editor?
 - How do we run the code in the do-file?
 
 # Recap
 
-Stata commands
+**Stata commands**
 
 - What are Stata commands?
 - How do we learn how to use a command?
@@ -45,20 +44,21 @@ Stata commands
 
 # Recap
 
-Viewing a dataset
+**Viewing a dataset**
 
 - How can we see the data set that is currently loaded in Stata's memory?
 - How are rows and columns called in Stata?
 
 # Recap
 
-Data types
+**Data types**
 
 - What are two different types of data that Stata can store?
+- How are categorical variables stored in Stata?
 
 # Recap
 
-Data types
+**Data types**
 
 - What are two different types of data that Stata can store?
 
@@ -107,7 +107,7 @@ To start our session, let's first set up our work environment
 **3.** Load the `final_process` data set
 
 
-[In case you don't remember this from the last session, you can use the `use` command and the Stata project features to open a data set by typing <br> `use "DataWork/Data/Final/final_process.dta", clear`]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+[In case you don't remember this from the last session, you can use the `use` command and the Stata project features to open a data set by typing <br> `use "Data/Final/final_process.dta", clear`]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 # Exploring a data set: `browse`
 
@@ -598,3 +598,13 @@ Stata clearly recognizes this variable as representing a date:
   - There are different formats to represent dates, such as `%td` (15mar2005) and `%%tdnn/DD/YY` (3/15/05)
   - Stata knows that variables in date format are dates
 - Stata counts time in miliseconds starting on the first millisecond of 1 January 1960
+
+# Summary
+
+In this session, we learned
+
+- A few new commands to **explore data** and **create graphs**
+- How to select subsets of the data using [`if` expressions]{style="color:orange"}
+- How [value labels]{style="color:orange"} are used to create categorical variables
+- How to add **comments** to do-files
+- How Stata stores [dates]{style="color:orange"} and how we can format data variables for humans to understand them
