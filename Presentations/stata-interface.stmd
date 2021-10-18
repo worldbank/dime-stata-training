@@ -59,7 +59,7 @@ But it's also good for beginner programmers:
 
 **2.** Click on `File > Open...`
 
-**3.** Navigate to `DataWork > Data > Final`
+**3.** Navigate to `DataWork > Data > Clean`
 
 **4.** Select the file called `contract_clean.dta`
 
@@ -104,7 +104,7 @@ But it's also good for beginner programmers:
 
 **Exercise:** to understand how useful and easy to use do-files can be do the following:
 
-**1.** Open the do-file in `DataWork > Code > Example do-file.do` by going to the do-file editor, then clicking `Open` and navigating to this file
+**1.** Open the do-file in `DataWork > Code > Example do-file.do` by double-clicking on it on the file explorer
 
 **2.** Now press `CTRL + D` or click in the `Execute` button at the right corner of the buttons ribbon in the do-file editor
 
@@ -116,7 +116,7 @@ But it's also good for beginner programmers:
 - The do-file you have just opened is giving instructions to Stata using code
 - Writing code is like speaking a language (such as English, Croatian, etc.)
 - One needs to speak to Stata in the language it understands
-- Don't worry if you don't understand everything in this do-file: the purpose of this course is to teach you how to speak this languages well enough to keep using it in the future
+- Don't worry if you don't understand everything in this do-file: the purpose of this course is to teach you how to speak this language well enough to keep using it in the future
 
 # Code syntax
 
