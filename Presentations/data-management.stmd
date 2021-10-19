@@ -125,7 +125,7 @@ Data will be divided by [unit of observation]{style="color:orange"} and [stage o
 
 # Organizing data work
 
-- When we are [constructing]{style="color:orange"} data, we will write code in the **`Code/Construction`** folder that takes data `.dta` from the **`Data/Clan`** folder and 
+- When we are [constructing]{style="color:orange"} data, we will write code in the **`Code/Construction`** folder that takes data `.dta` from the **`Data/Clean`** folder and 
   - Saves data in `.dta` to the **`Data/Final`** folder
   - Save Excel files to the **`Documentation/Dictionaries`** folder
   - Save files to the **`Documentation/Codebook`** folder
@@ -188,6 +188,8 @@ use "E:\DataWork\Data\Final\final_process.dta"
 
 **5.** Select the `DataWork` folder and click "OK"
 
+**6.** Right-click on your project and click "Save project".
+
 
 # Referencing files in Stata
 
@@ -206,6 +208,7 @@ use "E:\DataWork\Data\Final\final_process.dta"
 [If this worked, you will now see all the folder inside the `DataWork` folder in the Project Window.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 **6.** Right-click on your project and click "Save project".
+
 
 # Referencing files in Stata
 

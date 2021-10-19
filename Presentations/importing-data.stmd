@@ -79,7 +79,7 @@ import excel "Data/Raw/process_raw.xlsx", /// Path to the file to be loaded
 [ ]{style="font-size:10%"}
 
 ~~~
-import delimited "Data/Raw/process_raw.csv", /// Path to the file to be loaded
+import delimited "DataWork/Data/Raw/process_raw.csv", /// Path to the file to be loaded
 	encoding(windows-1250) /// How to read non-English characters
 	clear /// Replace the data in memory
 	bindquote(strict) // How to treat quotes found in the data

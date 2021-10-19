@@ -107,7 +107,7 @@ To start our session, let's first set up our work environment
 **3.** Load the `final_process` data set
 
 
-[In case you don't remember this from the last session, you can use the `use` command and the Stata project features to open a data set by typing <br> `use "Data/Final/final_process.dta", clear`]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+[In case you don't remember this from the last session, you can use the `use` command and the Stata project features to open a data set by typing <br> `use "DataWork/Data/Final/final_process.dta", clear`]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 # Exploring a data set: `browse`
 
@@ -240,10 +240,10 @@ codebook nr_participants
 # Exploring numeric variables
 
 - The number of participants in a process varies from 0 to 68
-- There are 36 unique values for this variable, which means that not all numbers between 0 and 68 are present
+- There are 35 unique values for this variable, which means that not all numbers between 0 and 68 are present
 - There are 2,452 missing observations. What does this mean?
   - There are 25,000 processes in the data set. However, we don't know the number of participants for 2,452 of them
-  - In the process for which we don't know the number of participants, we will see a `.` in this column when browing the data set
+  - In the process for which we don't know the number of participants, we will see a `.` in this column when browsing the data set
   
 # Subsetting observations
 
@@ -423,9 +423,11 @@ tabulate process_type
 
 # Exploring categorical variables
 
-**Exercise:** use the `tabulate` command with the optional option `nolabel` to display a frequency table of the variable `process_type`
+**Exercise:** use the `tabulate` command with the optional option `nolabel` to display a frequency table of the variable `process_type`.
 
 # Exploring categorical variables
+
+**Exercise:** use the `tabulate` command with the optional option `nolabel` to display a frequency table of the variable `process_type`.
 
 ```{s}
 tabulate process_type, nolabel
@@ -554,11 +556,11 @@ In summary:
 
 # Exploring categorical variables
 
-**Exercise:** print a frequency table of process type when procurement type is *goods*
+**Exercise:** print a frequency table of process type when procurement type is *goods*.
 
 # Exploring categorical variables
 
-**Exercise:** print a frequency table of process type when procurement type is *goods*
+**Exercise:** print a frequency table of process type when procurement type is *goods*.
 
 ```{s}
 tabulate process_type if procurement_type == 1
@@ -595,7 +597,7 @@ Stata clearly recognizes this variable as representing a date:
 - The relationship between numbers and dates in date variables is even clearer than in categorical variables
 - As discussed earlier, the easiest way for Stata to store information is through numbers
 - Applying a date format is how we let Stata know that these numbers represent dates
-  - There are different formats to represent dates, such as `%td` (15mar2005) and `%%tdnn/DD/YY` (3/15/05)
+  - There are different formats to represent dates, such as `%td` (15mar2005) and `%tdnn/DD/YY` (3/15/05)
   - Stata knows that variables in date format are dates
 - Stata counts time in miliseconds starting on the first millisecond of 1 January 1960
 
