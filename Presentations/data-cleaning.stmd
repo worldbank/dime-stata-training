@@ -1,5 +1,5 @@
 ---
-title: Cleaning data - Part 1
+title: Cleaning data
 author: Luiza Andrade and Sushmita Samaddar
 output: 
  html_document:
@@ -416,74 +416,100 @@ tab bidding_type
 
 # Date variables
 
+- We know that Stata stores dates as numbers
+- However, when they are first imported into Stata, they are often imported as text
+- Let's see a few examples where this happens:
+
 ```{s}
-browse RokZaDostavuPonuda RokZaDostavuZahtSudj RokZaDostavuInicijalnihPonuda
+browse RokZaDostavuPonuda RokZaDostavuZahtSudj RokZaDostavuInicijalnihPonuda Process_InsertDateTimeo
 ```
+
+# Date variables
+
+- We know that Stata stores dates as numbers
+- However, when they are first imported into Stata, they are often imported as text
+- Let's see a few examples where this happens:
+
+```{s}
+browse RokZaDostavuPonuda RokZaDostavuZahtSudj RokZaDostavuInicijalnihPonuda Process_InsertDateTimeo
+```
+
+- For Stata to be able to convert these values into dates, we need to tell it how to parse this information
+- This is done by explaining to Stata in which [format]{style="color:orange"} the date is being shown
   
 # Date strings
 
-![](img/date-masks.png)
+![](img/date-mask.png)
 
 # Date strings
 
+- Once we are able to tell which mask is used for a date, we can use the function `daily()` to convert it into Stata date format
+- The function's syntax is `daily(datestr, maskstr)`
+
 ```{s}
-gen appeal_delivery = date(RokZaDostavuZahtSudj, "YMDhms")
-codebook appeal_delivery
+gen 	 bid_submission_date = daily(RokZaDostavuZahtSudj, "YMDhms")
+codebook bid_submission_date
 ```
 
 # Date strings
 
+Once the date has been converted to a number, it then needs to be formatted into a date format
 ```{s}
-format appeal_delivery %td
-codebook appeal_delivery
+format 		bid_submission_date %td
+codebook 	bid_submission_date
 ```
 
+# Date strings
+
+**Exercise:** convert the variable `RokZaDostavuInicijalnihPonuda` into a numeric date format, and then apply the format `%tc` to it.
+
+# Date strings
+
+**Exercise:** convert the variable `RokZaDostavuInicijalnihPonuda` into a numeric date format, and then apply the format `%tc` to it.
+
 ```{s}
-gen date = date(RokZaDostavuInicijalnihPonuda, "YMDhms")
-format appeal_delivery %tc
-browse appeal_delivery date
+gen    bid_delivery_date = daily(RokZaDostavuInicijalnihPonuda, "YMDhms")
+format bid_delivery_date %tc
+browse bid_delivery_date bid_submission_date
 ```
 
 # Date formats
 
-~~~
-Format daily dates stored in datevar to display as 15mar2005
-format datevar %td
-Format daily dates stored in datevar to display as 3/15/05
-format datevar %tdnn/DD/YY
-Format daily dates stored in datevar to display as Tue Mar. 15
-format datevar %tdDay_Mon._DD
-Format dates and times stored in timevar to display as 15mar2005 14:30:00
-format timevar %tc
-Format dates and times stored in timevar to display as 14:30
-format timevar %tcHH:MM
-Format dates and times stored in timevar to display as 2:30 PM
-format timevar %tchh:mm_AM
-~~~
+- 15mar2005: `%td`
+- 3/15/05: `%tdnn/DD/YY`
+- Tue Mar. 15: `%tdDay_Mon._DD`
+- 15mar2005 14:30:00: `%tc`
 
 # Date formats
 
-You can also use the function `td()` to enter custom days
+You can also use the functions `td()` and `mdy()` to enter custom days
 
 ```{s}
-gen today = td(19oct2021)
+gen    today = td(20oct2021)
 format today %td
 ```
 
-# Destring  
-
 ```{s}
-destring UstrojstvenaJedinica_ID, gen(_id)
+gen    tomorrow = mdy(10, 21, 2021)
+format tomorrow %td
 ```
 
-- non-numeric values are automatically converted into missing
+# Converting text to number
+
+- If a numberic variable was originally imported as a string variable, we can use the command `string` to convert it into a numeric format
+- When the text contains non-numeric values, these are automatically converted into missing values
+- If there are letters in the value, however, Stata will return an error	
+
+```{s}
+destring UstrojstvenaJedinica_ID, gen(contracting_authority)
+```
 
 # Identify and document outliers
 
--  We do not want our results to be driven by a few individuals. For example, if the village leaders get all benefits
--  There is no exact rule for what is an outlier. Ask if your PI has a preference of specific rule
--  Identifying outliers often comes down to common sense: can the outlier be explained by typos?This is especially common when selecting units from multiple choice lists
--  RAs should try to identify as many discrepant values as possible, even at the cost of not correcting them
+-  We do not want our results to be driven by a few individuals. For example, if the village leaders get all benefits.
+-  There is no exact rule for what is an outlier.
+-  Identifying outliers often comes down to common sense: can the outlier be explained by typos?
+-  We should start by trying to identify as many discrepant values as possible.
 
 # Useful Stata commands to identify outliers
 
@@ -494,7 +520,7 @@ destring UstrojstvenaJedinica_ID, gen(_id)
 
 # Identifying outliers
 
-**Exercise:** use `histogram` and `kendesity` to visualize the distribution of the process value. Are there outliers present?
+**Exercise:** use `histogram` and `kdensity` to visualize the distribution of the process value. Are there outliers present?
 
 # Identifying outliers
 
@@ -512,19 +538,27 @@ When cleaning a data set, you should make sure that all variables are properly l
 -  Variable labels should explain what the variable is and, if that's the case, what unit it is in
 -  Labels should be longer than 80 characters
 
-# Label variables: exercise
+# Label variables
 
-
-```{s}
-label variable Nadmetanje_ID 			"Bid ID"
-label variable Process_VrijednostNabave "Contract vlaue (HRK)"
-```
+Variable labels are applied as follows:
 
 ```{s}
-kdensity Process_VrijednostNabave
+label variable Nadmetanje_ID 			"Procedure ID"
+label variable Process_VrijednostNabave "Contract value (HRK)"
 ```
+
+For an example of how they are used, try creating a density plot of `Process_VrijednostNabave` before and after labeling it.
 	
 # Stata packages
+
+- All the Stata commands that we have used until now are built into Stata
+- However, sometimes Stata users write their own commands to complement Stata's original functionality
+- These user-written commands are stored in a repository called SSC
+- To install them in our computers, we write `ssc install packagename`
+
+# `iefieldkit`
+
+`iefieldkit` is a package (set of commands) written by DIME Analytics to automate common tasks in data cleaning
 
 ~~~
 ssc install iefieldkit
@@ -532,11 +566,20 @@ ssc install iefieldkit
 
 # Annotating data using `iecodebook`
 
+- `iecodebook` is one of the commands inside `iefieldkit`
+- It simplifies the process of labeling variables and values in Stata by taking an Excel sheet as *input*
+
+# Annotating data using `iecodebook`
+
+**1.** Use `iecodebook template` to list all the variables in the data
+
 ~~~
-iecorrect template using "DataWork/Documentation/Codebooks/process_clean.xlsx"
+iecodebook template using "DataWork/Documentation/Codebooks/process_clean.xlsx"
 ~~~
 	
-# Annotating data using `iecodebook`
+**2.** Open the spreadsheet created and complete the columns to rename, label and recode variables
+
+**3.** Use `iecodebook apply` to apply the indicated changes to the data
 
 ~~~
 iecorrect apply using "DataWork/Documentation/Codebooks/process_clean.xlsx"
@@ -622,9 +665,12 @@ A few pieces of documentation should accompany the clean dataset:
 
 # Exercise
 
-Finish cleaning the data set
+**Finish cleaning the data set**
 
-1. Transform all variables into date, number or category, except for ...
-2. Check the values of categories in categorical variables
-3. Check that the values of dates and IDs are withing the expected range
-4. Finish annotating the data set: make sure all variables are labelled
+**1.** Transform all variables into date, number or category, except for `Entity_Naziv`, `Process_Naziv`, and `Process_Oznaka`
+
+**2.** Check the values of categories in categorical variables
+
+**3.** Check that the values of dates and IDs are within the expected range
+
+**4.** Finish annotating the data set: make sure all variables are labelled

@@ -73,7 +73,7 @@
 		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-		foreach pres in "data-construction" {
+		foreach pres in "data-cleaning" {
 			
 			if "`pres'" == "intro" 				local name Introduction
 			if "`pres'" == "programming-101"	local name Lecture 1 - Introduction to Statistical Programming
