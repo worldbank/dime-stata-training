@@ -1,66 +1,81 @@
 ---
-title: Constructing datasets - Part 1
+title: Constructing data sets
 author: Luiza Andrade and Sushmita Samaddar
 ---
 
 # What is data construction
 
-- Constructing variables means processing the data points as provided in the raw data to make them suitable for analysis
+- Constructing variables means [processing the data points as provided in the raw data to make them suitable for analysis]{style="color:orange"}
 - Construction transform clean data into analysis data
 - This is done by creating derived variables (e.g. dummies, indices, interactions), reshaping, combining and aggregating data sets
-- It is the only stage when changes will be made to data points
-- Construction is closely linked to research design and questionnaire design
-- Ideally, indicator construction should be done right after data cleaning, according to the pre-analysis plan
+- It is the only stage when changes will be made to data points (other than correcting mistakes in the data)
+- Ideally, indicator construction should be done right after data cleaning, according to the data map
 
-~~~{s/}
+```{s/}
 use "../DataWork/Data/Clean/process_clean.dta", clear
-~~~
+```
 
 # What is data construction 
 
-- Inputs
-  - One or more clean data sets
+**Inputs**
 
-- Outputs
-  - One or more constructed data sets
-  - One data dictionary/codebook for each constructed data set
-  - Construction documentation
+- One or more clean data sets
 
-- Tasks
-  - Unit of observation $\rightarrow$ Unit of analysis
-  - Observed measurement $\rightarrow$ Analysis indicator
+**Outputs**
 
-# Why is construction a separate task from data cleaning?
+- One or more constructed data sets
+- One data dictionary/codebook for each constructed data set
+- Construction documentation
 
-1. To clearly differentiate the data originally acquired data from the result of data processing decisions
-2. To ensure that variable definition is consistent across data sources
-  - For example, we may have multiple rounds of data collection that will be cleaned separately, but we want all of them to be constructed in the same manner
+**Tasks**
+
+- Unit of observation $\rightarrow$ Unit of analysis
+- Observed measurement $\rightarrow$ Analysis indicator
+
+# What is data construction 
+
+**Why is construction a separate task from data cleaning?**
+
+- To clearly differentiate the data originally acquired data from the result of data processing decisions
 
 # What to plan ahead
 
-- What are the final indicators needed to answer a research question
-- How they are defined and calculated
+- What are the [final indicators]{style="color:orange"} needed to answer a question
+- How they are [defined]{style="color:orange"} and calculated
 - What are the steps to get there
-- How to deal with different rounds of data collections
 
 # What to plan ahead
 
-![image](img/data-flow-chart){width="0.7\\linewidth"}
+![](img/flowchart-complete.png)
+
+# What we will learn today
+
+- Two commands to [create new variables in the data]{style="color:orange"}
+- How to [aggregate observations]{style="color:orange"}
+- How to [combine data tables]{style="color:orange"}
 
 # Setting the stage
 
 **Exercise**
 
-1. Launch Stata by opening the Stata project in `DataWork/Introduction to Stata.stpr`
-2. Open a new do-file
-3. Load the clean process data set into
+**1.** Launch Stata by opening the Stata project in `DataWork/Introduction to Stata.stpr`
+
+**2.** Open a new do-file
+
+**3.** Load the clean process-level data
   
 # Setting the stage
 
 **Exercise**
 
+**1.** Launch Stata by opening the Stata project in `DataWork/Introduction to Stata.stpr`
+
+**2.** Open a new do-file
+
+**3.** Load the clean process-level data
+  
 ~~~
-use "Data/Clean/process_clean.dta", clear
+use "DataWork/Data/Clean/process_clean.dta", clear
 ~~~  
   
 # Create new numeric variables
@@ -81,12 +96,12 @@ Here are some simple mathematical operations that can be applied to numeric vari
 **Exercise:** use the `generate` command to create a new variable in the data set that changes the order of magnitude of contract values from 1 HKR to 100.000 HRK.
 
 ~~~
-gen value_100k = Process_VrijednostNabaven/100000
+gen value_scaled = Process_VrijednostNabaven/100000
 ~~~
 
 # Construct date difference variables
 
-The difference between two date-time variables can the calculated using the function `datediff()`:
+[ ]{style="font-size:10%"}
 
 ~~~
 datediff(date1, date2, unit) 
@@ -104,20 +119,20 @@ where units can be:
 
 # Construct date difference variables
 
-**Exercise:** calculate the difference in days between the initiation of the process and the deadline for bid submission. Call it `bid_period`
+**Exercise:** calculate the difference in days between the initiation of the process and the deadline for bid submission. Call it `bid_period`.
 
 # Construct date difference variables
 
-**Exercise:** calculate the number of days between the initiation of the process and the deadline for bid submission. Call it `bid_period`
+**Exercise:** calculate the number of days between the initiation of the process and the deadline for bid submission. Call it `bid_period`.
 
-~~~
-gen bid_period = datediff(initiation_date, bid_submission_date, "day")
+```{s}
+gen bid_period = datediff(process_initiation_date, bid_submission_date, "day")
 summarize bid_period
-~~~
+```
 
 # Extract information from date variables
 
-The following functions can be used to create derived variables can be created from dates in `%td` format
+The following functions can be used to create derived variables from dates in `%td` format
 
 - `year(d)`: numeric year corresponding to date `d`
 - `quarter(d)`: numeric quarter of the year corresponding to date `d`
@@ -125,22 +140,28 @@ The following functions can be used to create derived variables can be created f
 - `week(d)`: numeric week of the year corresponding to date `d`
 - `day(d)`: numeric day of the month corresponding to `d`
 
-# Extract information from date variables
-
-~~~
-year_init = year(initiation_date)
-~~~
-
-**Exercise:** create two new variables, representin the month and quarter when the process was initiated
+```{s}
+gen year_init = year(process_initiation_date)
+```
 
 # Extract information from date variables
 
-**Exercise:** create two new variables, representin the month and quarter when the process was initiated
+**Exercise:** create two new variables:
 
-~~~
-month_init = month(initiation_date)
-quarter_init = quarter(initiation_date)
-~~~
+- `month_init`, representing the month, and 
+- `quart_init`, quarter when the process was initiated
+
+# Extract information from date variables
+
+**Exercise:** create two new variables:
+
+- `month_init`, representing the month, and 
+- `quart_init`, quarter when the process was initiated
+  
+```{s}
+gen month_init   = month(process_initiation_date)
+gen quarter_init = quarter(process_initiation_date)
+```
 
 # Extract information from date variables
 
@@ -149,17 +170,19 @@ quarter_init = quarter(initiation_date)
 
 For example, `gen today = mdy(10,19,2021)` and `gen today = td(19oct2021)` would create the same values.
 
-**Exercise:** create a new variable called `yquarter_init` that indicates 
+# Extract information from date variables
+
+**Exercise:** create a new variable called `yquarter_init` that indicates the year and quarter when a procedure was initiated.
 
 # Extract information from date variables
 
-**Exercise:** create a new variable called `yquarter_init` that indicates 
+**Exercise:** create a new variable called `yquarter_init` that indicates the year and quarter when a procedure was initiated.
 
-~~~
-gen 	 yquarter_init = yq(year_init, quarter_init) 
-format 	 yquarter_init %tq
+```{s}
+gen      yquarter_init = yq(year_init, quarter_init) 
+format   yquarter_init   %tq
 codebook yquarter_init
-~~~
+```
 
 # Create new variables: `egen`
 
@@ -171,38 +194,33 @@ codebook yquarter_init
 # Create new variables: `egen`
 
 - This command is particularly useful when we want to aggregate information across rows without changing the level of observation in the data set
-- Say, for example, that we want to calculate the weight of one process on the total contracted value by an entity
+- Say, for example, that we want to calculate the weight of one process on the total contracted value for an entity
 - We would need to divide the process value by the total value contracted by the entity
-- `egen` allows us to calcualte the total contracting value without changing the unit of observation of the data set as follows
+- `egen` allows us to calculate the total contracting value without changing the unit of observation of the data set as follows
 
-~~~
+```{s}
 egen total_value = sum(process_value), by(entity)
-~~~
+```
 
 # Create new variables: `egen`
 
 **Exercise:** create a new variable called `nr_process` that counts the total number of processes started by a procuring entity.
 
-- *Tip:* look at `egen`'s help file to find a function that counts the number of non-missing observations for a variable.
+[**Tip:** look at `egen`'s help file to find a function that counts the number of non-missing observations for a variable.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 # Create new variables: `egen`
 
 **Exercise:** create a new variable called `nr_process` that counts the total number of processes started by a procuring entity.
 
-~~~
+```{s}
 egen nr_process = count(process_value), by(entity)
-~~~
+```
 
 # Create new variables: best practices
 
-- Create new variables instead of overwriting the original information
+- Create [new variables]{style="color:orange"} instead of overwriting the original information
+  - That is, prefer using `generate` over `replace`
 - Order the data set so that related variables are close to each other
-
-# Creating aggregate measures: best practices
-
-- Check and double-check the value assignments of questions, as well as their scales, before constructing new variables based on them
-- Look at the distributions of both the original and the constructed variables
-- Be mindful of how missing values are treated
 
 # Aggregating observations: `collapse`
 
@@ -211,17 +229,17 @@ egen nr_process = count(process_value), by(entity)
 - In these cases, we will use the command `collapse`
 - It works as follows:
 
-~~~
-collapse (sum) total_value = process_value (count) nr_bids = bid_id, by(entity)
-~~~
+```{s}
+collapse (sum) total_value = process_value nr_participants (count) nr_procedures = procedure_id, by(entity)
+```
 
 # Aggregating observations: `collapse`
 
-Note that running this command will completely change the data set in memory
+Note that running this command will **completely change the data set in memory**
 
-~~~
+```{s}
 codebook
-~~~
+```
 
 # Aggregating observations: `collapse`
 
@@ -236,51 +254,71 @@ There is a number of different statistics that can be used with `collapse`, incl
 - `min`
 - `max`
 
+# Creating aggregate measures: best practices
+
+- Check and double-check the value assignments of questions, as well as their scales, before constructing new variables based on them
+- Look at the distributions of both the original and the constructed variables to make sure there is nothing unexpected hapenning in your data
+- Be mindful of how missing values are treated
+
+[**Be careful:** the stat `sum` treats missing values as zero. If you are adding multiple missing values, it will return zero.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
 # Combining data sets
 
-- All the construction operations we have seen so far are using a single data set
-- However, we often have separate tidy data sets that we need to combine to create our final indicators
-- There are two main ways of combining data sets:
-  - *Appending*, when we combine data sets that have more or less the same columns, but different instances of the unit of observation to increase the number of observations
-  - *Merging*, when we combine data sets that comtain more or less the same instances of the unit of observation, but different variables, to create a data set with more columns than the original ones
+- All the construction operations we have seen so far are using a single data table
+- However, we often have separate data table that we need to combine to create our final indicators
+- There are two main ways of combining data tables:
+  - **Appending**, when we combine data sets that have more or less the same columns, but different instances of the unit of observation to [increase the number of observations]{style="color:orange"}
+  - **Merging**, when we combine data sets that comtain more or less the same instances of the unit of observation, but different variables, to [create a data set with more columns than the original ones]{style="color:orange"}
   
-Can you think of cases when you would need to perform *merges* or *appends*?
+Can you think of cases when you would need to perform **merges** or **appends**?
   
 # Combining data sets
 
-- Examples of *appending* include:
+- Examples of when [`append`]{style="color:orange"} is needed include:
   - Combining data from different years
   - Combining data from different countries
 
-- Examples of *merging* include:
-  - Combining data on contracts and bids for a given process
+- Examples of when [`merge`]{style="color:orange"} is needed include:
+  - Combining data on contracts and bids for a given procedure
   - Including product information on contract data set
-  - Adding entity information on a process data set
+  - Adding entity information on a procedure data set
 
 # Combining data sets: `append`
+
+[ ]{style="font-size:10%"} 
 
 ~~~
 append using filename [filename ...] [, options]
 ~~~
 
-- Note that now we have more than one data set, which has not happened so far
+- Note that now we have [more than one data set]{style="color:orange"}, which has not happened so far
 - Stata can only have one data set in memory at once, so we need to call data sets saved as .dta (or as temporary files, but that is a more advanced topic)
-- `append` will add the observations in the *using* data set (the one referred to by its file name) to the *master* data set (the one that is currently loaded in the memory)
-
-~~~
-append using "Data/Intermediate/entities_2018.dta" "Data/Intermediate/entities_2019.dta"
-~~~
+- `append` will add the observations in the **using** data set (the one referred to by its file name) to the **master** data set (the one that is currently loaded in the memory)
 
 # Combining data sets: `append`
 
-- When a variable is present in only one of the datasets, its values will be missing for all observations that came from the data set that did not include it
+[ ]{style="font-size:10%"} 
+
+~~~
+use 		 "DataWork/Data/Intermediate/entities_2018.dta", clear
+append using "DataWork/Data/Intermediate/entities_2019.dta"
+~~~
+
+```{s/}
+use 		 "../DataWork/Data/Intermediate/entities_2018.dta", clear
+append using "../DataWork/Data/Intermediate/entities_2019.dta"
+```
+
+# Combining data sets: `append`
+
+- When a variable is present in only one of the datasets, its values will be **missing** for all observations that came from the data set that did not include it
 - If columns with the same name have different types of variables in the two data sets (for example, one is a string and one is numeric), this will cause the append to fail
 - You can use the option `gen(newvar)` to include a new variable indicating from which data set each observation came
-- Note that it only makes sense to append data sets that have the same *unit of observation*
+- Note that [it only makes sense to append data sets that have **the same unit of observation**]{style="color:orange"}, but different instances of that unit of observation
 
 # Combining data sets: `append`
 
-**Exercise:** explore the different options of the command `append` using the different years found in the `Data/Intermediate` folder
+**Exercise:** explore the different options of the command `append` using the different years found in the `DataWork/Data/Intermediate` folder.
 
 # Combining data sets: `merge`
 
@@ -298,35 +336,48 @@ merge m:1 varlist using filename [, options]
 
 # Combining data sets: `merge`
 
-- It only makes sense to merge two data sets that have **common observations**
-- The syntax of the command makes it clear that when merging two data sets, they need to have at least one variable in common
-- This is one the points in the data work where having uniquely identifying variables is extremely important!
-- When merging two data sets, we first need to load one of them in memory (this will be called the *master* data), and then refer to the other one (the *using* data set) by its filename
-
-~~~
-use "Data/Clean/process_clean.dta", clear
-
-merge 1:m Nadmetanje_ID usign "Data/Clean/contract_clean.dta"
-~~~
+- [It only makes sense to merge two data sets that have **common observations**]{style="color:orange"}
+- The syntax of the command makes it clear that when merging two data sets, they **need to have at least one variable in common**
+- This is one of the points in the data work where having [uniquely identifying variables]{style="color:orange"} is extremely important!
+- When merging two data sets, we first need to load one of them in memory (this will be called the **master** data), and then refer to the other one (the **using** data set) by its filename
 
 # Combining data sets: `merge`
 
-~~~
-use "Data/Clean/process_clean.dta", clear
+[ ]{style="font-size:10%"}
 
-merge 1:m Nadmetanje_ID usign "Data/Clean/contract_clean.dta"
+~~~
+use "DataWork/Data/Clean/process_clean.dta", clear
+
+merge 1:m process_id using "DataWork/Data/Clean/contract_clean.dta"
 ~~~
 
-- Note that Stata lets you know how well the match between the two data sets went
-- There are also a series of options that allow you to test the the result of the merge matches your expections
+```{s/}
+use "../DataWork/Data/Clean/process_clean.dta", clear
+
+merge 1:m procedure_id using "../DataWork/Data/Clean/contract_clean.dta"
+```
 
 # Combining data sets: `merge`
+
+[ ]{style="font-size:10%"}
+
+~~~
+use "DataWork/Data/Clean/process_clean.dta", clear
+
+merge 1:m process_id using "DataWork/Data/Clean/contract_clean.dta"
+~~~
+
+[Note that Stata lets you know how well the match between the two data sets went.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
+# Combining data sets: `merge`
+
+There are different options that allow you to test that the result of the merge matches your expections
 
 ![](img/merge-opts.png)
 
 # Where things go wrong
 
-- The more complex construction tasks involve changing the structure of the data, such as sample and unit of observation
+- The more complex construction tasks involve changing the structure of the data, such as the sample and the unit of observation
 - Merges and collapses may change the number of observation and create missing entries
 - Make sure to read about how each command treats missing observations
 
@@ -351,77 +402,58 @@ merge 1:m Nadmetanje_ID usign "Data/Clean/contract_clean.dta"
 - Write down in comments what happened
 - Add comments to the code explaining unexpected consequences
 
-# Construction indicators in panel data sets
+# Combining data sets: `merge`
 
-- It is common to construct indicators soon after receiving data from a new survey round
-- However, creating indicators for each round separately increases the risk of using different definitions every time
-- Having a well-established definition for each constructed variable helps prevent that mistake
-- But the best way to guarantee it won't happen is to merge all rounds of data collection first and create the indicators for all rounds in the same script
-- In addition to preventing inconsistencies, this process will also save you time and give you an opportunity to review your original construction code
+**Exercise:** write pseudocode and use `merge`'s options to refine the code to merge process and contract data.
+
+[You will later be able to re-use this code whenever you are combining data sets to make sure you are not creating problems in your data, so invest time in creating a nice piece of code.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 # Constructed data sets
 
-- A constructed data set is built to answer an analysis question
-- Different pieces of analysis may have different units of analysis
-- You may have as many constructed data sets as required for analysis
+- A constructed data set is [purpose-built]{style="color:orange"} to answer an analysis question
+- Different pieces of analysis may require [different units of analysis]{style="color:orange"}, in which case you may have as many constructed data sets as required
 - Don't worry if you cannot create a single, "canonical" analysis data set
-- If you have multiple constructed data sets, name them carefully so you know when to use each of them
+- If you have multiple constructed data sets, [name them carefully]{style="color:orange"} so you know when to use each of them
 
 # Documenting construction
 
 - Documentation is an output of construction as relevant as the code and the data
-- Someone unfamiliar with the project should be able to understand the contents of the analysis data sets, and the steps taken to create them
-- Document exactly how each variable is derived or calculated
-- Carefully record how specific variables have been combined, recoded, and scaled, and refer to those records in the code
-- This can be part of a wider discussion with your team about creating protocols for variable definition, which will guarantee that indicators are defined consistently across projects
+- Someone unfamiliar with the project should be able to understand the contents of the analysis data set, and the steps taken to create them
+- Document exactly **how** each variable is derived or calculated
+- Carefully record how specific variables have been **combined**, **recoded**, and **scaled**, and refer to those records in the code
+- This can be part of a wider discussion with your team about creating [protocols for variable definition]{style="color:orange"}, which will guarantee that indicators are defined consistently across projects
 
 # Construction documentation should include
 
-- A data dictionary with the definition of all variables in the each analysis data table
-- A codebook with summary statistics and other description of all variables in each analysis data table
-- References to the sources of variable definitions
-- Comments on the code explaining each step of the construction and referring to the data dictionary and sources of variable definitions
-
-# Recap
-
-- During construction, you will create purpose-built datasets to answer your **research questions**
-- You should maintain **separate cleaning, construction and analysis scripts**, even if they are simultaneously edited and executed by the master script
-- Create **purpose-built analysis datasets**, naming and saving them appropriately, and using them for the corresponding analytical tasks, rather than building a single dataset
-- **Carefully document** each of these steps in plain and clear language, so that the rationale behind each research decision is clear for any research consumer
+- A [data dictionary]{style="color:orange"}  with the definition of all variables in the each analysis data table
+- A codebook with [summary statistics]{style="color:orange"} and other description of all variables in each analysis data table
+- References to the [sources]{style="color:orange"}  of variable definitions
+- [Comments]{style="color:orange"}  on the code explaining each step of the construction and referring to the data dictionary and sources of variable definitions
 
 # Why is construction a separate task from data analysis?
 
 - In practice, data construction often times happens at the same time as data analysis
 - As you analyze the data, different constructed variables will become necessary, as well as subsets and other alterations to the data
-- However, even if construction ends up coming before analysis only in the order the code is run, it's important to think of them as different steps
+- However, even if construction ends up coming before analysis only in the order the code is run, it's important to think of them as separate steps
 
 # Why is construction a separate task from data analysis?
 
-- Maintainability: If every analysis script cleans and constructs variables from the raw data, any edits to this process need to be replicated in all scripts that use the same final variable.
-- Preventing errors: The difficulty to maintain such scripts increases the chances that at least one of them will have a different sample or variable definition.
+- **Maintainability:** If every analysis script cleans and constructs variables from the raw data, any edits to this process need to be replicated in all scripts that use the same final variable.
+- **Preventing errors:** The difficulty to maintain such scripts increases the chances that at least one of them will have a different sample or variable definition.
 
 Doing all variable construction and data transformation in a unified script, separate from the analysis code, helps avoid this and ensures consistency across different outputs.
 
-# Appendix
+# Appendix - Advanced mathematical operations
 
-# Advanced mathematical operations
 
-~~~
-**Logarithm:** `ln(numvar)`
-**Square root:** `sqrt(numvar)`
-**Exponentiation:** `numvar^num`
-~~~
+- **Logarithm:** `ln(numvar)`
+- **Square root:** `sqrt(numvar)`
+- **Exponentiation:** `numvar^num`
 
-# Create new date variable
+# Appendix - Aggregating variables
 
-~~~
-gen date2 = mdy(m2, d2, 2002)
-~~~
-
-# Aggregating varaibles
+What is the difference between the results for the following lines of code in the presence of missing values?
 
 - `gen income_total = income_wage + income_rent + income_sales`
 - `egen income_total = rowtotal(income_wage income_rent income_sales)`
 - `egen income_total = rowtotal(income_wage income_rent income_sales), m`
-
-# Merge best practices

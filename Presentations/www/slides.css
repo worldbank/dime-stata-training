@@ -31,6 +31,7 @@ body {
   height: 2.5em;
   z-index: 1;
   line-height: 1px;
+  background-color: #1f7ba6;
 }
 
 #footer {
@@ -44,7 +45,6 @@ body {
 }
 
 #header, #footer {
-  background-color: #1f7ba6;
   color: white;
   font-family: Verdana, Helvetica, sans-serif;
 }
@@ -140,7 +140,7 @@ div#controls form {position: fixed;  top: 0; right: 0; width: 100%;
 #controls #navList {height:1em;}
 #controls #navList #jumplist {position: absolute; bottom: 0; right: 0;
   color: black;background-color:#fafafa;  border:1px solid #c0c0c0;}
-#currentSlide {font-size: 0.5em; color: white; padding: 0 1em 0.2em 0;}
+#currentSlide {font-size: 0.5em; color: black; padding: 0 1em 0.2em 0;}
 
 #slide0 {padding-top: 3.5em; font-size: 90%;}
 
