@@ -42,17 +42,24 @@
 
 		* Tell Stata where to find the relevant programs	
 		cap noi whereis pdflatex 			"C:\Program Files\MiKTeX 2.9\miktex\bin\x64\pdflatex.exe"
-		cap noi whereis pandoc 				"C:\Program Files (x86)\Pandoc\pandoc.exe"
-		
-		if "`c(username)'" == "wb522556" {
-			whereis pandoc 				"C:\Program Files\Pandoc\pandoc.exe"
+
+		* Luiza's computer
+		if lower("`c(username)'") == "wb501238" {
+			
+			* Folder where markdown files are
+			global mdfolder 	"C:\Users\wb501238\Documents\GitHub\dime-stata-training\Presentations"
+			
+			* Tell Stata where to find pandoc
+			whereis pandoc 		"C:\Program Files (x86)\Pandoc\pandoc.exe"
 		}
 		
-		* Workshop folder
-		global	mdfolder	"C:\Users\wb501238\Documents\GitHub\dime-stata-training\Presentations"
-		
 		if "`c(username)'" == "wb522556" {
+			
+			* Folder where markdown files are
 			global mdfolder 	"C:\Users\wb522556\OneDrive - WBG\Documents\GitHub\dime-stata-training\Presentations"
+			
+			* Tell Stata where to find pandoc
+			whereis pandoc 		"C:\Program Files\Pandoc\pandoc.exe"
 		}
 
 	}
@@ -67,8 +74,29 @@
 		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-    markstat using "${mdfolder}/5-data-analysis", slides(santiago)
-	
+		foreach pres in "data-analysis" {
+			
+			if "`pres'" == "intro" 				local name Introduction
+			if "`pres'" == "programming-101"	local name Lecture 1 - Introduction to Statistical Programming
+			if "`pres'" == "data-map"	        local name Lecture 2 - Data Map
+			if "`pres'" == "data-management"    local name Lecture 3 - Data Management
+			if "`pres'" == "stata-interface" 	local name Lab 1 - Stata Interface
+			if "`pres'" == "explore-data"	    local name Lab 2 - Exploring Data in Stata
+			if "`pres'" == "importing-data"		local name Lab 3 - Importing and Exploring New Data
+			if "`pres'" == "data-cleaning"		local name Lab 4 - Cleaning Data
+			if "`pres'" == "data-construction"	local name Lab 5 - Data Construction
+			if "`pres'" == "data-analysis"		local name Lab 6 - Data Analysis
+			
+			markstat using "`pres'", slides(santiago)
+			
+			filefilter 	"`pres'.html" "`name'.html", ///
+						from("c:/ado/plus/m/s5/santiago") to("www") replace
+						
+			cap erase "`pres'.smcl"
+			cap erase "`pres'.do"
+			cap erase "`pres'.html"
+
+		}
 	}
 	
 *============================== THE END =======================================*
