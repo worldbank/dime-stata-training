@@ -74,7 +74,7 @@
 		cd "${mdfolder}"
 		//copy https://www.stata-journal.com/production/sjlatex/stata.sty 	stata.sty
 		
-		foreach pres in "data-analysis" {
+		foreach pres in "tableau" {
 			
 			if "`pres'" == "intro" 				local name Introduction
 			if "`pres'" == "programming-101"	local name Lecture 1 - Introduction to Statistical Programming
@@ -86,6 +86,7 @@
 			if "`pres'" == "data-cleaning"		local name Lab 4 - Cleaning Data
 			if "`pres'" == "data-construction"	local name Lab 5 - Data Construction
 			if "`pres'" == "data-analysis"		local name Lab 6 - Data Analysis
+			if "`pres'" == "tableau"				local name Lab 7 - Tableau Dashboards
 			
 			markstat using "`pres'", slides(santiago)
 			
