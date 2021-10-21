@@ -34,9 +34,11 @@ set scheme s2color
 1. Open a new do-file in the do-file editor
 2. Load the dataset that you want to explore
 
-```{s}
+```{s/}
 use "../DataWork/Data/Final/final_process.dta", clear
 ```
+
+`use "../DataWork/Data/Final/final_process.dta", clear`
 
 Note that:
 
@@ -50,12 +52,15 @@ Note that:
 - `codebook`: to describe the dataset and individual variables
 - `summarize`: to see descriptive statistics for continuous variables
 - `tabulate`: to create frequency tables
+- `tabstat`: to create summary statistics for multiple variables
 - `histogram`: to create a histograms
 - `kdensity`: to create a density graph for continuous variables
 - `scatter`: to quickly visualize the relationship between two variables
 
 
 # Exploratory analysis: `codebook`
+
+[ ]{style="font-size:10%"}
 
 ~~~
 codebook [varlist] [if] [in] [, options]
@@ -76,6 +81,8 @@ codebook varlist
 
 # Exploratory analysis: `codebook` 
 
+[ ]{style="font-size:10%"}
+
 ~~~
 codebook [varlist] [if] [in] [, options]
 ~~~
@@ -86,8 +93,9 @@ Explore the specific variables:
 codebook process_value process_type
 ```
 
-
 # Exploratory analysis: `summarize`
+
+[ ]{style="font-size:10%"}
 
 ~~~
 summarize [varlist] [if] [in] [weight] [, options]
@@ -97,6 +105,8 @@ summarize [varlist] [if] [in] [weight] [, options]
 
 
 # Exploratory analysis: `summarize` 
+
+[ ]{style="font-size:10%"}
 
 ~~~
 summarize [varlist] [if] [in] [weight] [, options]
@@ -111,6 +121,8 @@ summarize process_value process_type
 
 # Exploratory analysis: `summarize` 
 
+[ ]{style="font-size:10%"}
+
 ~~~
 summarize [varlist] [if] [in] [weight] [, options]
 ~~~ 
@@ -124,6 +136,8 @@ summarize process_value, detail
 
 # Exploratory analysis: tabulate one way
 
+[ ]{style="font-size:10%"}
+
 ~~~
 tabulate varname [if] [in] [weight] [, options]
 ~~~
@@ -132,6 +146,8 @@ tabulate varname [if] [in] [weight] [, options]
 
 
 # Exploratory analysis: tabulate one way 
+
+[ ]{style="font-size:10%"}
 
 ~~~
 tabulate varname [if] [in] [weight] [, options]
@@ -143,8 +159,9 @@ tabulate varname [if] [in] [weight] [, options]
 tabulate procurement_type
 ```
 
-
 # Exploratory analysis: tabulate two way
+
+[ ]{style="font-size:10%"}
 
 ~~~
 tabulate varname1 varname2 [if] [in] [weight] [, options]
@@ -155,9 +172,12 @@ tabulate varname1 varname2 [if] [in] [weight] [, options]
 
 # Exploratory analysis: tabulate two way 
 
+[ ]{style="font-size:10%"}
+
 ~~~
 tabulate varname1 varname2 [if] [in] [weight] [, options]
 ~~~
+
 
 **Exercise:** use `tabulate` to explore the relationship between variables `procurement_type` and `process_type`
 
@@ -165,7 +185,90 @@ tabulate varname1 varname2 [if] [in] [weight] [, options]
 tabulate procurement_type process_type
 ```
 
+# Exploratory analysis: `tabstat`
+
+~~~
+tabstat varlist [if] [in] [weight] [, options]
+~~~
+
+- `tabstat` is a useful command that can provide summary statistics for a series of numeric variables in one table.  
+- It allows you to specify the list of statistics to be displayed.  
+- Statistics can be calculated (conditioned on) another variable.
+  
+# Exploratory analysis: `tabstat`
+
+Let's expore the minimum, maximum, mean, median, and count for the following variables: `process_value`, `nr_participants`
+
+```{s}
+tabstat process_value nr_participants, stat(mean p50 n)
+```
+Are there any other statistics we can explore through this command? What are they?
+
+# Exploratory analysis: `tabstat [var], by(var)`
+
+What if we wanted to see these statistics for process_value and nr_participants over some other categorical variable?
+
+```{s}
+tabstat process_value nr_participants, stat(mean p50 n) by(process_type)
+```
+
+# Exploratory analysis: `list varlist`
+
+- `list` is a useful command that can display values of variables. 
+
+Let's list `process_values` for the first five observations in the dataset
+
+```{s}
+list process_id process_value in 1/5
+```
+
+# Exploratory analysis: `list varlist`
+
+We can also list the top 5 entities with highest total process values by using `collapse`
+
+```{s}
+collapse (sum) process_value, by(entity)
+gsort -process_value
+list entity process_value in 1/5
+```
+
+# Exploratory analysis: `list varlist` Exercise
+
+**Exercise** Can you list the top 5 counties with the highest total process values? The variable for counties is `entity_counties`
+
+First open the `final_process.dta` again by running the following code
+
+```{s}
+use "../DataWork/Data/Final/final_process.dta", clear
+```
+
+`use "DataWork/Data/Final/final_process.dta", clear`
+
+# Exploratory analysis: `list varlist` Exercise
+
+**Exercise** Can you list the top 5 counties with the highest total process values? The variable for counties is `entity_counties`
+
+```{s/}
+qui{
+use "../DataWork/Data/Final/final_process.dta", clear
+collapse (sum) process_value, by(entity_county)
+gsort -process_value
+list entity_county process_value in 1/5
+}
+```
+
+~~~
+use "DataWork/Data/Final/final_process.dta", clear
+collapse (sum) process_value, by(entity_county)
+gsort -process_value
+list entity_county process_value in 1/5
+~~~
+
+How will be list the counties with the lowest total process values?
+
 # Exploratory analysis: `histogram`
+
+[ ]{style="font-size:10%"}
 
 ~~~
 histogram varname [if] [in] [weight] [, [continuous_opts | discrete_opts] options]
@@ -173,9 +276,17 @@ histogram varname [if] [in] [weight] [, [continuous_opts | discrete_opts] option
 
 **Exercise:** use `histogram` to explore the distibrution of variable `month_init`
 
+```{s/}
+use "../DataWork/Data/Final/final_process.dta", clear
+```
+
+`use "DataWork/Data/Final/final_process.dta", clear`
+
 ![](img/hist_month_init.png){width=40%}
 
 # Exploratory analysis: `histogram`
+
+[ ]{style="font-size:10%"}
 
 ~~~
 histogram varname [if] [in] [weight] [, [continuous_opts | discrete_opts] options]
@@ -191,6 +302,8 @@ histogram month_init
 
 # Exploratory analysis: `histogram`
 
+[ ]{style="font-size:10%"}
+
 ~~~
 histogram varname [if] [in] [weight] [, [continuous_opts | discrete_opts] options]
 ~~~
@@ -203,6 +316,8 @@ histogram month_init, discrete
 
 
 # Exploratory analysis: `kdensity`
+
+[ ]{style="font-size:10%"}
 
 ~~~
 kdensity varname [if] [in] [weight] [, options]
@@ -217,16 +332,20 @@ kdensity bid_submission_period
 
 # Exploratory analysis: `kdensity`
 
+[ ]{style="font-size:10%"}
+
 ~~~
 kdensity varname [if] [in] [weight] [, options]
 ~~~
 
 **Exercise:** use `kdensity` to explore the distribution of variable `bid_submission_period` only for processes where the period is shorter than 100 days
 
-![](img/density_bid_period_restricted.png){width=40%}
+![](img/density_bid_period_restricted.png){width=30%}
 
 
 # Exploratory analysis: `kdensity`
+
+[ ]{style="font-size:10%"}
 
 ~~~
 kdensity varname [if] [in] [weight] [, options]
@@ -238,36 +357,42 @@ kdensity varname [if] [in] [weight] [, options]
 kdensity bid_submission_period if bid_submission_period < 100
 ~~~
 
-![](img/density_bid_period_restricted.png){width=40%}
+![](img/density_bid_period_restricted.png){width=30%}
 
 
 # Exploratory analysis: `scatter`
+
+[ ]{style="font-size:10%"}
 
 ~~~
 scatter varlist [if] [in] [weight] [, options]
 ~~~
 
-**Exercise:** use `scatter` to explore the relationship between variables `nr_nonlocal_bidders` and `nr_participants`
+**Exercise:** use `scatter` to explore the relationship between variables `nr_lots` and `nr_participants`
 
-![](img/scatter.png){width=40%}
+![](img/scatter.png){width=30%}
 
 
 # Exploratory analysis: `scatter`
+
+[ ]{style="font-size:10%"}
 
 ~~~
 scatter varlist [if] [in] [weight] [, options]
 ~~~
 
-**Exercise:** use `scatter` to explore the relationship between variables `nr_nonlocal_bidders` and `nr_participants`
+**Exercise:** use `scatter` to explore the relationship between variables `nr_lots` and `nr_participants`
 
 ~~~
-scatter nr_nonlocal_bidders nr_participants
+scatter nr_lots nr_participants
 ~~~
 
-![](img/scatter.png){width=40%}
+![](img/scatter.png){width=30%}
 
 
 # Exploratory analysis: `graph bar`
+
+[ ]{style="font-size:10%"}
 
 ~~~
 graph bar  yvars [if] [in] [weight] [, options]
@@ -276,7 +401,7 @@ graph hbar yvars [if] [in] [weight] [, options]
 
 **Exercise:** use `graph bar` to explore the variable `process_value`
 
-![](img/process_value.png){width=40%}
+![](img/process_value.png){width=30%}
 
 
 # Exploratory analysis: `graph bar`
@@ -288,9 +413,9 @@ graph hbar yvars [if] [in] [weight] [, options]
 graph bar process_value
 ~~~
 
-![](img/process_value.png){width=40%}
+![](img/process_value.png){width=30%}
 
-*Note that by default a bar graph displays the average value of a continuous variable*
+[Note that by default a bar graph displays the average value of a continuous variable.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
 
 # Exploratory analysis: `graph bar`
@@ -326,6 +451,8 @@ graph bar (sum) process_value, over(procurement_type)
 
 # Exploratory analysis: `graph bar`
 
+[ ]{style="font-size:10%"}
+
 ~~~
 graph bar  yvars [if] [in] [weight] [, options]
 graph hbar yvars [if] [in] [weight] [, options]
@@ -333,19 +460,12 @@ graph hbar yvars [if] [in] [weight] [, options]
 
 **Exercise:** Create a horizontal bar graph that shows the number of processes with each procurement type
 
-![](img/process_type_count.png){width=40%}
-
-**Exercise:** Create a horizontal bar graph that shows the number of processes with each procurement type
-
-~~~
-graph hbar (count) process_id, over(procurement_type)
-~~~
-
-![](img/process_type_count.png){width=40%}
-
+![](img/process_type_count.png){width=30%}
 
 # Exploratory analysis: `graph bar`
 
+[ ]{style="font-size:10%"}
+
 ~~~
 graph bar  yvars [if] [in] [weight] [, options]
 graph hbar yvars [if] [in] [weight] [, options]
@@ -357,8 +477,46 @@ graph hbar yvars [if] [in] [weight] [, options]
 graph hbar (count) process_id, over(procurement_type)
 ~~~
 
-![](img/process_type_count.png){width=40%}
+![](img/process_type_count.png){width=35%}
 
+
+# Exploratory analysis: `graph bar`
+~~~
+graph bar  yvars [if] [in] [weight] [, options]
+graph hbar yvars [if] [in] [weight] [, options]
+~~~
+
+**Exercise:** Create a horizontal bar graph that shows the top 5 procuring entities with the highest total process value
+
+[**Tip:** Refer to our exercise on listing the top 5 procuring entities]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
+![](img/topcounties.png){width=35%}
+
+# Exploratory analysis: `graph bar`
+
+**Exercise:** Create a horizontal bar graph that shows the top 5 counties with the highest total process value
+
+~~~
+use "DataWork/Data/Final/final_process.dta", clear
+
+collapse (sum) process_value, by(entity_county) // collapses your data at county level
+
+gsort -process_value // sorts total process_value in descending order
+
+gen rank = _n // generates a new variable that ranks the observations after sorting
+
+graph hbar (sum) process_value if rank <= 5, over(entity_county) // creates a graph of top counties 
+~~~
+
+```{s/}
+qui{
+use "../DataWork/Data/Final/final_process.dta", clear
+collapse (sum) process_value, by(entity_county) // *collapses your data at county level* 
+gsort -process_value // *sorts total process_value in descending order
+gen rank = _n // *generates a new variable that ranks the observations after sorting
+graph hbar (sum) process_value if rank<=5, over(entity_county) // *creates a graph of top counties     
+}
+```
 
 # Final analysis
 
@@ -369,22 +527,31 @@ graph hbar (count) process_id, over(procurement_type)
 
 # Final analysis: setting the stage
 
-1. Save the code that you wrote for exploratory analysis on the `Code/Analysis` folder. Call it `explore-process-data.do`.
-2. Open a new script
-3. Load the data that you want to use
-4. Copy the code that created the graph you want to polish
+**Exercise:**
+
+**1.** Save the code that you wrote for exploratory analysis on the `Code/Analysis` folder. Call it `explore-process-data.do`.
+
+**2.** Open a new script
+
+**3.** Load the data that you want to use
+
+**4.** Copy the code that created the graph you want to polish
 
 
 # Final analysis: `graph bar`
 
-`Untitled`
+[ ]{style="font-size:10%"}
 
+```{s/}
+use "../DataWork/Data/Final/final_process.dta", clear
+```
 ~~~
+Untitled do-file -----------------------------------
+
 use "../DataWork/Data/Final/final_process.dta"
 
 graph bar (count) process_id, over(procurement_type) 
 ~~~
-
 
 # Final analysis: `graph bar`
 
@@ -396,7 +563,7 @@ graph bar (count) process_id, ///
 	ytitle("Number of processes") <----
 ~~~
 
-![](img/title.png){width=40%}
+![](img/title.png){width=35%}
 
 
 # Final analysis: `graph bar`
@@ -410,7 +577,7 @@ graph bar (count) process_id, ///
 	blabel(total) <----
 ~~~
 
-![](img/blabel.png){width=40%}
+![](img/blabel.png){width=35%}
 
 
 # Final analysis: `graph bar`
@@ -425,7 +592,7 @@ graph bar (count) process_id, ///
 	graphregion(color(white)) <----
 ~~~
 
-![](img/grregion.png){width=40%}
+![](img/grregion.png){width=35%}
 
 
 # Final analysis: `set scheme`
@@ -442,17 +609,13 @@ graph bar (count) process_id, ///
 	blabel(total) 
 ~~~
 
-![](img/plotplain.png){width=40%}
+![](img/plotplain.png){width=30%}
 
 
 # Final analysis: `set scheme`
 
-See [https://github.com/asjadnaqvi/Stata-schemes]() for more schemes
-
 ~~~
-net install tsg_schemes, from("https://raw.githubusercontent.com/asjadnaqvi/Stata-schemes/main/schemes/") replace
-
-set scheme white_tableau
+set scheme white_tableau // See https://github.com/asjadnaqvi/Stata-schemes for more schemes
 
 graph bar (count) process_id, ///
 	over(procurement_type) ///
@@ -460,15 +623,15 @@ graph bar (count) process_id, ///
 	blabel(total) 
 ~~~
 
-![](img/white_tableau.png){width=40%}
+![](img/white_tableau.png){width=30%}
 
 # Final analysis: `graph bar`
 
 **Exercise:** recreate the graph shown below.
 
-- Tip: the color scheme is called `white_w3d`
+[**Tip:** the color scheme is called `white_w3d`]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
 
-![](img/total_value_proctype_bar.png){width=40%}
+![](img/total_value_proctype_bar.png){width=30%}
 
 
 # Final analysis: `graph bar`
@@ -485,7 +648,7 @@ gr bar (sum) process_value, ///
 	title("Total awarded value by process type")
 ~~~
 
-![](img/total_value_proctype_bar.png){width=40%}
+![](img/total_value_proctype_bar.png){width=30%}
 
 
 # Final analysis: exporting outputs
@@ -497,6 +660,8 @@ gr bar (sum) process_value, ///
 
 # Final analysis: exporting graphs
 
+[ ]{style="font-size:10%"}
+
 ~~~
 graph export newfilename.suffix [, options]
 ~~~
@@ -505,6 +670,8 @@ graph export newfilename.suffix [, options]
 
 
 # Final analysis: exporting graphs
+
+[ ]{style="font-size:10%"}
 
 ~~~
 graph export newfilename.suffix [, options]
@@ -520,9 +687,11 @@ graph export "../DataWork/Output/process-value-by-procurement-type.png", replace
 
 Final analysis scripts should be short and simple:
 
-1. Load the data to be used
-2. Create the graph or table to be exported
-3. Export the graph or table
+**1.** Load the data to be used
+
+**2.** Create the graph or table to be exported
+
+**3.** Export the graph or table
 
 **Exercise:** Clean and save the do-file that created your graph to the folder `Code/Analysis`. Call it `process-value-by-procurement-type.do`
 
@@ -566,13 +735,16 @@ graph export "../DataWork/Output/processes-by-procurement-type.png", replace
 
 Analysis scripts should be this short for a few reasons:
 
-1. In the future, we may only want to recreate one graph and not all of the graph we ever exported. In these cases, running a short script is much faster.
-2. We want to be able to quickly find the piece of code that created an image. It is harder to read a long script and find the exact part of the code that created it than it is to connect a graph name to a do-file name.
+**1.** In the future, we may only want to recreate one graph and not all of the graph we ever exported. In these cases, running a short script is much faster.
+
+**2.** We want to be able to quickly find the piece of code that created an image. It is harder to read a long script and find the exact part of the code that created it than it is to connect a graph name to a do-file name.
 
 In the next session, we will see how to recreate many figures without opening and running each do-file individually.
 
 
 # Final analysis: `graph pie`
+
+[ ]{style="font-size:10%"}
 
 ~~~
 Slices as totals or percentages within over() categories
@@ -585,6 +757,8 @@ Slices as frequencies within over() categories
 
 # Final analysis: `graph pie`
 
+[ ]{style="font-size:10%"}
+
 ~~~
 graph pie, over(procurement_type)
 ~~~
@@ -593,6 +767,8 @@ graph pie, over(procurement_type)
 
 
 # Final analysis: `graph pie`
+
+[ ]{style="font-size:10%"}
 
 ~~~
 graph pie process_value, over(procurement_type)
@@ -603,6 +779,8 @@ graph pie process_value, over(procurement_type)
 
 # Final analysis: `graph pie`
 
+[ ]{style="font-size:10%"}
+
 ~~~
 gr pie process_value, over(procurement_type) plabel(_all percent)
 ~~~
@@ -611,6 +789,8 @@ gr pie process_value, over(procurement_type) plabel(_all percent)
 
 
 # Final analysis: `graph pie`
+
+[ ]{style="font-size:10%"}
 
 ~~~
 gr pie process_value, over(procurement_type) plabel(_all percent) legend(position(12) cols(3))
@@ -621,6 +801,8 @@ gr pie process_value, over(procurement_type) plabel(_all percent) legend(positio
 
 # Final analysis: `graph pie`
 
+[ ]{style="font-size:10%"}
+
 ~~~
 gr pie process_value, over(procurement_type) plabel(_all percent) legend(position(4) cols(1))
 ~~~
@@ -629,6 +811,8 @@ gr pie process_value, over(procurement_type) plabel(_all percent) legend(positio
 
 
 # Final analysis: `graph pie`
+
+[ ]{style="font-size:10%"}
 
 ~~~
 gr pie process_value, over(procurement_type) plabel(_all percent, gap(10)) legend(on position(4) cols(1)) pie(2, explode)
@@ -649,7 +833,7 @@ If we wanted to see how the total process value changes over time, for example, 
 gr bar (sum) process_value, over(year_init) 
 ~~~
 
-![](img/value_year.png){width=40%}
+![](img/value_year.png){width=20%}
 
 # Two way graphs
 
@@ -661,18 +845,17 @@ gr bar (sum) process_value, over(year_init)
 
 # Two-way graphs
 
-The way to create this year-level dataset was discussed when we talked about construction:
+The way to create this type-year level dataset was discussed when we talked about construction:
 
 ```{s}
-collapse (sum) process_value, by(year_init)
+collapse (sum) process_value, by(year_init procurement_type)
 ```
 
 This will create the following dataset:
 
 ```{s}
-codebook
+codebook, compact
 ```
-
 
 # Two-way graphs
 
@@ -683,7 +866,7 @@ Once the data is at the appropriate level of observation, we can create a two-wa
 ~~~
 
 ~~~
-graph twoway line process_value year_init
+graph twoway line process_value year_init if procurement_type == 1
 ~~~
 
 ![](img/tw1.png){width=40%}
@@ -695,8 +878,9 @@ One nice freature of two-way graphs is that we can add layers to a plot:
 
 ~~~
 graph twoway ///
-	(line process_value year_init) /// First layer
-	(scatter process_value year_init) // Second layer
+	(line process_value year_init if procurement_type == 1) /// First layer
+	(line process_value year_init if procurement_type == 2) /// Second layer
+	(line process_value year_init if procurement_type == 3) // Third layer
 ~~~
 
 ![](img/tw2.png){width=40%}
@@ -705,31 +889,17 @@ graph twoway ///
 # Two-way graphs
 
 - When a graph has multiple layers, there are two different types of options we can add: layer-specific options and general graph options
-- General graph options are separated by a comma and added outside of the parentheses that define a layer:
-
-~~~
-graph twoway ///
-	(line process_value year_init) /// First layer
-	(scatter process_value year_init) /// Second layer
-	, ///
-	legend(off) // general graph option
-~~~
-
-![](img/tw3.png){width=40%}
-
+- General graph options are separated by a comma and added outside of the parentheses that define a layer
 
 # Two-way graphs
 
-- When a graph has multiple layers, there are two different types of options we can add: layer-specific options and general graph options
-- Layer-specific options are also separeted by a comma, but must be entered inside the parentheses that define the layer
-
 ~~~
 graph twoway ///
-	(line process_value year_init) /// First layer
-	(scatter process_value year_init /// Second layer
-		, mlabel(process_value)) /// Option to be applied to the second layer
-	, ///
-	legend(off) // General graph option
+	(line process_value year_init if procurement_type == 1, /// First layer
+		lpattern(dash)) 									/// Option for first layer
+	(line process_value year_init if procurement_type == 2) /// Second layer
+	(line process_value year_init if procurement_type == 3), /// Third layer
+	legend(order(1 "Goods" 2 "Services" 3 "Works")) // General graph option
 ~~~
 
 ![](img/tw4.png){width=40%}
@@ -747,18 +917,14 @@ graph twoway ///
 
 ~~~
 graph twoway ///
-	(line process_value year_init) /// First layer
-	(scatter process_value year_init /// Second layer
-		, mlabel(process_value)) /// Option to be applied to the second layer
-	, ///
-	legend(off) /// General graph option
-	title(Total process value by over (Lev)) <---- Title is a general graph option
-	
-gr export "img/tw5.png", replace
+	(line process_value year_init if procurement_type == 1) /// First layer
+	(line process_value year_init if procurement_type == 2) /// Second layer
+	(line process_value year_init if procurement_type == 3), /// Third layer
+	legend(order(1 "Goods" 2 "Services" 3 "Works")) /// General graph option
+	title(Total process value by over procurement type (HRK))	<---- Title is a general graph option
 ~~~
 
 ![](img/tw5.png){width=40%}
-
 
 # Two-way graphs
 
@@ -772,16 +938,21 @@ gr export "img/tw5.png", replace
 # Final analysis: exporting tables
 
 - The `collapse` command that we just used to make sure our dataset was represeting year-level observations is also useful to create descriptive tables 
-- The easiest way to export a descriptive table to Excel is to collapse the dataset, create the columns we want to present in our table, and export the entire dataset to Excel, as we did in session X
+- The easiest way to export a descriptive table to Excel is to collapse the dataset, create the columns we want to present in our table, and export the entire dataset to Excel
 
 **Steps:**
 
-1. Load the constructed process dataset
-2. Collapse the data to display the desired statistics for each bid procedure
-3. Label the columns using label variable
-4. Export the resulting dataset to Excel
+**1.** Load the constructed process dataset
+
+**2.** Collapse the data to display the desired statistics for each bid procedure
+
+**3.** Label the columns using label variable
+
+**4.** Export the resulting dataset to Excel
 
 # Exporting tables
+
+[ ]{style="font-size:10%"}
 
 ~~~
 use "../DataWork/Data/Final/final_process.dta", clear
@@ -802,11 +973,15 @@ export excel using "../DataWork/Output/Tables.xls", sheet("Bid procedure") sheet
 
 ![](img/table2.png){width=40%}
 
-1. Open a new do-file
-2. Load the constructed process dataset
-3. Collapse the data to display the desired statistics for each bid procedure
-4. Label the columns using label variable
-5. Export the resulting dataset to Excel
+**1.** Open a new do-file
+
+**2.** Load the constructed process dataset
+
+**3.** Collapse the data to display the desired statistics for each bid procedure
+
+**4.** Label the columns using label variable
+
+**5.** Export the resulting dataset to Excel
 
 
 # Final analysis: exporting tables
@@ -820,21 +995,12 @@ use "../DataWork/Data/Final/final_process.dta", clear
     
 collapse (sum)        value = process_value ///
 		 (percent) percent = process_value ///
-		 (count)   volume = bid_id ///
-		 , ///
+		 (count)   volume = bid_id, ///
 		 by(bid_procedure)
 
 label variable value     "Awarded value (Lev)"
-label variable percent     "Percent of awarded value"
-label variable volume     "Volume of processes"
+label variable percent   "Percent of awarded value"
+label variable volume    "Volume of processes"
 
 export excel using "../DataWork/Output/Tables.xls", sheet("Bid procedure") sheetreplace firstrow(varlabels)
 ~~~
-	
-# Appendix
-
-- Changing layer colors
-
-- `esttab`
-- Stata visual library
-
