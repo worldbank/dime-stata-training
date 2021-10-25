@@ -21,8 +21,7 @@ A master script is the main script that calls upon and runs all the other script
 
 # Master do-file
 
-![](img/Master4)
-![](img/Master5)
+![](img/Master4.PNG)
 
 # Master do-file
 
@@ -31,6 +30,8 @@ A master script is the main script that calls upon and runs all the other script
 - You can then select which parts of the code you want to run, or run all of it
 
 # Do-file header
+
+[]{style="font-size:10%"}
 
 ~~~
 /*******************************************************************************
@@ -67,10 +68,12 @@ Comments should be used to
 
 # Loops
 
+[]{style="font-size:10%"}
+
 ~~~
-gr pie process_value, over(procurement_type) plabel(_all percent, gap(19)) legend(on position(4) cols(1)) 
-gr pie process_value, over(bid_procedure) 	 plabel(_all percent, gap(19)) legend(on position(4) cols(1)) 
-gr pie process_value, over(process_type) 	 plabel(_all percent, gap(19)) legend(on position(4) cols(1)) 
+gr pie process_value, over(procurement_type) legend(on position(4) cols(1)) 
+gr pie process_value, over(bid_procedure)    legend(on position(4) cols(1)) 
+gr pie process_value, over(process_type)     legend(on position(4) cols(1)) 
 ~~~
 
 # Loops
@@ -82,11 +85,15 @@ gr pie process_value, over(process_type) 	 plabel(_all percent, gap(19)) legend(
 
 # Loops
 
+Numbers
+
 ```{s}
 forvalues number = 1/5 {
 	di `number'
 }
 ```
+
+General 
 
 ```{s}
 foreach word in "hello" "goodbye" {
@@ -96,15 +103,27 @@ foreach word in "hello" "goodbye" {
 
 # Loops
 
+WET
+
 ~~~
-gr pie process_value, over(procurement_type) plabel(_all percent, gap(19)) legend(on position(4) cols(1)) 
-gr pie process_value, over(bid_procedure) 	 plabel(_all percent, gap(19)) legend(on position(4) cols(1)) 
-gr pie process_value, over(process_type) 	 plabel(_all percent, gap(19)) legend(on position(4) cols(1)) 
+gr pie process_value, over(procurement_type) legend(on position(4) cols(1)) 
+gr pie process_value, over(bid_procedure)    legend(on position(4) cols(1)) 
+gr pie process_value, over(process_type)     legend(on position(4) cols(1)) 
 ~~~
+
+DRY 
 
 ```{s}
 	foreach var of varlist procurement_type bid_procedure process_type {
-		gr pie process_value, over(`var') plabel(_all percent, gap(19)) legend(on position(4) cols(1)) 
+		gr pie process_value, over(`var') plegend(on position(4) cols(1)) 
 	}
 ```
+
+# Resouces
+
+- [Stata Visual Library](https://worldbank.github.io/stata-visual-library/)
+- [Stata Style Guide](https://worldbank.github.io/dime-data-handbook/coding.html)
+- [Development Research in Practice Course](https://osf.io/6fsz3/)
+- [Stata Markdown](https://data.princeton.edu/stata/markdown)
+- [Updates on this training](https://github.com/worldbank/dime-stata-training)
 	
