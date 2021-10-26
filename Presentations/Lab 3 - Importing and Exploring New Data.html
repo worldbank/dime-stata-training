@@ -1,0 +1,455 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="version" content="S5 1.1" />
+  <meta name="author" content="Luiza Andrade and Sushmita Samaddar" />
+  <title>Importing and exploring new data</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <!-- configuration parameters -->
+  <meta name="defaultView" content="slideshow" />
+  <meta name="controlVis" content="hidden" />
+  <!-- style sheet links -->
+  <link rel="stylesheet" href="www/slides.css" type="text/css" media="projection" id="slideProj" />
+  <link rel="stylesheet" href="www/outline.css" type="text/css" media="screen" id="outlineStyle" />
+  <link rel="stylesheet" href="www/print.css" type="text/css" media="print" id="slidePrint" />
+  <link rel="stylesheet" href="www/opera.css" type="text/css" media="projection" id="operaFix" />
+  <!-- S5 JS -->
+  <script src="www/slides.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="layout">
+<div id="controls"></div>
+<div id="currentSlide"></div>
+<div id="header"></div>
+<div id="footer">
+  <h1></h1>
+  <h2>Importing and exploring new data</h2>
+</div>
+</div>
+<div class="presentation">
+<div class="title-slide slide">
+  <h1 class="title">Importing and exploring new data</h1>
+  <h3 class="author">Luiza Andrade and Sushmita Samaddar</h3>
+</div>
+<div id="introduction" class="slide section level1">
+<h1>Introduction</h1>
+<ul>
+<li>Until now, we have been working with data that has already been processed</li>
+<li>This is because we wanted to get you familiar with the Stata syntax before we started digging into more difficult tasks</li>
+<li>Over the next few sessions, we will take you through the process that is needed to create the data that we were using before</li>
+<li>Then, we will show you how to create polished graphs and tables using these data</li>
+</ul>
+
+</div>
+<div id="introduction-1" class="slide section level1">
+<h1>Introduction</h1>
+<ul>
+<li>The data set in <code>DataWork/Data/Final/process_data.dta</code> has been <em>imported</em>, <em>cleaned</em> and <em>constructed</em>
+<ul>
+<li><strong>Importing</strong> means saving data that was received in a format external to Stata (such as Excel) into the Stata data set format (.dta)</li>
+<li><strong>Cleaning</strong> means changing the format of the data so it is easy to handle in Stata</li>
+<li><strong>Constructing</strong> means using the clean data to create indicators that we care about</li>
+</ul></li>
+<li>This session will take you through the very first step of this process, <em>data import</em></li>
+<li>We will also discuss one very important aspect of data quality that should be inspected as soon as the data is imported: the presence of unique identifiers</li>
+<li>Finally, we will learn some new Stata tricks using logical operators to create subsets of the data and to remove variables from a data set</li>
+</ul>
+</div>
+<div id="importing-data-from-excel" class="slide section level1">
+<h1>Importing data from Excel</h1>
+<ul>
+<li>The data that was used to create the process-level data set we have been using until now was originally received in Excel format</li>
+<li>This raw data is stored in <code>DataWork/Data/Raw/process_raw.xlsx</code></li>
+</ul>
+</div>
+<div id="importing-data-from-excel-1" class="slide section level1">
+<h1>Importing data from Excel</h1>
+<ul>
+<li>The data that was used to create the process-level data set we have been using until now was originally received in Excel format</li>
+<li>This raw data is stored in <code>DataWork/Data/Raw/process_raw.xlsx</code></li>
+</ul>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"><em>Raw</em> data means data that is in the originally received format, with no processing by our team</span></p>
+</div>
+<div id="importing-data-from-excel-2" class="slide section level1">
+<h1>Importing data from Excel</h1>
+<ul>
+<li>The data that was used to create the process-level data set we have been using until now was originally received in Excel format</li>
+<li>This raw data is stored in <code>DataWork/Data/Raw/process_raw.xlsx</code></li>
+</ul>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"><em>Raw</em> data means data that is in the originally received format, with no processing by our team</span></p>
+<ul>
+<li>However, for the reasons we have already discussed in the past two days, we have chosen not to work with this data in Excel</li>
+<li>So the first thing we need to do is to open this data into Stata</li>
+<li>We will do this using the command <code>import excel</code></li>
+</ul>
+</div>
+<div id="importing-data-from-excel-3" class="slide section level1">
+<h1>Importing data from Excel</h1>
+<p><strong>Exercise</strong>: load the raw process data into Stata from Excel.</p>
+<p><strong>1.</strong> Launch Stata by opening the Stata project in <code>Introduction to Stata.stpr</code></p>
+<p><strong>2.</strong> Open a new do-file</p>
+<p><strong>3.</strong> Use <code>import excel</code> to load the data from <code>DataWork/Data/Raw/process_raw.xlsx</code></p>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"><strong>Tip:</strong> if you are not sure how to do this, start by looking at the helpfile</span></p>
+</div>
+<div id="importing-data-from-excel-4" class="slide section level1">
+<h1>Importing data from Excel</h1>
+<p><strong>Exercise</strong>: load the raw process data into Stata from Excel.</p>
+<pre><code>import excel &quot;Data/Raw/process_raw.xlsx&quot;, /// Path to the file to be loaded
+    sheet(&quot;Sheet1&quot;) /// Name of the sheet where the data is
+    firstrow /// Use first row in the data as variable names, not data points
+    clear // Replace the data in memory with this data</code></pre>
+</div>
+<div id="importing-data-from-csv-files" class="slide section level1">
+<h1>Importing data from csv files</h1>
+<ul>
+<li>Apart from Excel, another format that is commonly used to share data is <em>comma-separated values</em>, or <code>.csv</code></li>
+<li>The command that imports data from <code>.csv</code> into Stata is very similar to the one that import Excel files</li>
+</ul>
+<p><span style="font-size:10%"></span></p>
+<pre><code>import delimited &quot;Data/Raw/process_raw.csv&quot;, /// Path to the file to be loaded
+    encoding(windows-1250) /// How to read non-English characters
+    clear /// Replace the data in memory
+    bindquote(strict) // How to treat quotes found in the data</code></pre>
+</div>
+<div id="saving-data-into-stata-format" class="slide section level1">
+<h1>Saving data into Stata format</h1>
+<ul>
+<li>Now that we have the data in Stata’s memory, we will make sure to save it in a Stata-friendly format</li>
+<li><strong>The native Stata format is called <code>.dta</code></strong></li>
+<li>This format is optimized to be used with Stata, and stores some important metadata that is important for Stata</li>
+<li>Because of this metadata, <span style="color:orange">Stata can open these data sets a lot more quickly than other formats</span></li>
+<li>The difference may not be noticeable when dealing with small data sets such as the one we have now, but it is can be quite dramatic when handling large data sets</li>
+</ul>
+</div>
+<div id="saving-data-into-stata-format-1" class="slide section level1">
+<h1>Saving data into Stata format</h1>
+<p>Save data in memory to file</p>
+<pre><code>save [filename] [, save_options]</code></pre>
+</div>
+<div id="saving-data-into-stata-format-2" class="slide section level1">
+<h1>Saving data into Stata format</h1>
+<p><strong>Exercise</strong>: save the data set that is currently in Stata’s memory to “DataWork/Data/Raw/process_raw.dta”.</p>
+</div>
+<div id="saving-data-into-stata-format-3" class="slide section level1">
+<h1>Saving data into Stata format</h1>
+<p><strong>Exercise</strong>: save the data set that is currently in Stata’s memory to “DataWork/Data/Raw/process_raw.dta”.</p>
+<pre><code>save &quot;DataWork/Data/Raw/process_raw.dta&quot;, replace</code></pre>
+</div>
+<div id="saving-data-into-stata-format-4" class="slide section level1">
+<h1>Saving data into Stata format</h1>
+<p><strong>Exercise</strong>: save the data set that is currently in Stata’s memory to “DataWork/Data/Raw/process_raw.dta”.</p>
+<pre><code>save &quot;DataWork/Data/Raw/process_raw.dta&quot;, replace</code></pre>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">The <code>replace</code> option replaces any existing file with the same name with the one you are saving now. Without it, Stata will return an error whenever a file with the same name exists.</span></p>
+</div>
+<div id="exploring-the-data" class="slide section level1">
+<h1>Exploring the data</h1>
+<ul>
+<li>You have now imported your first data set into Stata!</li>
+<li>This is when the data work process starts</li>
+<li>We have a fresh new data set that we want to understand so we can use it for analysis</li>
+<li><strong>Where should we start?</strong></li>
+</ul>
+</div>
+<div id="unique-id" class="slide section level1">
+<h1>Unique ID</h1>
+<p>The first thing you want to look for every single time you open a new data set for the first time is</p>
+<p><strong>1. Unit of observation:</strong> the object or unit that is being described in the data set</p>
+<p><strong>2. Uniquely and fully identifying ID variable:</strong> the column in the data set that can be used to tell one observation apart from the others</p>
+</div>
+<div id="unique-id-1" class="slide section level1">
+<h1>Unique ID</h1>
+<p>The first thing you want to look for every single time you open a new data set for the first time is</p>
+<p><strong>1. Unit of observation:</strong> the object or unit that is being described in the data set</p>
+<p><strong>2. Uniquely and fully identifying ID variable:</strong> the column in the data set that can be used to tell one observation apart from the others</p>
+<ul>
+<li><span style="color:orange">Uniquely</span> identifying: cannot have duplicated values</li>
+<li><span style="color:orange">Fully</span> identifying: cannot be missing</li>
+</ul>
+</div>
+<div id="unique-id-2" class="slide section level1">
+<h1>Unique ID</h1>
+<p><strong>Why</strong> is it so important to have a unique identifier for our unit of observation?</p>
+</div>
+<div id="unique-id-3" class="slide section level1">
+<h1>Unique ID</h1>
+<p><strong>Why</strong> is it so important to have a unique identifier for our unit of observation?</p>
+<ul>
+<li>So we make sure that we are not giving one instance of the unit of observation more <span style="color:orange">weight</span> then others (if that observation is duplicated)</li>
+<li>So we can use it to <span style="color:orange">combine different data sets</span> (more on this later in the course)</li>
+</ul>
+</div>
+<div id="unique-id-4" class="slide section level1">
+<h1>Unique ID</h1>
+<ul>
+<li>What is the <span style="color:orange">unit of observation</span> in the data set we have just loaded?</li>
+<li>What column identifies different instances of the unit of observation in the data set we have just loaded – that is, what is its <span style="color:orange">ID variable</span>?</li>
+</ul>
+</div>
+<div id="unique-id-5" class="slide section level1">
+<h1>Unique ID</h1>
+<p><strong>Exercise:</strong> browse the process data set and try to identify its unit of observation and ID variable.</p>
+</div>
+<div id="unique-id-6" class="slide section level1">
+<h1>Unique ID</h1>
+<p>Commands for testing that a variable is uniquely and fully identifying</p>
+<ul>
+<li><code>isid</code></li>
+<li><code>duplicates</code></li>
+</ul>
+</div>
+<div id="isid" class="slide section level1">
+<h1><code>isid</code></h1>
+<p><strong><code>isid</code></strong> checks whether the specified variables uniquely identify the observations.</p>
+<pre><code>isid varlist [using filename] [, sort missok]</code></pre>
+</div>
+<div id="isid-1" class="slide section level1">
+<h1><code>isid</code></h1>
+<p><strong>Exercise:</strong> use <code>isid</code> to test whether the variable <code>Process_Naziv</code> or <code>Process_Oznaka</code> uniquely identifies the observations in this data set.</p>
+</div>
+<div id="isid-2" class="slide section level1">
+<h1><code>isid</code></h1>
+<p><strong>Exercise:</strong> use <code>isid</code> to test whether the variable <code>Process_Naziv</code> or <code>Process_Oznaka</code> uniquely identifies the observations in this data set.</p>
+<pre><code>isid Process_Naziv
+isid Process_Oznaka</code></pre>
+</div>
+<div id="isid-3" class="slide section level1">
+<h1><code>isid</code></h1>
+<p><strong>Exercise:</strong> use <code>isid</code> to test whether the variable <code>Nadmetanje_ID</code> uniquely identifies the observations in this data set.</p>
+</div>
+<div id="isid-4" class="slide section level1">
+<h1><code>isid</code></h1>
+<p><strong>Exercise:</strong> use <code>isid</code> to test whether the variable <code>Nadmetanje_ID</code> uniquely identifies the observations in this data set.</p>
+<pre class='stata'>. isid Nadmetanje_ID
+</pre>
+</div>
+<div id="isid-5" class="slide section level1">
+<h1><code>isid</code></h1>
+<p><strong>Exercise:</strong> use <code>isid</code> to test whether the variable <code>Nadmetanje_ID</code> uniquely identifies the observations in this data set.</p>
+<pre class='stata'>. isid Nadmetanje_ID
+</pre>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">Stata did not throw an error because <code>Nadmetanje_ID</code> is the ID variable</span></p>
+</div>
+<div id="duplicates" class="slide section level1">
+<h1><code>duplicates</code></h1>
+<p><strong><code>duplicates</code></strong> – Report, tag, or drop duplicate observations</p>
+<ul>
+<li>Report duplicates</li>
+</ul>
+<pre><code>duplicates report [varlist] [if] [in]</code></pre>
+<ul>
+<li>List one example for each group of duplicates</li>
+</ul>
+<pre><code>duplicates examples [varlist] [if] [in] [, options]</code></pre>
+<ul>
+<li>Tag duplicates</li>
+</ul>
+<pre><code>duplicates tag [varlist] [if] [in] , generate(newvar)</code></pre>
+</div>
+<div id="duplicates-1" class="slide section level1">
+<h1><code>duplicates</code></h1>
+<pre class='stata'>. duplicates report Process_Naziv
+
+Duplicates in terms of Process_Naziv
+
+──────────┬───────────────────────────
+   copies │ observations       surplus
+──────────┼───────────────────────────
+        1 │        19920             0
+        2 │         2548          1274
+        3 │          840           560
+        4 │          296           222
+        5 │          140           112
+        6 │          120           100
+        7 │           84            72
+        8 │           48            42
+        9 │           81            72
+       10 │           40            36
+       11 │           55            50
+       12 │           60            55
+       13 │           26            24
+       15 │           15            14
+       16 │           16            15
+       17 │           17            16
+       19 │           19            18
+       20 │           80            76
+       23 │           23            22
+       24 │           24            23
+       26 │           26            25
+       27 │           27            26
+       30 │           30            29
+       42 │           42            41
+       47 │           47            46
+       61 │           61            60
+       71 │           71            70
+      244 │          244           243
+──────────┴───────────────────────────
+</pre>
+</div>
+<div id="duplicates-2" class="slide section level1">
+<h1><code>duplicates</code></h1>
+<pre class='stata'>. duplicates tag Process_Naziv, gen(dup_name)
+
+Duplicates in terms of Process_Naziv
+</pre>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"><code>duplicates tag</code> did not print anything in the console because the information it creates is actually stored in a new variable called <code>dup_name</code></span></p>
+</div>
+<div id="duplicates-3" class="slide section level1">
+<h1><code>duplicates</code></h1>
+<p><code>dup_name</code> will take the value of the number of duplicate observations for given value for the chosen variable</p>
+<pre class='stata'>. summarize dup_name
+
+    Variable │        Obs        Mean    Std. Dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+    dup_name │     25,000     3.49264    24.50694          0        243
+</pre>
+</div>
+<div id="logical-operators-and-if-statements" class="slide section level1">
+<h1>Logical operators and <em><code>if</code> statements</em></h1>
+<ul>
+<li>We can use the <span style="color:orange"><code>if</code> statement</span> we learned earlier to investigate some of this cases</li>
+<li>As we have seen, <code>if</code> statements evaluate logic statements and return observations for which these statements are true</li>
+<li>Stata accepts the following <span style="color:orange">logical operators</span>:
+<ul>
+<li><code>a == b</code>: true if a is <strong>equal</strong> to b</li>
+<li><code>a != b</code>: true if a is <strong>different</strong> than to b</li>
+<li><code>a &gt;  b</code>: true if a <strong>greater than</strong> b</li>
+<li><code>a &gt;= b</code>: true if a <strong>greater than or equal to</strong> b</li>
+<li><code>a &lt;  b</code>: true if a <strong>less than</strong> b</li>
+<li><code>a &lt;= b</code>: true if a <strong>less than or equal to</strong> b</li>
+<li><code>a &amp; b</code>: true if a <strong>and</strong> b are true</li>
+<li><code>a | b</code>: true if a <strong>or</strong> b are true</li>
+<li><code>!a</code>: logical <strong>negation</strong>; true if a is false</li>
+</ul></li>
+</ul>
+</div>
+<div id="logical-operators-and-if-statements-1" class="slide section level1">
+<h1>Logical operators and <em><code>if</code> statements</em></h1>
+<p>Here is how we can use logical operators:</p>
+<ul>
+<li>View observations that have 1 duplicate entry for <code>Process_Naziv</code></li>
+</ul>
+<pre><code>browse if dup_name == 1</code></pre>
+<ul>
+<li>View observations that have <em>any</em> duplicates entries for <code>Process_Naziv</code></li>
+</ul>
+<pre><code>browse if dup_name != 0</code></pre>
+</div>
+<div id="logical-operators-and-if-statements-2" class="slide section level1">
+<h1>Logical operators and <em><code>if</code> statements</em></h1>
+<p><strong>Exercise:</strong> use logical operators to</p>
+<ul>
+<li>View observations that have <span style="color:orange">less than</span> 2 duplicates entries for <code>Process_Naziv</code>.</li>
+<li>View observations that have 1 <span style="color:orange">or</span> 2 duplicates entries for <code>Process_Naziv</code>.</li>
+<li>View observations that have 1 duplicate entries for <code>Process_Naziv</code> <span style="color:orange">and</span> whose process name is <span style="color:orange">equal</span> to “uredski materijal”.</li>
+</ul>
+</div>
+<div id="logical-operators-and-if-statements-3" class="slide section level1">
+<h1>Logical operators and <em><code>if</code> statements</em></h1>
+<p><strong>Exercise:</strong> use logical operators to</p>
+<ul>
+<li>View observations that have <span style="color:orange">less than</span> 2 duplicates entries for <code>Process_Naziv</code>.</li>
+<li>View observations that have 1 <span style="color:orange">or</span> 2 duplicates entries for <code>Process_Naziv</code>.</li>
+<li>View observations that have 1 duplicate entries for <code>Process_Naziv</code> <span style="color:orange">and</span> whose process name is <span style="color:orange">equal</span> to “uredski materijal”.</li>
+</ul>
+<p><span style="font-size:10%"></span></p>
+<pre><code>browse if dup_name &lt; 2
+browse if dup_name == 2 | dup_name == 1
+browse if dup_name == 1 &amp; Process_Naziv == &quot;uredski materijal&quot;</code></pre>
+</div>
+<div id="logical-operators-and-if-statements-4" class="slide section level1">
+<h1>Logical operators and <em><code>if</code> statements</em></h1>
+<p><strong>Exercise:</strong> use logical operators to</p>
+<ul>
+<li>View observations that have <span style="color:orange">less than</span> 2 duplicates entries for <code>Process_Naziv</code>.</li>
+<li>View observations that have 1 <span style="color:orange">or</span> 2 duplicates entries for <code>Process_Naziv</code>.</li>
+<li>View observations that have 1 duplicate entries for <code>Process_Naziv</code> <span style="color:orange">and</span> whose process name is <span style="color:orange">equal</span> to “uredski materijal”.</li>
+</ul>
+<p><span style="font-size:10%"></span></p>
+<pre><code>browse if dup_name &lt; 2
+browse if dup_name == 2 | dup_name == 1
+browse if dup_name == 1 &amp; Process_Naziv == &quot;uredski materijal&quot;</code></pre>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">Note that we are write text inside quotes (<code>""</code>). This is so Stata can tell commands apart from text values.</span></p>
+</div>
+<div id="logical-operators-and-if-statements-5" class="slide section level1">
+<h1>Logical operators and <em><code>if</code> statements</em></h1>
+<p>If you start building complex statements, you can use parenthesis to organize them. Note that the way you use parenthesis will alter the result.</p>
+<pre class='stata'>. count if dup_name == 1 &amp; Process_Naziv == "uredski materijal" | dup_name == 2
+  842
+
+. count if (dup_name == 1 &amp; Process_Naziv == "uredski materijal") | dup_name == 2
+  842
+
+. count if (dup_name == 1) &amp; (Process_Naziv == "uredski materijal" | dup_name == 2)
+  2
+</pre>
+</div>
+<div id="drop-and-keep" class="slide section level1">
+<h1><code>drop</code> and <code>keep</code></h1>
+<ul>
+<li>The last two commands we will discuss today are <code>drop</code> and <code>keep</code></li>
+<li>They can be used to <span style="color:orange">remove both columns and rows from a data set</span></li>
+</ul>
+</div>
+<div id="drop-and-keep-1" class="slide section level1">
+<h1><code>drop</code> and <code>keep</code></h1>
+<p>Drop variables</p>
+<pre><code>drop varlist</code></pre>
+<p>Drop observations</p>
+<pre><code>drop if exp</code></pre>
+<p>Keep variables</p>
+<pre><code>keep varlist</code></pre>
+<p>Keep observations that satisfy specified condition</p>
+<pre><code>keep if exp</code></pre>
+</div>
+<div id="drop-and-keep-2" class="slide section level1">
+<h1><code>drop</code> and <code>keep</code></h1>
+<p><code>drop</code> and <code>keep</code> are two opposing ways of choosing columns and rows</p>
+<ul>
+<li>Selection <strong>columns</strong>
+<ul>
+<li>If you write <code>drop Entity_county</code>, Stata will remove the variable <code>Entity_county</code> from the data set</li>
+<li>If you write <code>keep Entity_county</code>, Stata will remove all the <span style="color:orange">other</span> variables from the data set</li>
+</ul></li>
+<li>Selection <strong>rows</strong>
+<ul>
+<li>If you write <code>drop if dup_name == 0</code>, Stata will remove all observations that are uniquely identified by <code>Process_Naziv</code> from the data set</li>
+<li>If you write <code>keep if dup_name == 0</code>, Stata will remove all <span style="color:orange">other</span> observations from the data set</li>
+</ul></li>
+</ul>
+</div>
+<div id="drop-and-keep-3" class="slide section level1">
+<h1><code>drop</code> and <code>keep</code></h1>
+<p><strong>Exercise:</strong></p>
+<p><strong>1.</strong> Create a data set containing <span style="color:orange">only</span> observations relating to the entity “GRAD CRES”</p>
+<p><strong>2.</strong> Save this data set to “DataWork/Data/Raw/process_grad_cres.dta”</p>
+</div>
+<div id="drop-and-keep-4" class="slide section level1">
+<h1><code>drop</code> and <code>keep</code></h1>
+<p><strong>Exercise:</strong></p>
+<p><strong>1.</strong> Create a data set containing <span style="color:orange">only</span> observations relating to the entity “GRAD CRES”</p>
+<p><strong>2.</strong> Save this data set to “DataWork/Data/Raw/process_grad_cres.dta”</p>
+<pre><code>keep if Entity_Naziv == &quot;GRAD CRES&quot;
+save &quot;DataWork/Data/Raw/process_grad_cres.dta&quot;, replace</code></pre>
+</div>
+<div id="summary" class="slide section level1">
+<h1>Summary</h1>
+<p>In this session we have learned</p>
+<ul>
+<li>How to <span style="color:orange">import data</span> from Excel and csv into Stata</li>
+<li>How to <span style="color:orange">save a Stata data set</span></li>
+<li>How to test if a variable <span style="color:orange">fully and uniquely identifies</span> the data</li>
+<li>How to use <span style="color:orange"><code>if</code> statements</span> to select observations in the data</li>
+<li>How to <span style="color:orange">remove rows and colums</span> from the data</li>
+</ul>
+</div>
+</div>
+</body>
+</html>
