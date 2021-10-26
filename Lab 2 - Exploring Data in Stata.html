@@ -1,0 +1,847 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="version" content="S5 1.1" />
+  <meta name="author" content="Luíza Andrade and Sushmita Samaddar" />
+  <title>Exploring data in Stata</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <!-- configuration parameters -->
+  <meta name="defaultView" content="slideshow" />
+  <meta name="controlVis" content="hidden" />
+  <!-- style sheet links -->
+  <link rel="stylesheet" href="www/slides.css" type="text/css" media="projection" id="slideProj" />
+  <link rel="stylesheet" href="www/outline.css" type="text/css" media="screen" id="outlineStyle" />
+  <link rel="stylesheet" href="www/print.css" type="text/css" media="print" id="slidePrint" />
+  <link rel="stylesheet" href="www/opera.css" type="text/css" media="projection" id="operaFix" />
+  <!-- S5 JS -->
+  <script src="www/slides.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="layout">
+<div id="controls"></div>
+<div id="currentSlide"></div>
+<div id="header"></div>
+<div id="footer">
+  <h1></h1>
+  <h2>Exploring data in Stata</h2>
+</div>
+</div>
+<div class="presentation">
+<div class="title-slide slide">
+  <h1 class="title">Exploring data in Stata</h1>
+  <h3 class="author">Luíza Andrade and Sushmita Samaddar</h3>
+</div>
+<div id="recap" class="slide section level1">
+<h1>Recap</h1>
+<p>In the last session, we learned some Stata basics:</p>
+<ul>
+<li>How the interface is organized</li>
+<li>How to use do-files</li>
+<li>What commands are and how we can use them</li>
+<li>That data can be stored in different formats</li>
+<li>What syntax Stata can understand</li>
+<li>What are help files and how to read them</li>
+</ul>
+
+</div>
+<div id="recap-1" class="slide section level1">
+<h1>Recap</h1>
+<p><strong>How the interface is organized</strong></p>
+<p><img src="img/stata_interface.png" style="width:40.0%" /></p>
+<ul>
+<li>What do each of these windows do?</li>
+</ul>
+</div>
+<div id="recap-2" class="slide section level1">
+<h1>Recap</h1>
+<p><strong>How to use do-files</strong></p>
+<ul>
+<li>How do we open the do-file editor?</li>
+<li>How do we run the code in the do-file?</li>
+</ul>
+</div>
+<div id="recap-3" class="slide section level1">
+<h1>Recap</h1>
+<p><strong>Stata commands</strong></p>
+<ul>
+<li>What are Stata commands?</li>
+<li>How do we learn how to use a command?</li>
+<li>What do <code>[]</code> mean in a help file?</li>
+</ul>
+</div>
+<div id="recap-4" class="slide section level1">
+<h1>Recap</h1>
+<p><strong>Viewing a dataset</strong></p>
+<ul>
+<li>How can we see the data set that is currently loaded in Stata’s memory?</li>
+<li>How are rows and columns called in Stata?</li>
+</ul>
+</div>
+<div id="recap-5" class="slide section level1">
+<h1>Recap</h1>
+<p><strong>Data types</strong></p>
+<ul>
+<li>What are two different types of data that Stata can store?</li>
+<li>How are categorical variables stored in Stata?</li>
+</ul>
+</div>
+<div id="recap-6" class="slide section level1">
+<h1>Recap</h1>
+<p><strong>Data types</strong></p>
+<ul>
+<li>What are two different types of data that Stata can store?</li>
+</ul>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">During today’s session, we will go into a lot more detail about different types of data, what kind of information they can store and how we interact with them</span></p>
+</div>
+<div id="useful-commands-to-explore-data-sets" class="slide section level1">
+<h1>Useful commands to explore data sets</h1>
+<p>As we explore variables of different types, we will learn how to use the following Stata commands:</p>
+<ul>
+<li><code>browse</code>: See all data in spreadsheet format</li>
+<li><code>summarize</code>: Basic statistics for numeric variables
+<ul>
+<li>Obs (Number of observations), Mean, Std. Dev. (Standard deviation), Min (Minimum), Max (Maximum)</li>
+<li>Using the option detail provides additional statistics (such as percentiles, 4 smallest values, and 4 largest values)</li>
+</ul></li>
+</ul>
+</div>
+<div id="useful-commands-to-explore-data-sets-1" class="slide section level1">
+<h1>Useful commands to explore data sets</h1>
+<p>As we explore variables of different types, we will learn how to use the following Stata commands:</p>
+<ul>
+<li><code>describe</code>: List of all variables in the data set in memory
+<ul>
+<li>Total number of variables &amp; observations (size of matrix)</li>
+<li>Variable name, type, format, value label name, variable label</li>
+</ul></li>
+<li><code>codebook</code>: List of all variables in the data set in memory
+<ul>
+<li>Type of variable, range, unique values, units, number of missing values and descriptive statistics or frequency table</li>
+</ul></li>
+<li><code>tabulate</code>: Show a frequency table</li>
+</ul>
+</div>
+<div id="useful-commands-to-explore-data-sets-2" class="slide section level1">
+<h1>Useful commands to explore data sets</h1>
+<p>As we explore variables of different types, we will learn how to use the following Stata commands for data visualization:</p>
+<ul>
+<li><code>histogram</code>: Visualize the distribution of a continuous or discrete variable</li>
+<li><code>graph bar</code>: Visualize continuous variables over discrete or categorical variables</li>
+<li><code>graph pie</code>: Visualize groups in a categorical variable</li>
+</ul>
+</div>
+<div id="setting-the-stage" class="slide section level1">
+<h1>Setting the stage</h1>
+<p>To start our session, let’s first set up our work environment</p>
+<p><strong>Exercise:</strong></p>
+<p><strong>1.</strong> Launch Stata by opening the Stata project <code>Introduction to Stata.stpr</code></p>
+<p><strong>2.</strong> Open a new do-file</p>
+<p><strong>3.</strong> Load the <code>final_process</code> data set</p>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">In case you don’t remember this from the last session, you can use the <code>use</code> command and the Stata project features to open a data set by typing <br> <code>use "Data/Final/final_process.dta", clear</code></span></p>
+</div>
+<div id="exploring-a-data-set-browse" class="slide section level1">
+<h1>Exploring a data set: <code>browse</code></h1>
+<ul>
+<li>The first command we will use to explore our data set today is one that we have already used in the past: <code>browse</code></li>
+<li><code>browse</code> can be used to view all data set or some variables and observations</li>
+<li>It is particularly useful to explore text variables, as they are difficult to summarize in Stata, and this allows us to see each entry at once</li>
+</ul>
+<p><span style="color:orange">Do you remember how to use the command <code>browse</code> to see the data set?</span></p>
+</div>
+<div id="exploring-a-data-set-summarize" class="slide section level1">
+<h1>Exploring a data set: <code>summarize</code></h1>
+<ul>
+<li>Another very useful command is <code>summarize</code></li>
+<li>It can be used to display basic statistics for the entire dataset or for some variables and observations</li>
+</ul>
+</div>
+<div id="exploring-a-data-set-summarize-1" class="slide section level1">
+<h1>Exploring a data set: <code>summarize</code></h1>
+<p><strong>Exercise:</strong> use <code>summarize</code> to see descriptive statistics for the entire dataset.</p>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"><strong>Tip:</strong> if you are not sure how to do that, look at the help file for the command by typing <code>help summarize</code></span></p>
+</div>
+<div id="exploring-a-data-set-summarize-2" class="slide section level1">
+<h1>Exploring a data set: <code>summarize</code></h1>
+<p><strong>Exercise:</strong> use <code>summarize</code> to see descriptive statistics for the entire dataset.</p>
+<pre><code>summarize</code></pre>
+<pre class='stata'>    Variable │        Obs        Mean    Std. Dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+      bid_id │     25,000    230197.9    41450.57     168120     312400
+process_name │          0
+     unit_id │     25,000    110140.9    9890.671      88575     229569
+      entity │          0
+entity_cou~y │     24,999    6.934117    6.403738          1         21
+─────────────┼─────────────────────────────────────────────────────────
+   year_init │     22,534    2017.817     1.80997       2014       2021
+  month_init │     22,534    6.674625     3.47338          1         12
+evaluation~d │     25,000     1.65496    .4753908          1          2
+procuremen~e │     24,985     1.78251    .7923181          1          3
+procuremen~e │     24,985     1.78251    .7923181          1          3
+</pre>
+</div>
+<div id="exploring-a-data-set-summarize-3" class="slide section level1">
+<h1>Exploring a data set: <code>summarize</code></h1>
+<p>At this point, we should start using the critical thinking about data that we discussed in our first lecture</p>
+<ul>
+<li>Are there any statistics that might not make sense to interpret?</li>
+<li>What do they have in common?</li>
+</ul>
+</div>
+<div id="exploring-a-data-set-summarize-4" class="slide section level1">
+<h1>Exploring a data set: <code>summarize</code></h1>
+<p>At this point, we should start using the critical thinking about data that we discussed in our first lecture</p>
+<ul>
+<li>Are there any statistics that might not make sense to interpret?</li>
+<li>What do they have in common?</li>
+</ul>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"><code>summarize</code> is particularly useful for numeric variables</span></p>
+</div>
+<div id="exploring-a-data-set-describe" class="slide section level1">
+<h1>Exploring a data set: <code>describe</code></h1>
+<ul>
+<li>The next command we will use is called <code>describe</code></li>
+<li>This command is used it to view metadata, that is, data about the data</li>
+<li>The syntax for this command is very similar to that of <code>summarize</code>: you can use it without any arguments to describe the entire data set, or you can list the variables that you want to describe</li>
+</ul>
+</div>
+<div id="exploring-a-data-set-describe-1" class="slide section level1">
+<h1>Exploring a data set: <code>describe</code></h1>
+<p><strong>Exercise:</strong> use <code>describe</code> to see information for the entire dataset.</p>
+</div>
+<div id="exploring-a-data-set-describe-2" class="slide section level1">
+<h1>Exploring a data set: <code>describe</code></h1>
+<p><span style="font-size:10%"></span></p>
+<pre><code>describe</code></pre>
+<pre class='stata'>Contains data from ../DataWork/Data/Final/final_process.dta
+  obs:        25,000                          
+ vars:            26                          11 Oct 2021 18:29
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+              storage   display    value
+variable name   type    format     label      variable label
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+bid_id          long    %10.0g                Bidding ID
+process_name    str1013 %1013s                Process Name
+unit_id         long    %10.0g                Organizational Unit ID
+entity          str131  %131s                 Entity Name
+entity_county   long    %23.0g     entity_county
+                                              Entity's County
+year_init       int     %9.0g                 Year Procedure Was Initiated
+month_init      byte    %9.0g                 Month Procedure Was Initiated
+evaluation_me~d long    %12.0g     evaluation_method
+                                              Evaluation Method
+procurement_t~e long    %8.0g      procurement_type
+                                              Procurement Type
+bid_procedure   long    %57.0g     bid_procedure
+                                              Bidding Procedure Name
+bid_type        long    %26.0g     bid_type   Bidding Type
+bid_classific~n long    %92.0g     bid_classification
+                                              Bidding Classification
+bid_status      long    %33.0g     bid_status
+                                              Bidding Status
+bid_submissi~ne int     %td                   Deadline for Submission of Bids
+nr_participants int     %9.0g                 Number of Participants
+nr_nonlocal_b~s byte    %9.0g                 Number of Non-Local Firms
+nr_sme_bidders  byte    %9.0g                 Number of SME Bidders
+nr_lots         int     %9.0g                 Number of Lots
+process_value   float   %20.0fc               Process Value
+process_type    long    %10.0g     process_type
+                                              Processing Type
+bid_submissi~te int     %td                   Deadline for Delivery of Initial Offers
+bid_delivery_~e int     %td                   Deadline for Delivery Request
+bid_subm_del_~e int     %td                   Bid Submission/Delivery Date
+bid_submissio~d float   %20.0fc               Bid Submission Period
+in_sample       byte    %9.0g                 Sampled Bid
+process_id      long    %290.0g    oi         Process Tag
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Sorted by: 
+</pre>
+</div>
+<div id="exploring-a-data-set-describe-3" class="slide section level1">
+<h1>Exploring a data set: <code>describe</code></h1>
+<p><code>describe</code> is giving us the following information about the data set:</p>
+<ul>
+<li><strong>Variable names:</strong> the names we use to reference a column in Stata</li>
+<li><strong>Storage types:</strong> the type of information that the data contains – is it a number? A text?</li>
+<li><strong>Display formats:</strong> how that number is formatted so that we humans can best interpret it – how many decimals are shown, for example</li>
+<li><strong>Value labels:</strong> the names used for humans to best interpret the values in this variable – more about this soon</li>
+<li><strong>Variable labels:</strong> the description of the column, or the names that we would use to reference a column to other humans</li>
+</ul>
+</div>
+<div id="exploring-a-data-set-describe-4" class="slide section level1">
+<h1>Exploring a data set: <code>describe</code></h1>
+<p><code>describe</code> is particularly useful to identify types of variables</p>
+<ul>
+<li>Variables with a <em>value label</em> are categorical variables
+<ul>
+<li>This is why when we use <code>summarize</code> on these variables we get results that are not very meaningful: because the numbers are only stand-ins for categories</li>
+<li>For example, 0 is commonly used to represent “No”, and 1 is commonly used to represent “Yes”</li>
+</ul></li>
+</ul>
+</div>
+<div id="exploring-a-data-set-describe-5" class="slide section level1">
+<h1>Exploring a data set: <code>describe</code></h1>
+<p><code>describe</code> is particularly useful to identify types of variables</p>
+<ul>
+<li>Variables with a <em>value label</em> are categorical variables
+<ul>
+<li>This is why when we use <code>summarize</code> on these variables we get results that are not very meaningful: because the numbers are only stand-ins for categories</li>
+<li>For example, 0 is commonly used to represent “No”, and 1 is commonly used to represent “Yes”</li>
+</ul></li>
+<li>Variables that have the display format <code>%td</code> are date variables
+<ul>
+<li>This is why when we use <code>summarize</code> on these variables we get results that are not very meaningful: because Stata counts time in miliseconds starting on the first millisecond of 1 January 1960</li>
+<li>We can then choose how to see this information: in dates and time, in date, in months, etc.</li>
+<li>We will learn more about this when we talk about cleaning date variables</li>
+</ul></li>
+</ul>
+</div>
+<div id="exploring-a-data-set-describe-6" class="slide section level1">
+<h1>Exploring a data set: <code>describe</code></h1>
+<p><code>describe</code> is particularly useful to identify types of variables</p>
+<ul>
+<li>Variables whose storage type starts with <code>str</code> are <code>string</code> variables, that is, they contain text
+<ul>
+<li>This is why they are not shown when we use summarize - because Stata does not know how to calculate the average of a text</li>
+</ul></li>
+<li>All other variables are numeric</li>
+</ul>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">We will learn more about each of these types of variable and how to use them in this session.</span></p>
+</div>
+<div id="exploring-numeric-variables" class="slide section level1">
+<h1>Exploring numeric variables</h1>
+<p>Based on what we saw in the result for <code>describe</code>, we can tell that the numeric variables in our data set are:</p>
+<p><span style="font-size:80%"><code>bid_id</code> <br> <code>unit_id</code> <br> <code>process_id</code> <br> <code>year_init</code> <br> <code>month_init</code> <br> <code>nr_participants</code> <br> <code>nr_nonlocal_bidders</code> <br> <code>nr_sme_bidders</code> <br> <code>nr_lots</code> <br> <code>process_value</code> <br> <code>in_sample</code></span></p>
+<p>Let’s take a look at how we can see information about them.</p>
+</div>
+<div id="exploring-numeric-variables-1" class="slide section level1">
+<h1>Exploring numeric variables</h1>
+<p>Let’s start with some general information about the variable <code>nr_participants</code> using the command <code>codebook</code></p>
+<pre class='stata'>. codebook nr_participants
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+nr_participants                                                                           Number of Participants
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  numeric (int)
+
+                 range:  [0,68]                       units:  1
+         unique values:  35                       missing .:  2,452/25,000
+
+                  mean:   2.45099
+              std. dev:   2.31929
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 1         1         2         3         5
+</pre>
+</div>
+<div id="exploring-numeric-variables-2" class="slide section level1">
+<h1>Exploring numeric variables</h1>
+<ul>
+<li>The number of participants in a process varies from 0 to 68</li>
+<li>There are 36 unique values for this variable, which means that not all numbers between 0 and 68 are present</li>
+<li>There are 2,452 missing observations. What does this mean?
+<ul>
+<li>There are 25,000 processes in the data set. However, we don’t know the number of participants for 2,452 of them</li>
+<li>In the process for which we don’t know the number of participants, we will see a <code>.</code> in this column when browing the data set</li>
+</ul></li>
+</ul>
+</div>
+<div id="subsetting-observations" class="slide section level1">
+<h1>Subsetting observations</h1>
+<ul>
+<li>The expression <code>if</code> allows us to subset observations, that is, we can choose observations based on a logical condition.</li>
+<li>For example, if we wanted to see all the observations in the data set for which we don’t know the number of participants, we would type</li>
+</ul>
+<pre><code>browse if nr_participants == .</code></pre>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">Note that we wrote <code>==</code> instead of <code>=</code>. This is because we are perfoming a <em>logical operation</em>. We will talk more about these expressions soon.</span></p>
+</div>
+<div id="exploring-numeric-variables-3" class="slide section level1">
+<h1>Exploring numeric variables</h1>
+<p>Another way of seeing descriptive statistics for a numeric variable is using <code>summarize</code></p>
+<pre class='stata'>. summarize nr_participants
+
+    Variable │        Obs        Mean    Std. Dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+nr_partici~s │     22,548    2.450993    2.319291          0         68
+</pre>
+</div>
+<div id="exploring-numeric-variables-4" class="slide section level1">
+<h1>Exploring numeric variables</h1>
+<ul>
+<li>Here, we can see the minimum and maximum values of the variable, which are 0 and 68, as we already knew</li>
+<li>It also shows the number of observations with valid information about it, which is 24,548, as we also knew from the codebook</li>
+<li>We can also see the mean and the standard deviation</li>
+<li>All this information was already present in the codebook, but the codebook had other data as well</li>
+<li>This is a simpler way to visualize the content of numeric variables, particularly when you want to communicate information about many variables in one table</li>
+</ul>
+</div>
+<div id="exploring-numeric-variables-5" class="slide section level1">
+<h1>Exploring numeric variables</h1>
+<p><strong>Exercise:</strong> use the command <code>summarize</code> to explore the distribution of variables <code>nr_participants</code>, <code>nr_nonlocal_bidders</code>, and <code>nr_sme_bidders</code>.</p>
+<pre class='stata'>    Variable │        Obs        Mean    Std. Dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+nr_partici~s │     22,548    2.450993    2.319291          0         68
+nr_nonloca~s │     22,548    1.187644    1.839975          0         46
+nr_sme_bid~s │     22,548    .2515522    .6144718          0         14
+</pre>
+</div>
+<div id="exploring-numeric-variables-6" class="slide section level1">
+<h1>Exploring numeric variables</h1>
+<p><strong>Exercise:</strong> use the command <code>summarize</code> to explore the distribution of variables <code>nr_participants</code>, <code>nr_nonlocal_bidders</code>, and <code>nr_sme_bidders</code>.</p>
+<pre class='stata'>. summarize nr_participants nr_nonlocal_bidders nr_sme_bidders
+
+    Variable │        Obs        Mean    Std. Dev.       Min        Max
+─────────────┼─────────────────────────────────────────────────────────
+nr_partici~s │     22,548    2.450993    2.319291          0         68
+nr_nonloca~s │     22,548    1.187644    1.839975          0         46
+nr_sme_bid~s │     22,548    .2515522    .6144718          0         14
+</pre>
+</div>
+<div id="exploring-numeric-variables-7" class="slide section level1">
+<h1>Exploring numeric variables</h1>
+<ul>
+<li>Another, perhaps more intuitive way to present numeric variables is through graphs</li>
+<li>Let’s start by looking at a histogram of the variable <code>nr_participants</code></li>
+<li>The command to create histograms is called, not surprisingly, <code>histogram</code></li>
+<li>This command has only one required argument: the name of the variable for which we want to create a histogram</li>
+</ul>
+</div>
+<div id="exploring-numeric-variables-8" class="slide section level1">
+<h1>Exploring numeric variables</h1>
+<p><strong>Exercise:</strong> create a histogram of the variable <code>nr_participants</code>.</p>
+</div>
+<div id="exploring-numeric-variables-9" class="slide section level1">
+<h1>Exploring numeric variables</h1>
+<p><span style="font-size:10%"></span></p>
+<pre><code>histogram nr_participants</code></pre>
+<p><img src="img/lab2-hist1.png" style="width:55.0%" /></p>
+</div>
+<div id="subsetting-observations-1" class="slide section level1">
+<h1>Subsetting observations</h1>
+<ul>
+<li>The previous graph was not very informative because outliers caused the X axis to extend to very high numbers even though there were not many observations to be displayed with more than 20 participants</li>
+<li>We can improve this graph by displaying only processes with less than 20 participants</li>
+<li>To do this, we can use the same strategy that we used before to subset observations: <em>an <code>if</code> statement</em></li>
+<li>Can you guess what it should look like?</li>
+</ul>
+</div>
+<div id="subsetting-observations-2" class="slide section level1">
+<h1>Subsetting observations</h1>
+<p><strong>Exercise:</strong> create a histogram of the variable <code>nr_participants</code> including only cases where a process has less than 20 participants.</p>
+</div>
+<div id="subsetting-observations-3" class="slide section level1">
+<h1>Subsetting observations</h1>
+<p><strong>Exercise:</strong> create a histogram of the variable <code>nr_participants</code> including only cases where a process has less than 20 participants.</p>
+<pre><code>histogram nr_participants if nr_participants &lt; 20</code></pre>
+<p><img src="img/lab2-hist2.png" style="width:40.0%" /></p>
+</div>
+<div id="exploring-text-variables" class="slide section level1">
+<h1>Exploring text variables</h1>
+<ul>
+<li>As we mentioned when discussing the command <code>describe</code>, text variables can be identified by the their “string” type</li>
+<li>The process data set we are using contains two text variables:
+<ul>
+<li><code>entity</code></li>
+<li><code>process_name</code></li>
+</ul></li>
+<li>These variables typically have a large number of unique values</li>
+<li>There are not many statistical analysis that we can do with string variables in Stata</li>
+<li>But they may still be useful to include in a data set, particularly for the purpose of identifying information</li>
+</ul>
+</div>
+<div id="exploring-text-variables-1" class="slide section level1">
+<h1>Exploring text variables</h1>
+<pre class='stata'>. codebook entity process_name
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+entity                                                                                               Entity Name
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  string (str131)
+
+         unique values:  1,892                    missing "":  0/25,000
+
+              examples:  "GRAD ZAGREB"
+                         "HRVATSKE CESTE D.O.O. ZAGREB"
+                         "KLINIčKI BOLNIčKI CENTAR OSIJEK"
+                         "OPćINA KRAPINSKE TOPLICE"
+
+               warning:  variable has embedded and trailing blanks
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+process_name                                                                                        Process Name
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  string (str1013)
+
+         unique values:  21,656                   missing "":  0/25,000
+
+              examples:  "Izvođenje građevinsko-zanatskih radova na dječjem
+                         igralištu u GK Split 3 - Dobrilina ulica"
+                         "Nabava potrošnog medicinskog materijala -Obloge za
+                         rane i ostomijska pomagala za potrebe  Kliničke
+                         bolnice Merkur"
+                         "Poštanske usluge"
+                         "UNIFORME ZA ZAŠTITARE - ČUVARE"
+
+               warning:  variable has embedded and trailing blanks
+</pre>
+</div>
+<div id="exploring-text-variables-2" class="slide section level1">
+<h1>Exploring text variables</h1>
+<ul>
+<li>The “type” of variable starts with “str” and is followed by the maximum number of characters in the variables</li>
+<li>As expected, we have a large number of unique values</li>
+<li>Missing values are represented by <code>""</code> instead of <code>.</code></li>
+<li>By default, Stata shows random examples of values in text variables<br />
+</li>
+<li>As mentioned earlier, the easiest way to interact with these variables in Stata is to browse them</li>
+</ul>
+</div>
+<div id="exploring-categorical-variables" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<p>As we noted when using <code>describe</code>, one way to identify categorical variables is when they have <em>value labels</em>. In the process data set, these are the categorical variables we can find:</p>
+<ul>
+<li><code>entity_county</code></li>
+<li><code>evaluation_method</code></li>
+<li><code>procurement_type</code></li>
+<li><code>bid_procedure</code></li>
+<li><code>bid_type</code></li>
+<li><code>bid_classification</code></li>
+<li><code>bid_status</code></li>
+<li><code>process_type</code></li>
+</ul>
+</div>
+<div id="exploring-categorical-variables-1" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<p>As before, let’s start by using <code>codebook</code> to inspect a categorical variable.</p>
+<pre class='stata'>. codebook process_type
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+process_type                                                                                     Processing Type
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  numeric (long)
+                 label:  process_type
+
+                 range:  [1,3]                        units:  1
+         unique values:  3                        missing .:  8/25,000
+
+            tabulation:  Freq.   Numeric  Label
+                         1,691         1  Closed
+                        21,043         2  Open
+                         2,258         3  Restricted
+                             8         .  
+</pre>
+</div>
+<div id="exploring-categorical-variables-2" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<ul>
+<li>Some information here is common to all types of data:
+<ul>
+<li>We see the type of variable</li>
+<li>The number of unique values is shown</li>
+<li>We can also see the number of missing values</li>
+</ul></li>
+<li>Most of the information in the codebook is very similar to that of numeric variables:
+<ul>
+<li>The type of variable is <code>numeric</code></li>
+<li>We see the range of values it takes</li>
+<li>Missing values are represented by <code>.</code></li>
+</ul></li>
+<li>However, some information is unique to this type of variable:
+<ul>
+<li>We see a frequency table instead of summary statistics of random examples</li>
+<li>The name of the value label is indicated</li>
+</ul></li>
+</ul>
+</div>
+<div id="exploring-categorical-variables-3" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<ul>
+<li>As you can see, having <em>value labels</em> is a very important feature of categorical variables</li>
+<li>Just like Stata refers to variables by their <em>variable names</em> and humans refer to them using <em>variable labels</em>, Stata will refer to the different categories in a categorical variable using <em>numbers</em>, while humans will refer to them using <em>value labels</em></li>
+<li>This is because humans understand descriptive names better than numbers, but that is not the case for computers (computers can’t make much sense of natural language, this is why Stata cannot summarize text variables)</li>
+<li>We connect a label to each value a categorical variable may take so both humans and computers can understand them</li>
+</ul>
+</div>
+<div id="exploring-categorical-variables-4" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<p>You can also see the definition of a value label using <code>labelbook</code></p>
+<pre class='stata'>. labelbook process_type
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+value label process_type 
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+      values                                    labels
+       range:  [1,3]                     string length:  [4,10]
+           N:  3                 unique at full length:  yes
+        gaps:  no                  unique at length 12:  yes
+  missing .*:  0                           null string:  no
+                               leading/trailing blanks:  no
+                                    numeric -> numeric:  no
+  definition
+           1   Closed
+           2   Open
+           3   Restricted
+
+   variables:  process_type
+</pre>
+<p>We will see next how value labels are important for us to understand categorical variables</p>
+</div>
+<div id="exploring-categorical-variables-5" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<ul>
+<li>The command <code>tabulate</code> counts the number of observations that take each value in a categorical variable (that is, it creates a <em>frequency table</em>)</li>
+<li>Note that when we inspect this variable, we are shown the labels of the category automatically</li>
+</ul>
+<pre class='stata'>. tabulate process_type
+
+ Processing │
+       Type │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+     Closed │      1,691        6.77        6.77
+       Open │     21,043       84.20       90.97
+ Restricted │      2,258        9.03      100.00
+────────────┼───────────────────────────────────
+      Total │     24,992      100.00
+</pre>
+</div>
+<div id="exploring-categorical-variables-6" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<ul>
+<li>We can use the option <code>nolabel</code> of <code>tabulate</code> to hide the value labels</li>
+<li>This is an <em>optional argument</em> of the command</li>
+<li>As you may remember from the first lab, this means why will use a comma (<code>,</code>) to separate it from the other arguments</li>
+</ul>
+</div>
+<div id="exploring-categorical-variables-7" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<p><strong>Exercise:</strong> use the <code>tabulate</code> command with the optional option <code>nolabel</code> to display a frequency table of the variable <code>process_type</code></p>
+</div>
+<div id="exploring-categorical-variables-8" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<pre class='stata'>. tabulate process_type, nolabel
+
+ Processing │
+       Type │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+          1 │      1,691        6.77        6.77
+          2 │     21,043       84.20       90.97
+          3 │      2,258        9.03      100.00
+────────────┼───────────────────────────────────
+      Total │     24,992      100.00
+</pre>
+<ul>
+<li>This is how Stata reads this variable</li>
+<li>For us, however, this is much less informative</li>
+</ul>
+</div>
+<div id="exploring-categorical-variables-9" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<ul>
+<li>We can also explore the relationship between two categorical variables using <code>tabulate</code></li>
+<li>To do so, list two variable names as arguments for the command instead of only one</li>
+</ul>
+</div>
+<div id="exploring-categorical-variables-10" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<p><strong>Exercise:</strong> use the <code>tabulate</code> command to explore how the variables <code>process_type</code> and <code>procurement_type</code> are related.</p>
+</div>
+<div id="exploring-categorical-variables-11" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<p><strong>Exercise:</strong> use the <code>tabulate</code> command to explore how the variables <code>process_type</code> and <code>procurement_type</code> are related.</p>
+<pre class='stata'>. tabulate process_type procurement_type
+
+Processing │         Procurement Type
+      Type │     Goods   Services      Works │     Total
+───────────┼─────────────────────────────────┼──────────
+    Closed │       615        781        295 │     1,691 
+      Open │     9,593      6,315      5,120 │    21,028 
+Restricted │       940      1,020        298 │     2,258 
+───────────┼─────────────────────────────────┼──────────
+     Total │    11,148      8,116      5,713 │    24,977 
+</pre>
+</div>
+<div id="commenting-do-files" class="slide section level1">
+<h1>Commenting do-files</h1>
+<ul>
+<li>When writing a do-file, it is very useful to be able to add notes and comments in <em>natural language</em>, that is, in English or Croatian</li>
+<li>Comments are used to organize and explain the code so it is easier for you to read it and edit it later on</li>
+<li>We use a few special characters to tell Stata what parts of a do-file it should run, and what parts is should ignore</li>
+</ul>
+</div>
+<div id="commenting-do-files-1" class="slide section level1">
+<h1>Commenting do-files</h1>
+<ol style="list-style-type: decimal">
+<li><p><code>/* comment */</code> Used for long comments or to explain many lines of code</p></li>
+<li><p><code>* comment</code> Used to explain what happens on the following few rows</p></li>
+<li><p><code>// comment</code> Used to explain the same line of code</p></li>
+</ol>
+</div>
+<div id="commenting-do-files-2" class="slide section level1">
+<h1>Commenting do-files</h1>
+<p><span style="font-size:10%"></span></p>
+<pre><code>* Explore the categorical variables process_type
+
+tabulate process_type // Simple tabulation
+tabulate process_type, nolabel // Showing underlying numeric values instead of value labels
+tabulate process_type procurement_type // Cross tabulation</code></pre>
+</div>
+<div id="exploring-categorical-variables-12" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<ul>
+<li>When creating graphs that use categorical variables, we also see the value labels</li>
+<li>Try running the following two commands to see how graphs can be used to visualize categorical variables</li>
+</ul>
+<pre><code>gr bar, over(process_type)
+gr pie, over(process_type)</code></pre>
+</div>
+<div id="exploring-categorical-variables-13" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<p><span style="font-size:10%"></span></p>
+<pre><code>gr bar, over(process_type)</code></pre>
+<p><img src="img/lab2-bar.png" style="width:55.0%" /></p>
+</div>
+<div id="exploring-categorical-variables-14" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<p><span style="font-size:10%"></span></p>
+<pre><code>gr pie, over(process_type)</code></pre>
+<p><img src="img/lab2-pie1.png" style="width:55.0%" /></p>
+</div>
+<div id="exploring-categorical-variables-15" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<p>When we remove the value label, on the other hand, they become much harder to interpret</p>
+<pre><code>label drop bid_type
+gr pie, over(bid_type)</code></pre>
+<p><img src="img/lab2-pie2.png" style="width:40.0%" /></p>
+</div>
+<div id="exploring-categorical-variables-16" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<p>When we open the dataset, we also see the value label. But when we click on a specific observation for that variable, we can see the underlying numeric value.</p>
+<pre><code>browse bid_classification</code></pre>
+<p><img src="img/lab2-browse.png" style="width:40.0%" /></p>
+</div>
+<div id="exploring-categorical-variables-17" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<p>In summary:</p>
+<ul>
+<li>The numbers we see in categorical variables don’t have any <em>meaning</em></li>
+<li>They are only a way for Stata to store and handle the data efficiently</li>
+<li>What we humans care about are the categories they represent</li>
+<li>A <em>value label</em> is what connects the number that Stata understands to a category that we humans are interested</li>
+<li>When communicating to Stata, though, we will refer to the categories using the <em>numbers</em> that represent them</li>
+</ul>
+</div>
+<div id="exploring-categorical-variables-18" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<ul>
+<li>When giving instructions to Stata, we will refer to a category by its underlying number</li>
+<li>To see an example of this, try to use the <code>tabulate</code> command with and <code>if</code> statement to see a frequency table of the type of process for processes of procurement type <em>goods</em></li>
+</ul>
+</div>
+<div id="exploring-categorical-variables-19" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<ul>
+<li>When giving instructions to Stata, we will refer to a category by its underlying number</li>
+<li>To see an example of this, try to use the <code>tabulate</code> command with and <code>if</code> statement to see a frequency table of the type of process for processes of procurement type <em>goods</em></li>
+</ul>
+</div>
+<div id="exploring-categorical-variables-20" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<p><strong>Exercise:</strong> print a frequency table of process type when procurement type is <em>goods</em></p>
+</div>
+<div id="exploring-categorical-variables-21" class="slide section level1">
+<h1>Exploring categorical variables</h1>
+<p><strong>Exercise:</strong> print a frequency table of process type when procurement type is <em>goods</em></p>
+<pre class='stata'>. tabulate process_type if procurement_type == 1
+
+ Processing │
+       Type │      Freq.     Percent        Cum.
+────────────┼───────────────────────────────────
+     Closed │        615        5.52        5.52
+       Open │      9,593       86.05       91.57
+ Restricted │        940        8.43      100.00
+────────────┼───────────────────────────────────
+      Total │     11,148      100.00
+</pre>
+</div>
+<div id="exploring-date-variables" class="slide section level1">
+<h1>Exploring date variables</h1>
+<p>The date variables in this data set were identified when we used <code>describe</code> as those that have the format <code>%td</code>:</p>
+<ul>
+<li><code>bid_submission_date</code></li>
+<li><code>bid_delivery_date</code></li>
+<li><code>bid_subm_del_date</code></li>
+<li><code>bid_submission_deadline</code></li>
+</ul>
+</div>
+<div id="exploring-date-variables-1" class="slide section level1">
+<h1>Exploring date variables</h1>
+<p>As usual, let’s see what <code>codebook</code> gives us when we use <code>codebook</code></p>
+<pre class='stata'>. codebook bid_submission_date
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+bid_submission_date                                                      Deadline for Delivery of Initial Offers
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                  type:  numeric daily date (int)
+
+                 range:  [20572,22413]                units:  1
+       or equivalently:  [28apr2016,13may2021]        units:  days
+         unique values:  670                      missing .:  23,889/25,000
+
+                  mean:   21679.8 = 10may2019 (+ 19 hours)
+              std. dev:   453.766
+
+           percentiles:        10%       25%       50%       75%       90%
+                             21035     21284     21738     22075     22258
+                         04aug2017 10apr2018 08jul2019 09jun2020 09dec2020
+</pre>
+</div>
+<div id="exploring-date-variables-2" class="slide section level1">
+<h1>Exploring date variables</h1>
+<p>Stata clearly recognizes this variable as representing a date:</p>
+<ul>
+<li>Units are <em>days</em></li>
+<li>Ranges are shown in both dates and numbers</li>
+<li>Missing values are represented by <code>.</code></li>
+<li>Percentiles are described in both numbers and dates</li>
+</ul>
+</div>
+<div id="exploring-date-variables-3" class="slide section level1">
+<h1>Exploring date variables</h1>
+<ul>
+<li>The relationship between numbers and dates in date variables is even clearer than in categorical variables</li>
+<li>As discussed earlier, the easiest way for Stata to store information is through numbers</li>
+<li>Applying a date format is how we let Stata know that these numbers represent dates
+<ul>
+<li>There are different formats to represent dates, such as <code>%td</code> (15mar2005) and <code>%%tdnn/DD/YY</code> (3/15/05)</li>
+<li>Stata knows that variables in date format are dates</li>
+</ul></li>
+<li>Stata counts time in miliseconds starting on the first millisecond of 1 January 1960</li>
+</ul>
+</div>
+<div id="summary" class="slide section level1">
+<h1>Summary</h1>
+<p>In this session, we learned</p>
+<ul>
+<li>A few new commands to <strong>explore data</strong> and <strong>create graphs</strong></li>
+<li>How to select subsets of the data using <span style="color:orange"><code>if</code> expressions</span></li>
+<li>How <span style="color:orange">value labels</span> are used to create categorical variables</li>
+<li>How to add <strong>comments</strong> to do-files</li>
+<li>How Stata stores <span style="color:orange">dates</span> and how we can format data variables for humans to understand them</li>
+</ul>
+</div>
+</div>
+</body>
+</html>

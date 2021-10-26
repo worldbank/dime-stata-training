@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="version" content="S5 1.1" />
+  <meta name="author" content="Luíza Andrade &amp; Kristoffer Bjarkefür" />
+  <title>Creating a data map</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <!-- configuration parameters -->
+  <meta name="defaultView" content="slideshow" />
+  <meta name="controlVis" content="hidden" />
+  <!-- style sheet links -->
+  <link rel="stylesheet" href="www/slides.css" type="text/css" media="projection" id="slideProj" />
+  <link rel="stylesheet" href="www/outline.css" type="text/css" media="screen" id="outlineStyle" />
+  <link rel="stylesheet" href="www/print.css" type="text/css" media="print" id="slidePrint" />
+  <link rel="stylesheet" href="www/opera.css" type="text/css" media="projection" id="operaFix" />
+  <!-- S5 JS -->
+  <script src="www/slides.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="layout">
+<div id="controls"></div>
+<div id="currentSlide"></div>
+<div id="header"></div>
+<div id="footer">
+  <h1></h1>
+  <h2>Creating a data map</h2>
+</div>
+</div>
+<div class="presentation">
+<div class="title-slide slide">
+  <h1 class="title">Creating a data map</h1>
+  <h3 class="author">Luíza Andrade &amp; Kristoffer Bjarkefür</h3>
+</div>
+<div id="the-dime-analytics-data-map" class="slide section level1">
+<h1>The DIME Analytics Data Map</h1>
+<p><span style="text-align: center;"><em>Communication about data and data needs too often rely on oral tradition, which is very error prone – a <strong>data map</strong> is a better way to do that</em></span></p>
+<p><strong>Data Map:</strong></p>
+<ul>
+<li><strong>Data Linkage Table:</strong> metadata about the whole dataset</li>
+<li><strong>Master Dataset:</strong> how ID variables can be used to link observations across data tables</li>
+<li><strong>Data Flowchart:</strong> how to create analysis data</li>
+</ul>
+<p><span style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%">Create the data map as early as possible in the project and update it as needed</span></p>
+</div>
+<div id="some-semantics" class="slide section level1">
+<h1>Some semantics</h1>
+<p><strong>Dataset:</strong></p>
+<p><strong>Data table:</strong></p>
+<p><strong>Variable:</strong></p>
+<p><strong>Observation:</strong></p>
+<p><strong>Unit of observation:</strong></p>
+</div>
+<div id="some-semantics-1" class="slide section level1">
+<h1>Some semantics</h1>
+<p><strong>Data table:</strong> data that are structured into rows and columns. They are also called tabular data sets or rectangular data.</p>
+<p><strong>Variable:</strong> the collection of all data points that measure the same attribute for each observation.</p>
+<p><strong>Observation:</strong> the collection of all data points that measure attributes for the same instance of the unit of observation in the data table.</p>
+<p><strong>Unit of observation:</strong> the type of entity that is described by a given data set.</p>
+<p><strong>Data set:</strong> a collection of data. In the case of tabular data, a data set corresponds to one or more database tables, where every column of a table represents a particular variable, and each row corresponds to an observation.</p>
+</div>
+<div id="data-linkage-table" class="slide section level1">
+<h1>Data Linkage Table</h1>
+<p>The data linkage table <span style="color:orange;">lists all the different original data sets</span> for your project, as all as metadata about each of them:</p>
+<ul>
+<li>What is the <strong>source</strong> of the data?</li>
+<li>What is the <strong>unit of observation</strong> for each data table?</li>
+<li>Which data tables can be linked to each other? Which column or combination of columns can be used to link them?</li>
+<li>How will you refer to each data table? Where are each of them <strong>stored</strong>? Where are they backed up?</li>
+</ul>
+</div>
+<div id="data-linkage-table-1" class="slide section level1">
+<h1>Data Linkage Table</h1>
+<p><img src="img/data-map.png" style="width:100.0%" /></p>
+<p><span style="font-size:60%; color: gray;">Download this example at <a href="https://osf.io/9yxd6">https://osf.io/9yxd6</a></span></p>
+</div>
+<div id="master-data-sets" class="slide section level1">
+<h1>Master Data Sets</h1>
+<p>Master data sets <span style="color:orange">lists all observations ever encountered</span> – even if they are not in the analysis sample</p>
+<ul>
+<li>A project will have one master data set for <strong>each main level of observation</strong> in the data</li>
+<li>The master data set is the <strong>authoritative source for all IDs</strong> and identifying information</li>
+</ul>
+</div>
+<div id="data-flowchart" class="slide section level1">
+<h1>Data Flowchart</h1>
+<p>Data flowcharts show an <span style="color: orange">overview of key steps for data processing</span>, creating a mental model of the necessary data work and a shared understanding within the team of what needs to be done and in which order</p>
+<ul>
+<li>List all the data tables needed for analysis, all the raw data tables, and indicate how to create one from the other</li>
+<li>Include the main steps for data processing, and notes on the more complex and error-prone tasks</li>
+</ul>
+</div>
+<div id="data-flowchart-1" class="slide section level1">
+<h1>Data Flowchart</h1>
+<p><img src="img/flowchart-complete.png" /></p>
+</div>
+<div id="data-flowchart-2" class="slide section level1">
+<h1>Data Flowchart</h1>
+<p><img src="img/flowchart1.png" /></p>
+</div>
+<div id="data-flowchart-3" class="slide section level1">
+<h1>Data Flowchart</h1>
+<p><strong>1.</strong> Start by <span style="color:orange">listing all the final indicators</span> that you are looking to create</p>
+<ul>
+<li>You can list them in one file to start drafting you <strong>data dictionaries</strong></li>
+<li>Make note of the <strong>level of observation</strong> that each of them represent</li>
+</ul>
+</div>
+<div id="data-flowchart-4" class="slide section level1">
+<h1>Data Flowchart</h1>
+<p><strong>2.</strong> <span style="color: orange">Group indicators by level of observation</span> to determine what data tables you will need to complete your analysis</p>
+<ul>
+<li>You will create <strong>one final data table for each level of observation</strong> that is relevant for your analysis</li>
+<li>Your data flowchart will indicate how to create each of these data tables, so all of them should be included once you are done creating your flowcharts</li>
+<li>If two or more final data tables are created in a similar way or depend on one another, they can share the same flow chart</li>
+<li>There is no hard rule that there needs to be one flowchart per analysis data set, the only rule is that each analysis data set should be in a flowchart</li>
+</ul>
+</div>
+<div id="data-flowchart-5" class="slide section level1">
+<h1>Data Flowchart</h1>
+<p><img src="img/flowchart2.png" /></p>
+</div>
+<div id="data-flowchart-6" class="slide section level1">
+<h1>Data Flowchart</h1>
+<p><strong>3.</strong> List all the <span style="color:orange">original or master data sets that contain information needed to create a given analysis data table</span></p>
+<ul>
+<li>These will be the <strong>starting points</strong> of your data flowcharts</li>
+<li>Having a <strong>data dictionary</strong> for each original data set will help you find the information that you need</li>
+<li>At this point, you may realize you need data that has not been included in the data linkage table</li>
+<li>This is why we want to do this before the team starts to acquire data: so you can make changes to the data linkage table and make sure that all the data that will be need is acquired before it is too late to do so</li>
+</ul>
+</div>
+<div id="data-flowchart-7" class="slide section level1">
+<h1>Data Flowchart</h1>
+<p><img src="img/flowchart3.png" /></p>
+</div>
+<div id="data-flowchart-8" class="slide section level1">
+<h1>Data Flowchart</h1>
+<p><strong>4.</strong> Fill in the steps to link the two sets of data by listing all the steps where</p>
+<ul>
+<li>2 or more <strong>data tables are combined</strong></li>
+<li>A data table is modified in such a way that its <strong>unit of observation changes</strong></li>
+</ul>
+</div>
+<div id="data-flowchart-9" class="slide section level1">
+<h1>Data Flowchart</h1>
+<ul>
+<li>As you connect the start and end points of data processing, you may realize you will need more data than you had originally included in your data map</li>
+<li>Creating the data map is an <span style="color:orange">iterative process</span> where you go back and forth between the different components</li>
+<li>As you create the data flowchart, you should <span style="color:orange">think of what could go wrong</span></li>
+<li>This will help identify steps that are extra complex or prone to errors, when you have to be extra careful</li>
+</ul>
+</div>
+<div id="data-flowchart-10" class="slide section level1">
+<h1>Data Flowchart</h1>
+<p><img src="img/flowchart-complete.png" /></p>
+</div>
+<div id="data-map" class="slide section level1">
+<h1>Data Map</h1>
+<ul>
+<li>Once you are done with all three components of the data map, you have a tool that will help your team execute the necessary data work with a common understanding and shared intent</li>
+<li>The time you invest into making the data map will pay off in a smoother data work process and higher quality data</li>
+<li>While the data map should be created before you start your data work, it should still be seen as a living document that is kept up to date as you learn more abut the data and come up with more questions that can be answered with the data you have</li>
+</ul>
+</div>
+<div id="exercise---original-data-dictionary" class="slide section level1">
+<h1>Exercise - Original Data Dictionary</h1>
+<p><strong>1.</strong> List all the variables present in each of the data sets listed in the data linkage table.</p>
+<p><strong>2.</strong> Make sure you understand what information each of them contain.</p>
+<p><strong>3.</strong> Identify the relevant level of observation for each data set.</p>
+</div>
+<div id="exercise---data-linkage-table" class="slide section level1">
+<h1>Exercise - Data Linkage Table</h1>
+<p><strong>1.</strong> List all the different data sources for your project.</p>
+<p><strong>2.</strong> Identify the unit of observation and the ID variable in each original data set.</p>
+<p><strong>3.</strong> Discuss with your team how you want to call each of these data tables, where you want to store them and under which name, and how to back them up.</p>
+<p><strong>4.</strong> Identify the relationship (if any) between the data sets in your lists.</p>
+</div>
+<div id="exercise---final-data-dictionary" class="slide section level1">
+<h1>Exercise - Final Data Dictionary</h1>
+<p><strong>1.</strong> List all the final indicators that you want to include in your analysis.</p>
+<p><strong>2.</strong> Agree on a definition for each of them.</p>
+<p><strong>3.</strong> Identify the relevant level of observation for each indicator.</p>
+<p><strong>4.</strong> List the data that is needed to create each indicator and at which level it was originally observed.</p>
+</div>
+<div id="exercise---data-flowchart" class="slide section level1">
+<h1>Exercise - Data Flowchart</h1>
+<p><strong>1.</strong> Pick one of the analysis data sets that you identified in the data dictionary to create a flowchart.</p>
+<p><strong>2.</strong> List all the original data sets required to create it.</p>
+<p><strong>3.</strong> On a piece of paper, draw all the steps that are needed to create the final data table from the original data.</p>
+<p><strong>4.</strong> Review the steps in your flowchart and identify any of them that combine data tables or change the unit of observation of the data. You will add more notes about these steps as we advance in the course.</p>
+</div>
+</div>
+</body>
+</html>
