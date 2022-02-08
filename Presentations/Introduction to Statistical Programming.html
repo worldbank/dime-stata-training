@@ -1,0 +1,455 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="version" content="S5 1.1" />
+  <meta name="author" content="Kristoffer Bjarkefür, Luíza Andrade, Sushmita Samaddar" />
+  <title>Introduction to statistical programming</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <!-- configuration parameters -->
+  <meta name="defaultView" content="slideshow" />
+  <meta name="controlVis" content="hidden" />
+  <!-- style sheet links -->
+  <link rel="stylesheet" href="www/slides.css" type="text/css" media="projection" id="slideProj" />
+  <link rel="stylesheet" href="www/outline.css" type="text/css" media="screen" id="outlineStyle" />
+  <link rel="stylesheet" href="www/print.css" type="text/css" media="print" id="slidePrint" />
+  <link rel="stylesheet" href="www/opera.css" type="text/css" media="projection" id="operaFix" />
+  <!-- S5 JS -->
+  <script src="www/slides.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="layout">
+<div id="controls"></div>
+<div id="currentSlide"></div>
+<div id="header"></div>
+<div id="footer">
+  <h1></h1>
+  <h2>Introduction to statistical programming</h2>
+</div>
+</div>
+<div class="presentation">
+<div class="title-slide slide">
+  <h1 class="title">Introduction to statistical programming</h1>
+  <h3 class="author">Kristoffer Bjarkefür, Luíza Andrade, Sushmita Samaddar</h3>
+</div>
+<div id="excel-vs.-stata-or-r-python-etc." class="slide section level1">
+<h1>Excel vs. Stata (or R, Python etc.)</h1>
+<p>The main reason why we code</p>
+<ul>
+<li>In <span style="color:orange">Excel</span> you make <strong>changes directly to the data</strong> and save <strong>new versions of the dataset</strong></li>
+<li>In <span style="color:orange">Stata</span> you make <strong>changes to the instructions</strong> on how to get from the raw data to the final analysis and save <strong>new versions of the instructions</strong></li>
+</ul>
+</div>
+<div id="your-code-is-an-output" class="slide section level1">
+<h1>Your code is an output</h1>
+<p><span style="color:orange; block-align:center">Create recipes, not just meals</span></p>
+<p><img src="img/cookbook.png" style="width:65.0%" /></p>
+</div>
+<div id="we-are-tempted-not-to-write-recipes" class="slide section level1">
+<h1>We are tempted not to write recipes</h1>
+<ul>
+<li>We are hungry, and we want to cook a delicious meal!</li>
+<li>So we grab all our ingredients, and start mixing them together</li>
+<li>As we do so, new ideas keep occurring to us and we add some more ingredients</li>
+<li>Our meal turns out to be delicious and we are very satisfied</li>
+</ul>
+</div>
+<div id="but-skipping-this-step-may-cost-you-a-lot-of-time" class="slide section level1">
+<h1>But skipping this step may cost you a lot of time</h1>
+<ul>
+<li>Some time after that, we want to have that delicious meal again…</li>
+<li>…but alas, we don’t remember how we got to the end result</li>
+<li>What kind of potatoes did we use?</li>
+<li>Did we boil them before putting them in the oven?</li>
+<li>Did we use rosemary or dill?</li>
+</ul>
+</div>
+<div id="but-skipping-this-step-may-cost-you-a-lot-of-time-1" class="slide section level1">
+<h1>But skipping this step may cost you a lot of time</h1>
+<ul>
+<li>When we are eager to get to the end result, we may skip important steps</li>
+<li>We often assume that we will remember what we did and why, but that is not always the case if we did not write things down</li>
+<li>In the end, we may spend a lot of time and effort trying to reinvent a recipe we had already invented!</li>
+</ul>
+</div>
+<div id="create-recipes-not-just-meals" class="slide section level1">
+<h1>Create recipes, not just meals</h1>
+<ul>
+<li>We are handling data because we want to analyze it</li>
+<li>Our goal is to create informative graphs and tables (our delicious meals)</li>
+<li>This is a very important goal, but it is important to also think of the recipe as an equally (if not more) important creation!</li>
+<li>If we write recipes that create delicious meals, we can have them as many times as we want</li>
+<li>Current and future team members will read and contribute to the same set of recipes and keep improving them</li>
+<li>Therefore we need to write recipes that other people can follow too</li>
+</ul>
+</div>
+<div id="key-ingredients-tabular-data-sets" class="slide section level1">
+<h1>Key ingredients: Tabular data sets</h1>
+<p>Data can be organized in a lot of different ways. During this courses, however, we will work with one particular form of organizing data: <span style="color:orange"><strong>tabular data</strong></span></p>
+<ul>
+<li>Tabular data is organized in <strong>rows</strong> and <strong>columns</strong></li>
+<li>Each <strong>row</strong> describes one individual or member of a class</li>
+<li>Each <strong>column</strong> contains information about characteristics of the individuals being described</li>
+<li>Each row contains the same number of cells (although some of these cells may be empty)</li>
+<li>Each <strong>cell</strong> within a same column provides information the same property of the things described by each row</li>
+</ul>
+</div>
+<div id="key-ingredients-tabular-data-sets-1" class="slide section level1">
+<h1>Key ingredients: Tabular data sets</h1>
+<p><img src="img/tabular-data.png" style="width:75.0%" /></p>
+</div>
+<div id="some-semantics" class="slide section level1">
+<h1>Some semantics</h1>
+<ul>
+<li>A single instance of tabular data is called a <strong>data table</strong></li>
+<li>Each <span style="color:orange">cell</span> in a data table is called a <strong>data point</strong></li>
+<li>A <strong>variable</strong> is a collection of data points representing the same <span style="color:orange">characteristic</span></li>
+<li>An <strong>observation</strong> is a collection of data points representing the same <span style="color:orange">case of data being collected</span></li>
+<li>A <strong>data set</strong> is a collection of <span style="color:orange">one or more data tables</span></li>
+</ul>
+</div>
+<div id="key-ingredients" class="slide section level1">
+<h1>Key ingredients</h1>
+<p>What is the first thing you want to look for every single time you open a new data table for the first time?</p>
+<p><strong>1.</strong> Unit of observation</p>
+<p><strong>2.</strong> Uniquely and fully identifying ID variable</p>
+</div>
+<div id="household_data.csv" class="slide section level1">
+<h1><code>household_data.csv</code></h1>
+<p><br></p>
+<table>
+<thead>
+<tr class="header">
+<th>Officer ID</th>
+<th>Village ID</th>
+<th>District ID</th>
+<th>Name</th>
+<th>Age</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>22501</td>
+<td>25</td>
+<td>2</td>
+<td>Andrew</td>
+<td>52</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>22502</td>
+<td>25</td>
+<td>2</td>
+<td>Patrick</td>
+<td>48</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>23207</td>
+<td>32</td>
+<td>2</td>
+<td>Charles</td>
+<td>29</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>23205</td>
+<td>32</td>
+<td>2</td>
+<td>Jeffrey</td>
+<td>37</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>12501</td>
+<td>25</td>
+<td>1</td>
+<td>Walter</td>
+<td>48</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>11103</td>
+<td>11</td>
+<td>1</td>
+<td>Anne</td>
+<td>26</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>11205</td>
+<td>12</td>
+<td>1</td>
+<td>Lawrence</td>
+<td>61</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>24502</td>
+<td>45</td>
+<td>2</td>
+<td>Dennis</td>
+<td>45</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>24501</td>
+<td>45</td>
+<td>2</td>
+<td>Nancy</td>
+<td>41</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="clinic_data.csv" class="slide section level1">
+<h1><code>clinic_data.csv</code></h1>
+<p><br></p>
+<table>
+<thead>
+<tr class="header">
+<th>Clinic ID</th>
+<th>Clinic number</th>
+<th>District ID</th>
+<th>Patient name</th>
+<th>Patient age</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2452</td>
+<td>542</td>
+<td>2</td>
+<td>Andrew</td>
+<td>52</td>
+</tr>
+<tr class="even">
+<td>2543</td>
+<td>543</td>
+<td>2</td>
+<td>Patrick</td>
+<td>48</td>
+</tr>
+<tr class="odd">
+<td>2156</td>
+<td>156</td>
+<td>2</td>
+<td>Charles</td>
+<td>29</td>
+</tr>
+<tr class="even">
+<td>1152</td>
+<td>152</td>
+<td>1</td>
+<td>Jeffrey</td>
+<td>37</td>
+</tr>
+<tr class="odd">
+<td>1152</td>
+<td>152</td>
+<td>1</td>
+<td>Walter</td>
+<td>49</td>
+</tr>
+<tr class="even">
+<td>1238</td>
+<td>238</td>
+<td>1</td>
+<td>Anne</td>
+<td>26</td>
+</tr>
+<tr class="odd">
+<td>1122</td>
+<td>122</td>
+<td>1</td>
+<td>Lawrence</td>
+<td>61</td>
+</tr>
+<tr class="even">
+<td>2122</td>
+<td>122</td>
+<td>2</td>
+<td>Dennis</td>
+<td>45</td>
+</tr>
+<tr class="odd">
+<td>2122</td>
+<td>122</td>
+<td>2</td>
+<td>Nancy</td>
+<td>41</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="key-ingredients-id-variables" class="slide section level1">
+<h1>Key ingredients: ID variables</h1>
+<ul>
+<li><span style="color:orange">Make sure all your data tables have an ID variable</span>
+<ul>
+<li>If you are handling a data table that does not have one, then creating it is your first task</li>
+</ul></li>
+<li>IDs variables must be <span style="color:orange">uniquely and fully identifying</span>
+<ul>
+<li>An ID is <em>uniquely</em> identifying if each ID occurs only once in a data table</li>
+<li>An ID is <em>fully</em> identifying if it is defined for all observations in a data table</li>
+</ul></li>
+</ul>
+</div>
+<div id="key-ingredients-id-variables-1" class="slide section level1">
+<h1>Key ingredients: ID variables</h1>
+<p><strong>Exercise:</strong> Let’s look at a data set with public procurement data. Can you tell what column is the unique identifier?</p>
+<table>
+<thead>
+<tr class="header">
+<th>Procedure ID</th>
+<th>Lot ID</th>
+<th>Status</th>
+<th>CPV Category</th>
+<th>Value (USD)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>168120</td>
+<td>104904</td>
+<td>Active</td>
+<td>Feasibility study, advisory service, analysis.</td>
+<td>585000</td>
+</tr>
+<tr class="even">
+<td>169625</td>
+<td>108282</td>
+<td>Active</td>
+<td>Office furniture.</td>
+<td>92363.922</td>
+</tr>
+<tr class="odd">
+<td>169625</td>
+<td>108281</td>
+<td>Active</td>
+<td>Office furniture.</td>
+<td>477213.56</td>
+</tr>
+<tr class="even">
+<td>169625</td>
+<td>108283</td>
+<td>Active</td>
+<td>Computer related equipment.</td>
+<td>446425.59</td>
+</tr>
+<tr class="odd">
+<td>169625</td>
+<td>108284</td>
+<td>Active</td>
+<td>Miscellaneous furniture.</td>
+<td>107757.9</td>
+</tr>
+<tr class="even">
+<td>169896</td>
+<td>108757</td>
+<td>Active</td>
+<td>Pharmaceutical products.</td>
+<td>139000</td>
+</tr>
+<tr class="odd">
+<td>169896</td>
+<td>108740</td>
+<td>Active</td>
+<td>Pharmaceutical products.</td>
+<td>12700</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="lay-out-your-ingredients-before-your-start-cooking" class="slide section level1">
+<h1>Lay out your ingredients before your start cooking</h1>
+<p>Before we start cooking, we need to think about what we are trying to cook and what is the best way to cook it</p>
+<ul>
+<li>How do I code so it is the most helpful for other people in my team?</li>
+<li>How is my data really structured?</li>
+<li>How do I communicate the data structure in my project?</li>
+</ul>
+</div>
+<div id="how-to-think-about-what-you-are-doing" class="slide section level1">
+<h1>How to think about what you are doing</h1>
+<p>The <strong>DIME Analytics’ Data Map Template</strong> has three components:</p>
+<ul>
+<li><strong>Data Linkage Table</strong>: Meta data of all original data sets in your project</li>
+<li><strong>Master Dataset(s)</strong>: Keep track of all units for each level of observation</li>
+<li><strong>Data Flowchart(s)</strong>: How analysis data sets should be created</li>
+</ul>
+</div>
+<div id="data-linkage-table" class="slide section level1">
+<h1>Data Linkage Table</h1>
+<ul>
+<li>Each <strong>row</strong> is an <span style="color:orange">original data table</span>.</li>
+<li>List the <span style="color:orange">ID variable</span> for the unit of observation.</li>
+<li>List back-up locations for all original data.</li>
+<li>Give each data table a <span style="color:orange">name</span> that is easy to say and write. Use only this name to refer to the dataset.</li>
+</ul>
+<p>See more examples at <a href="https://dimewiki.worldbank.org/Data_Linkage_Table" class="uri">https://dimewiki.worldbank.org/Data_Linkage_Table</a></p>
+</div>
+<div id="master-data-set" class="slide section level1">
+<h1>Master Data Set</h1>
+<ul>
+<li>One data table for each <span style="color:orange">unit of observation</span> in the data linkage table</li>
+<li>List <span style="color:orange">all units that the project ever encounters</span>, even if they will not be used for analysis</li>
+<li>The authoritative source for all identifying information</li>
+</ul>
+<p>See more examples at <a href="https://dimewiki.worldbank.org/Master_Dataset" class="uri">https://dimewiki.worldbank.org/Master_Dataset</a></p>
+</div>
+<div id="data-flowcharts" class="slide section level1">
+<h1>Data Flowcharts</h1>
+<ul>
+<li>Each starting point is a <em>Master Data Table</em> or a data table listed in the <em>Data Linkage Table</em></li>
+<li>List the <em>unit of observation</em> and variables used to identify data tables before and after each data processing operation</li>
+<li>Include number of observations to track whether observations are lost or duplicated</li>
+</ul>
+<p><img src="img/data-flowchart.png" style="width:25.0%" /></p>
+<p>See more examples at <a href="https://dimewiki.worldbank.org/Data_Flow_Charts" class="uri">https://dimewiki.worldbank.org/Data_Flow_Charts</a></p>
+</div>
+<div id="where-are-the-graphs" class="slide section level1">
+<h1>Where are the graphs?</h1>
+<ul>
+<li>Nothing I have said so far relates to analysis</li>
+<li><strong>In coding</strong>, analysis is the easy part of the work, as long as the data is properly set up for analysis</li>
+<li>It is much easier to google or to ask someone how to use analysis commands than how to clean, manage and monitor the quality of your data</li>
+</ul>
+</div>
+<div id="critical-thinking-about-data" class="slide section level1">
+<h1>Critical thinking about data</h1>
+<p><span style="color:orange;text-align:center"><strong>Trust your instincts</strong></span></p>
+<ul>
+<li>Do I believe this number?</li>
+<li>How do I expect these variables to relate to one another?</li>
+<li>How do they relate?</li>
+</ul>
+</div>
+<div id="critical-thinking-about-data-1" class="slide section level1">
+<h1>Critical thinking about data</h1>
+<p><span style="color:orange;text-align:center"><strong>Trust your instincts</strong></span></p>
+<ul>
+<li>Do I believe this number?
+<ul>
+<li>An active public official says they are 130 years old</li>
+</ul></li>
+<li>How do I expect these variables to relate to one another?
+<ul>
+<li>How do we expect the date of birth of a public official and their date of entry to the civil service to be related?</li>
+</ul></li>
+<li>How do they relate?</li>
+</ul>
+</div>
+</div>
+</body>
+</html>

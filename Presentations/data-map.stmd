@@ -39,6 +39,19 @@ title: Creating a data map
 
 **Data set:** a collection of data. In the case of tabular data, a data set corresponds to one or more database tables, where every column of a table represents a particular variable, and each row corresponds to an observation.
 
+# Exercise
+
+- Open the data set and identify:
+
+  - The variables it contains
+  - How many observations it contains
+  - What is the unit of observation being described
+  - What is the unique ID
+
+# Back to the data map
+
+[*A **data map** is a way to share and communicate your understanding of a data set. It is used to created a **shared understanding** about the data that is available, the information we want to extract from it, and how we plan to extract it.*]{style="text-align: center;"}
+
 
 # Data Linkage Table
 
@@ -134,14 +147,6 @@ Data flowcharts show an [overview of key steps for data processing]{style="color
 - The time you invest into making the data map will pay off in a smoother data work process and higher quality data
 -  While the data map should be created before you start your data work, it should still be seen as a living document that is kept up to date as you learn more abut the data and come up with more questions that can be answered with the data you have
 
-# Exercise - Original Data Dictionary
-
-**1.** List all the variables present in each of the data sets listed in the data linkage table.
-
-**2.** Make sure you understand what information each of them contain.
-
-**3.** Identify the relevant level of observation for each data set.
-
 # Exercise - Data Linkage Table
 
 **1.** List all the different data sources for your project.
@@ -151,6 +156,14 @@ Data flowcharts show an [overview of key steps for data processing]{style="color
 **3.** Discuss with your team how you want to call each of these data tables, where you want to store them and under which name, and how to back them up.
 
 **4.** Identify the relationship (if any) between the data sets in your lists.
+
+# Exercise - Original Data Dictionary
+
+**1.** List all the variables present in each of the data sets listed in the data linkage table.
+
+**2.** Make sure you understand what information each of them contain.
+
+**3.** Identify the relevant level of observation for each data set.
 
 # Exercise - Final Data Dictionary
 
