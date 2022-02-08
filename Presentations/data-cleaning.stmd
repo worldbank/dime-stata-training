@@ -1,0 +1,676 @@
+---
+title: Cleaning data
+author: Luiza Andrade and Sushmita Samaddar
+output: 
+ html_document:
+  css: www/style.css
+---
+
+# What is data cleaning?
+
+![](img/cleaning.png){width=45%}
+
+```{s/}
+use "../DataWork/Data/Raw/process_raw.dta", clear
+```
+
+# What is data cleaning?
+
+- Cleaning is about changing the *format* of the data to the format that is the most efficient to store and handle in statistical software and also the easiest for humans to understand
+- We are not making changes to the *information* contained in the data set -- this will come later, in *data construction*
+
+# Input: the raw data
+
+- Contains only information originally received during data acquisition
+- Raw data files should be stored in the raw data folder [exactly]{style="color: orange"} as they were acquired
+  - The raw data files should [never]{style="color: orange"} be edited directly
+  - Be mindful of how and where they are stored: they cannot be re-created and nearly always contain confidential data
+- If the raw data contains confidential information, it [must be safely stored]{style="color: orange"}
+
+# Output: the cleaned data set
+
+- At the end of this process, you should have a data set that is essentially the same as the one you originally acquired
+ - During data cleaning, we will change the [format]{style="color: orange"} of the data
+ - We will [not]{style="color: orange"} make significant changes to individual data points
+- The main difference between the *raw* and the *clean* data sets lies in how easy it is to understand them and handle them in statistical software
+- One clean dataset will be created for each data source
+
+# Setting the stage
+
+**Exercise:**
+
+1. Launch Stata by opening the Stata project `Introduction to Stata.stpr`
+2. Open a new do-file
+3. Load the `process_raw` data set
+
+[
+In case you don't remember this from the last session, you can use the `use` command and the Stata project features to open a data set by typing
+]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
+# Setting the stage
+
+**Exercise:**
+
+1. Launch Stata by opening the Stata project `Introduction to Stata.stpr`
+2. Open a new do-file
+3. Load the `process_raw` data set
+
+[
+In case you don't remember this from the last session, you can use the `use` command and the Stata project features to open a data set by typing
+]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+  
+~~~
+use "DataWork/Data/Raw/process_raw.dta", clear
+~~~
+
+# Identifying string variables
+
+What are different ways to identify the string variables in our data set?
+
+# Identifying string variables
+
+What are different ways to identify the string variables in our data set?
+
+- `codebook`
+- Variables and Properties windows
+- Browsing the dataset
+
+# Identifying string variables
+
+```{s}
+codebook, compact
+```
+
+# Cleaning string variables
+
+```{s}
+codebook Entity_county Entity_Naziv Process_Naziv Process_Oznaka PostupakNadmetanja_Naziv_tr TipNadmetanja_Naziv_tr StatusNadmetanja_Naziv_tr VrstaNadmetanja_Naziv_tr TipNabave_Naziv_tr MetodaEvaluacije_tr RokZaDostavuZahtSudj
+```
+
+- Quite a few variables also have the value "NULL" in them
+- We also see a warning about spaces
+
+![](img/trailing-spaces.png)
+
+
+# Cleaning string variables: `replace`
+
+![](img/replace.png){width=60%}
+
+[**Tip:** Replace works with all types of variables, not only strings.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
+# Cleaning string variables: `replace`
+
+**Exercise:** replace all occurrences of the value "NULL" in the variable `Process_Naziv` with the missing value `""`
+
+# Cleaning string variables: `replace`
+
+**Exercise:** replace all occurrences of the value "NULL" in the variable `Process_Naziv` with the missing value `""`
+
+```{s}
+replace Process_Naziv = "" if Process_Naziv == "NULL"
+```
+
+# Cleaning string variables: `replace`
+
+**Exercise:** replace all occurrences of the value "NULL" in the variable `Process_Naziv` with the missing value `""`
+
+```{s}
+replace Process_Naziv = "" if Process_Naziv == "NULL"
+```
+
+[Note that whenever we refer to text, that is, to the content of string variables, use write this content between quotes.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
+# Cleaning string variables
+
+We can use the `problems` option of `codebook` to get more detail about the issue with spaces
+
+```{s}
+codebook Entity_county Entity_Naziv Process_Naziv Process_Oznaka PostupakNadmetanja_Naziv_tr TipNadmetanja_Naziv_tr StatusNadmetanja_Naziv_tr VrstaNadmetanja_Naziv_tr TipNabave_Naziv_tr MetodaEvaluacije_tr RokZaDostavuZahtSudj, problems
+```
+
+# Cleaning string variables
+
+- Humans can tell the meaning of a word regardless of which letters are capitalized or not, of how spaces are used, and even if they are misstyped, but Stata is not that smart
+- It may be hard for the human eye to see one extra space, but not for Stata 
+
+# Cleaning string variables
+
+Let's take a closer look at the values of `StatusNadmetanja_Naziv_tr`:
+
+```{s}
+tab StatusNadmetanja_Naziv_tr
+```
+
+# Cleaning string variables
+
+- AGREED and Agreed mean the same thing
+- So do "In contracting" and "In contracting "
+- In order for Stata to consider these as the same information, however, we need to make sure they contain exactly the same characters, including which letters are in lower or upper case
+
+
+# Change cases
+
+**`upper(s)`** 	capitalize all characters in string `s`
+
+**`lower(s)`**	make all characters in string `s` lower case
+
+**`proper(s)`**	capitalize only the first letter of each word in string `s`
+
+
+- Note these are [functions]{style="color: orange"}, not [commands]{style="color: orange"}
+- Functions cannot be used by themselves, but rather need to be used inside a command.
+- To see the help file for functions we need to add parentheses after their names: `help proper()`
+
+# Change cases
+
+Here is an example of how to use them:
+
+```{s}
+replace StatusNadmetanja_Naziv_tr = upper(StatusNadmetanja_Naziv_tr)
+tab StatusNadmetanja_Naziv_tr
+```
+
+# Change cases
+
+**Exercise:** test using `upper()` and `lower()` on a text variable and see how they affect it's content.
+
+# Change cases
+
+**Exercise:** test using `upper()` and `lower()` on a text variable and see how they affect it's content.
+
+```{s}
+replace StatusNadmetanja_Naziv_tr = lower(StatusNadmetanja_Naziv_tr)
+tab StatusNadmetanja_Naziv_tr
+```
+
+# Change cases
+
+**Exercise:** test using `upper()` and `lower()` on a text variable and see how they affect it's content.
+
+```{s}
+replace StatusNadmetanja_Naziv_tr = proper(StatusNadmetanja_Naziv_tr)
+tab StatusNadmetanja_Naziv_tr
+```
+
+# Changing the content of string variables
+
+- The functions we have just explored chance only the capitalization of text, not necessarily the letters and other characters in it
+- As we have seen earlier, however, we also need to make adjustments to themselves
+- In particular, we need to remove *extra* spaces that are difficult for the human eye to catch, but that make strings that should be considered the same as different values in Stata
+- The next two functions we will learn about remove extra spaces and substitute specific characters in a string
+
+# `strtrim(s)`
+
+![](img/strtrim.png){width=80%}
+
+**Exercise:** use `strtrim()` with `replace` to remove extra spaces from `StatusNadmetanja_Naziv_tr`
+
+# `strtrim(s)`
+
+**Exercise:** use `strtrim()` with `replace` to remove extra spaces from `StatusNadmetanja_Naziv_tr`
+
+```{s}
+replace StatusNadmetanja_Naziv_tr = strtrim(StatusNadmetanja_Naziv_tr)
+tab StatusNadmetanja_Naziv_tr
+```
+
+# `subinstr(s1,s2,s3,n)`
+
+![](img/subinstr.png){width=80%}
+
+```{s}
+replace RokZaDostavuZahtSudj = subinstr(RokZaDostavuZahtSudj, "NULL", "*", .)
+```
+
+# `subinstr(s1,s2,s3,n)`
+
+```{s}
+codebook RokZaDostavuZahtSudj
+```
+
+# Encode variables
+
+-  Each statistical software has optimized the formats it uses to store and handle different types if information
+-  The clean data set should contain no string variables, except for
+  - Proper nouns that are not categories
+  - Digits with leading zeros or long IDs (over 15 digits)
+-  That means categorical string variables must be transformed into labeled variables or factors
+-  Check that all categorical variables have value labels
+
+# Encode variables
+
+How do you tell categorical variables from text variables when they don't yet have value labels?
+
+# Encode variables
+
+How do you tell categorical variables from text variables when they don't yet have value labels?
+
+[By the number of different values they take]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
+# Encode variables
+
+Which variables below are categorical?
+
+```{s}
+codebook, compact
+```
+
+# Encode variables
+
+Which variables below are categorical?
+
+- `Entity_county`
+- `PostupakNadmetanja_Naziv_tr`
+- `TipNadmetanja_Naziv_tr`
+- `StatusNadmetanja_Naziv_tr`
+- `VrstaNadmetanja_Naziv_tr`
+- `TipNabave_Naziv_tr`
+- `MetodaEvaluacije_tr`
+
+The process of transforming text variables into categorical variables in Stata is called "encoding".
+
+# Encoding variables in Stata
+
+![](img/encode.png){width=60%}
+
+
+# Encoding variables in Stata
+
+- Note that there is a required option called `gen()`
+- This option will create a new variable with the encoded version of the original one
+
+```{s}
+encode StatusNadmetanja_Naziv_tr, gen(bid_status)
+```
+
+# Encoding variables in Stata
+
+```{s}
+codebook  bid_status
+```
+
+# Encoding variables in Stata
+
+```{s}
+labelbook bid_status
+```
+
+# Encoding variables in Stata
+
+**Exercise:** use `encode` to create a new variable called `evaluation_method` containing the encoded version of `MetodaEvaluacije_tr`
+
+# Encoding variables in Stata
+
+**Exercise:** use `encode` to create a new variable called `evaluation_method` containing the encoded version of `MetodaEvaluacije_tr`
+
+```{s}
+encode MetodaEvaluacije_tr, gen(evaluation_method)
+tab evaluation_method
+```
+
+# Encoding variables in Stata
+
+**Exercise:** use `encode` to create a new variable called `evaluation_method` containing the encoded version of `MetodaEvaluacije_tr`
+
+```{s}
+labelbook evaluation_method
+```
+
+# Value labels
+
+We have seen how value labels work. Now let's talk about how we can handle them.
+
+![](img/label.png){width=60%}
+
+# Value labels
+
+Modify an existing value label:
+
+```{s}
+label define evaluation_method 2 "Most economically advantageous tender", modify
+tab evaluation_method
+```
+
+# Value labels
+
+Create a new value label:
+
+```{s}
+label define eval 1 "Lowest price" 2 "Most economically advantageous tender"
+```
+
+Assign (new) value label to a variable:
+
+```{s}
+label values evaluation_method eval
+tab evaluation_method
+```
+
+# Encoding variables in Stata
+
+**Exercise:** use `encode` to create a new variable called `bidding_type` containing the encoded version of `TipNadmetanja_Naziv_tr`
+
+# Encoding variables in Stata
+
+**Exercise:** use `encode` to create a new variable called `bidding_type` containing the encoded version of `TipNadmetanja_Naziv_tr`
+
+```{s}
+encode TipNadmetanja_Naziv_tr, gen(bidding_type)
+codebook bidding_type
+```
+
+# Recoding variables in Stata
+
+**`recode`** changes the values of numeric variables according to the rules specified.  Values that do not meet any of the conditions of the rules are left unchanged, unless an otherwise rule is specified.
+
+![](img/recode.png)
+
+
+# Recoding variables in Stata
+
+Running
+
+~~~
+recode bidding_type (4 = 3)
+~~~
+
+is the same as running
+
+~~~
+replace bidding_type = 3 if bidding_type == 4
+~~~
+
+So why do why use recode?
+
+# Recoding variables in Stata
+
+Running
+
+~~~
+recode bidding_type (4 = 3)
+~~~
+
+is the same as running
+
+~~~
+replace bidding_type = 3 if bidding_type == 4
+~~~
+
+So why do why use recode?
+
+[Because it allows us to write multiple rules at once.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
+# Recoding
+
+**Exercise**: use `recode` to replace all the occurrences of 4 in the variable `bidding_type` with 3, and all 5 with 6.
+
+# Recoding
+
+**Exercise**: use `recode` to replace all the occurrences of 4 in the variable `bidding_type` with 3, and all 5 with 6.
+
+```{s}
+recode bidding_type (4 = 3) (5 = 6)
+tab bidding_type
+```
+
+# Date variables
+
+- We know that Stata stores dates as numbers
+- However, when they are first imported into Stata, they are often imported as text
+- Let's see a few examples where this happens:
+
+```{s}
+browse RokZaDostavuPonuda RokZaDostavuZahtSudj RokZaDostavuInicijalnihPonuda Process_InsertDateTimeo
+```
+
+# Date variables
+
+- We know that Stata stores dates as numbers
+- However, when they are first imported into Stata, they are often imported as text
+- Let's see a few examples where this happens:
+
+```{s}
+browse RokZaDostavuPonuda RokZaDostavuZahtSudj RokZaDostavuInicijalnihPonuda Process_InsertDateTimeo
+```
+
+- For Stata to be able to convert these values into dates, we need to tell it how to parse this information
+- This is done by explaining to Stata in which [format]{style="color:orange"} the date is being shown
+  
+# Date strings
+
+![](img/date-mask.png)
+
+# Date strings
+
+- Once we are able to tell which mask is used for a date, we can use the function `daily()` to convert it into Stata date format
+- The function's syntax is `daily(datestr, maskstr)`
+
+```{s}
+gen 	 bid_submission_date = daily(RokZaDostavuZahtSudj, "YMDhms")
+codebook bid_submission_date
+```
+
+# Date strings
+
+Once the date has been converted to a number, it then needs to be formatted into a date format
+```{s}
+format 		bid_submission_date %td
+codebook 	bid_submission_date
+```
+
+# Date strings
+
+**Exercise:** convert the variable `RokZaDostavuInicijalnihPonuda` into a numeric date format, and then apply the format `%tc` to it.
+
+# Date strings
+
+**Exercise:** convert the variable `RokZaDostavuInicijalnihPonuda` into a numeric date format, and then apply the format `%tc` to it.
+
+```{s}
+gen    bid_delivery_date = daily(RokZaDostavuInicijalnihPonuda, "YMDhms")
+format bid_delivery_date %tc
+browse bid_delivery_date bid_submission_date
+```
+
+# Date formats
+
+- 15mar2005: `%td`
+- 3/15/05: `%tdnn/DD/YY`
+- Tue Mar. 15: `%tdDay_Mon._DD`
+- 15mar2005 14:30:00: `%tc`
+
+# Date formats
+
+You can also use the functions `td()` and `mdy()` to enter custom days
+
+```{s}
+gen    today = td(20oct2021)
+format today %td
+```
+
+```{s}
+gen    tomorrow = mdy(10, 21, 2021)
+format tomorrow %td
+```
+
+# Converting text to number
+
+- If a numberic variable was originally imported as a string variable, we can use the command `string` to convert it into a numeric format
+- When the text contains non-numeric values, these are automatically converted into missing values
+- If there are letters in the value, however, Stata will return an error	
+
+```{s}
+destring UstrojstvenaJedinica_ID, gen(contracting_authority)
+```
+
+# Identify and document outliers
+
+-  We do not want our results to be driven by a few individuals. For example, if the village leaders get all benefits.
+-  There is no exact rule for what is an outlier.
+-  Identifying outliers often comes down to common sense: can the outlier be explained by typos?
+-  We should start by trying to identify as many discrepant values as possible.
+
+# Useful Stata commands to identify outliers
+
+- `histogram`
+- `kdensity`
+- `sum detail`
+- `tabulate`
+
+# Identifying outliers
+
+**Exercise:** use `histogram` and `kdensity` to visualize the distribution of the process value. Are there outliers present?
+
+# Identifying outliers
+
+**Exercise:** use `summarize` with the `detail` option to identify cutoff points for outlying contract values.
+
+# Identifying outliers
+
+**Exercise:** use `tabulate` to explore the type of procedure or bidding in contracts with high contract values. Are these expected? Could they be caused by data quality issues?
+
+# Label variables 
+
+When cleaning a data set, you should make sure that all variables are properly labeled, so that it is easy to understand what each variable represents:
+
+-  Check that all variables have variable labels
+-  Variable labels should explain what the variable is and, if that's the case, what unit it is in
+-  Labels should be longer than 80 characters
+
+# Label variables
+
+Variable labels are applied as follows:
+
+```{s}
+label variable Nadmetanje_ID 			"Procedure ID"
+label variable Process_VrijednostNabave "Contract value (HRK)"
+```
+
+For an example of how they are used, try creating a density plot of `Process_VrijednostNabave` before and after labeling it.
+	
+# Stata packages
+
+- All the Stata commands that we have used until now are built into Stata
+- However, sometimes Stata users write their own commands to complement Stata's original functionality
+- These user-written commands are stored in a repository called SSC
+- To install them in our computers, we write `ssc install packagename`
+
+# `iefieldkit`
+
+`iefieldkit` is a package (set of commands) written by DIME Analytics to automate common tasks in data cleaning
+
+~~~
+ssc install iefieldkit
+~~~
+
+# Annotating data using `iecodebook`
+
+- `iecodebook` is one of the commands inside `iefieldkit`
+- It simplifies the process of labeling variables and values in Stata by taking an Excel sheet as *input*
+
+# Annotating data using `iecodebook`
+
+**1.** Use `iecodebook template` to list all the variables in the data
+
+~~~
+iecodebook template using "DataWork/Documentation/Codebooks/process_clean.xlsx"
+~~~
+	
+**2.** Open the spreadsheet created and complete the columns to rename, label and recode variables
+
+**3.** Use `iecodebook apply` to apply the indicated changes to the data
+
+~~~
+iecorrect apply using "DataWork/Documentation/Codebooks/process_clean.xlsx"
+~~~
+		
+	
+# Ordering variables
+
+-  It is recommended the variables in the final data tables follow the same order as in the questionnaire
+-  If the data was not collected exclusively for you study, you may want to group related variables so they are close to each other
+-  The variables that identify observations should be ordered first in each data table
+
+# Ordering variables: exercise
+
+- `order varlist`
+- `order varlist, before()`
+- `order varlist, after()`
+
+
+# Saving your work
+
+- The work for this session is complete
+- You can now save your work on the do-file as well as the data set
+- But before you do that, let's talk about how to name files
+
+# Naming files
+
+-  Make sure all output files, datasets and others are clearly and uniquely named
+-  It's often desirable to have the names of your data sets and do-files linked, so it is easy to understand which do-files is creating which data set, such as "merge.do" and "merged.dta" or "cleaning.do" and "clean.dta"
+-  Do not use _v1, _v2 etc. for any final files. This leads to bugs in do-files that depend on these files when a new versions is added.
+-  It's ok to use _v1, _v2 etc. for old versions of files if you [really]{style="color: orange"} need to keep an archive
+
+# Saving your work
+
+**Exercise:** save the do-file you've been working on.
+
+1. Click on the *Save* shortcut on the do-file editor
+2. Save the do-file to `DataWork/Code/Cleaning/clean_process.do`
+
+# Saving your work
+
+![](img/save.png){width=60%}
+
+# Saving your work
+
+**Exercise:** save the data set you've been working on to `DataWork/Data/Clean/process_clean.dta`
+
+# Saving your work
+
+**Exercise:** save the data set you've been working on to `DataWork/Data/Clean/process_clean.dta`
+
+~~~
+save "DataWork/Data/Clean/process_clean", replace
+~~~
+
+# Recap
+
+-  The main output of data cleaning is a data set that contains the same data points as the acquired data, with the exception of corrections made to data entry error
+-  The main difference between the clean data set and the raw data set is that the first is in a format that is easier for a human to understand and for a statistical software to handle
+-  Ideally, the raw data set should be de-identified before cleaning
+-  The data documentation and quality checks should be archived with the clean data set
+-  During data cleaning, the data set will be thoroughly explored and documented to inform data analysis and construction
+
+# Output: documentation 
+
+A few pieces of documentation should accompany the clean dataset:
+
+-  A variable dictionary/codebook listing details about each variable
+  -  What does this variable mean?
+  -  Summary of its content
+-  A description of how the data was collected
+-  A complete record of any corrections made to the raw data, including careful explanation about the decision-making process involved
+-  A report documenting any irregularities and distributional patterns encountered in the data
+
+
+# What is data cleaning?
+
+-  Cleaning is [the most time-consuming data work task]{style="color: orange"}, and you will be tempted to skip steps
+-  However, this is the time when really get to know your data
+-  Take the time to explore your data set using tabulations, summaries, and descriptive plots
+-  Knowing your data set well will make it possible to do analysis
+-  Cleaning your data well will save you time down the line
+
+# Exercise
+
+**Finish cleaning the data set**
+
+**1.** Transform all variables into date, number or category, except for `Entity_Naziv`, `Process_Naziv`, and `Process_Oznaka`
+
+**2.** Check the values of categories in categorical variables
+
+**3.** Check that the values of dates and IDs are within the expected range
+
+**4.** Finish annotating the data set: make sure all variables are labelled

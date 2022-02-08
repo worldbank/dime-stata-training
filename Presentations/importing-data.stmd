@@ -1,0 +1,422 @@
+---
+title: Importing and exploring new data
+author: Luiza Andrade and Sushmita Samaddar
+---
+
+# Introduction
+
+- Until now, we have been working with data that has already been processed
+- This is because we wanted to get you familiar with the Stata syntax before we started digging into more difficult tasks
+- Over the next few sessions, we will take you through the process that is needed to create the data that we were using before
+- Then, we will show you how to create polished graphs and tables using these data
+
+```{s/}
+use "../DataWork/Data/Raw/process_raw.dta", clear
+```
+
+# Introduction
+
+- The data set in `DataWork/Data/Final/process_data.dta` has been *imported*, *cleaned* and *constructed*
+  - **Importing** means saving data that was received in a format external to Stata (such as Excel) into the Stata data set format (.dta)
+  - **Cleaning** means changing the format of the data so it is easy to handle in Stata
+  - **Constructing** means using the clean data to create indicators that we care about
+- This session will take you through the very first step of this process, *data import*
+- We will also discuss one very important aspect of data quality that should be inspected as soon as the data is imported: the presence of unique identifiers
+- Finally, we will learn some new Stata tricks using logical operators to create subsets of the data and to remove variables from a data set
+ 
+# Importing data from Excel	
+
+- The data that was used to create the process-level data set we have been using until now was originally received in Excel format
+- This raw data is stored in `DataWork/Data/Raw/process_raw.xlsx`
+
+# Importing data from Excel	
+
+- The data that was used to create the process-level data set we have been using until now was originally received in Excel format
+- This raw data is stored in `DataWork/Data/Raw/process_raw.xlsx`
+
+[*Raw* data means data that is in the originally received format, with no processing by our team]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
+
+# Importing data from Excel	
+
+- The data that was used to create the process-level data set we have been using until now was originally received in Excel format
+- This raw data is stored in `DataWork/Data/Raw/process_raw.xlsx`
+
+[*Raw* data means data that is in the originally received format, with no processing by our team]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
+- However, for the reasons we have already discussed in the past two days, we have chosen not to work with this data in Excel
+- So the first thing we need to do is to open this data into Stata
+- We will do this using the command `import excel`
+
+# Importing data from Excel	
+
+**Exercise**: load the raw process data into Stata from Excel.
+
+**1.** Launch Stata by opening the Stata project in `Introduction to Stata.stpr`
+
+**2.** Open a new do-file
+
+**3.** Use `import excel` to load the data from `DataWork/Data/Raw/process_raw.xlsx`
+
+[**Tip:** if you are not sure how to do this, start by looking at the helpfile]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+  
+# Importing data from Excel	
+
+**Exercise**: load the raw process data into Stata from Excel.
+
+~~~
+import excel "Data/Raw/process_raw.xlsx", /// Path to the file to be loaded
+	sheet("Sheet1") /// Name of the sheet where the data is
+	firstrow /// Use first row in the data as variable names, not data points
+	clear // Replace the data in memory with this data
+~~~
+
+# Importing data from csv files
+
+- Apart from Excel, another format that is commonly used to share data is *comma-separated values*, or `.csv`
+- The command that imports data from `.csv` into Stata is very similar to the one that import Excel files
+
+[ ]{style="font-size:10%"}
+
+~~~
+import delimited "DataWork/Data/Raw/process_raw.csv", /// Path to the file to be loaded
+	encoding(windows-1250) /// How to read non-English characters
+	clear /// Replace the data in memory
+	bindquote(strict) // How to treat quotes found in the data
+~~~
+
+# Saving data into Stata format
+
+- Now that we have the data in Stata's memory, we will make sure to save it in a Stata-friendly format
+- **The native Stata format is called `.dta`**
+- This format is optimized to be used with Stata, and stores some important metadata that is important for Stata
+- Because of this metadata, [Stata can open these data sets a lot more quickly than other formats]{style="color:orange"}
+- The difference may not be noticeable when dealing with small data sets such as the one we have now, but it is can be quite dramatic when handling large data sets
+
+# Saving data into Stata format
+
+Save data in memory to file
+
+~~~
+save [filename] [, save_options]
+~~~
+
+# Saving data into Stata format
+
+**Exercise**: save the data set that is currently in Stata's memory to "DataWork/Data/Raw/process_raw.dta".
+
+# Saving data into Stata format
+
+**Exercise**: save the data set that is currently in Stata's memory to "DataWork/Data/Raw/process_raw.dta".
+
+~~~
+save "DataWork/Data/Raw/process_raw.dta", replace
+~~~
+
+# Saving data into Stata format
+
+**Exercise**: save the data set that is currently in Stata's memory to "DataWork/Data/Raw/process_raw.dta".
+
+~~~
+save "DataWork/Data/Raw/process_raw.dta", replace
+~~~
+
+[The `replace` option replaces any existing file with the same name with the one you are saving now. Without it, Stata will return an error whenever a file with the same name exists.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
+# Exploring the data
+
+- You have now imported your first data set into Stata!
+- This is when the data work process starts
+- We have a fresh new data set that we want to understand so we can use it for analysis
+- **Where should we start?**
+
+# Unique ID
+
+The first thing you want to look for every single time you open a new data set for the first time is
+
+**1. Unit of observation:** the object or unit that is being described in the data set
+
+**2. Uniquely and fully identifying ID variable:** the column in the data set that can be used to tell one observation apart from the others
+
+# Unique ID
+
+The first thing you want to look for every single time you open a new data set for the first time is
+
+**1. Unit of observation:** the object or unit that is being described in the data set
+
+**2. Uniquely and fully identifying ID variable:** the column in the data set that can be used to tell one observation apart from the others
+
+  - [Uniquely]{style="color:orange"} identifying: cannot have duplicated values
+  - [Fully]{style="color:orange"} identifying: cannot be missing
+  
+# Unique ID
+
+**Why** is it so important to have a unique identifier for our unit of observation?
+
+# Unique ID
+
+**Why** is it so important to have a unique identifier for our unit of observation?
+
+- So we make sure that we are not giving one instance of the unit of observation more [weight]{style="color:orange"} then others (if that observation is duplicated)
+- So we can use it to [combine different data sets]{style="color:orange"} (more on this later in the course)
+
+# Unique ID
+
+- What is the [unit of observation]{style="color:orange"} in the data set we have just loaded?
+- What column identifies different instances of the unit of observation in the data set we have just loaded -- that is, what is its [ID variable]{style="color:orange"}?
+
+# Unique ID
+
+**Exercise:** browse the process data set and try to identify its unit of observation and ID variable.
+
+# Unique ID
+
+Commands for testing that a variable is uniquely and fully identifying
+
+- `isid`
+- `duplicates`
+
+# `isid`
+
+**`isid`** checks whether the specified variables uniquely identify the observations.
+
+~~~
+isid varlist [using filename] [, sort missok]
+~~~
+
+# `isid`
+
+**Exercise:** use `isid` to test whether the variable `Process_Naziv` or `Process_Oznaka` uniquely identifies the observations in this data set.
+
+
+# `isid`
+
+**Exercise:** use `isid` to test whether the variable `Process_Naziv` or `Process_Oznaka` uniquely identifies the observations in this data set.
+
+~~~
+isid Process_Naziv
+isid Process_Oznaka
+~~~
+
+# `isid`
+
+**Exercise:** use `isid` to test whether the variable `Nadmetanje_ID` uniquely identifies the observations in this data set.
+
+# `isid`
+
+**Exercise:** use `isid` to test whether the variable `Nadmetanje_ID` uniquely identifies the observations in this data set.
+
+
+```{s}
+isid Nadmetanje_ID
+```
+
+# `isid`
+
+**Exercise:** use `isid` to test whether the variable `Nadmetanje_ID` uniquely identifies the observations in this data set.
+
+```{s}
+isid Nadmetanje_ID
+```
+
+[Stata did not throw an error because `Nadmetanje_ID` is the ID variable]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
+# `duplicates`
+
+**`duplicates`** -- Report, tag, or drop duplicate observations
+
+- Report duplicates
+
+~~~
+duplicates report [varlist] [if] [in]
+~~~
+
+- List one example for each group of duplicates
+
+~~~
+duplicates examples [varlist] [if] [in] [, options]
+~~~
+
+- Tag duplicates
+
+~~~
+duplicates tag [varlist] [if] [in] , generate(newvar)
+~~~
+
+# `duplicates`
+
+```{s}
+duplicates report Process_Naziv
+```
+
+# `duplicates`
+
+```{s}
+duplicates tag Process_Naziv, gen(dup_name)
+```
+
+[`duplicates tag` did not print anything in the console because the information it creates is actually stored in a new variable called `dup_name`]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
+# `duplicates`
+
+`dup_name` will take the value of the number of duplicate observations for given value for the chosen variable
+
+```{s}
+summarize dup_name
+```
+
+# Logical operators and *`if` statements*
+
+- We can use the [`if` statement]{style="color:orange"} we learned earlier to investigate some of this cases
+- As we have seen, `if` statements evaluate logic statements and return observations for which these statements are true
+- Stata accepts the following [logical operators]{style="color:orange"}:
+  -	`a == b`: true if a is **equal** to b
+  - `a != b`: true if a is **different** than to b
+  - `a >  b`: true if a **greater than** b
+  - `a >= b`: true if a **greater than or equal to** b
+  - `a <  b`: true if a **less than** b
+  - `a <= b`: true if a **less than or equal to** b
+  - `a & b`: true if a **and** b are true
+  - `a | b`: true if a **or** b are true
+  - `!a`: logical **negation**; true if a is false
+  
+# Logical operators and *`if` statements*
+
+Here is how we can use logical operators:
+
+- View observations that have 1 duplicate entry for `Process_Naziv`
+
+~~~
+browse if dup_name == 1
+~~~
+
+- View observations that have *any* duplicates entries for `Process_Naziv`
+
+~~~
+browse if dup_name != 0
+~~~
+
+# Logical operators and *`if` statements*
+
+**Exercise:** use logical operators to
+
+- View observations that have [less than]{style="color:orange"} 2 duplicates entries for `Process_Naziv`.
+- View observations that have 1 [or]{style="color:orange"} 2 duplicates entries for `Process_Naziv`.
+- View observations that have 1 duplicate entries for `Process_Naziv` [and]{style="color:orange"} whose process name is [equal]{style="color:orange"} to "uredski materijal".
+
+# Logical operators and *`if` statements*
+
+**Exercise:** use logical operators to
+
+- View observations that have [less than]{style="color:orange"} 2 duplicates entries for `Process_Naziv`.
+- View observations that have 1 [or]{style="color:orange"} 2 duplicates entries for `Process_Naziv`.
+- View observations that have 1 duplicate entries for `Process_Naziv` [and]{style="color:orange"} whose process name is [equal]{style="color:orange"} to "uredski materijal".
+
+[ ]{style="font-size:10%"}
+
+~~~
+browse if dup_name < 2
+browse if dup_name == 2 | dup_name == 1
+browse if dup_name == 1 & Process_Naziv == "uredski materijal"
+~~~
+
+# Logical operators and *`if` statements*
+
+**Exercise:** use logical operators to
+
+- View observations that have [less than]{style="color:orange"} 2 duplicates entries for `Process_Naziv`.
+- View observations that have 1 [or]{style="color:orange"} 2 duplicates entries for `Process_Naziv`.
+- View observations that have 1 duplicate entries for `Process_Naziv` [and]{style="color:orange"} whose process name is [equal]{style="color:orange"} to "uredski materijal".
+
+[ ]{style="font-size:10%"}
+
+~~~
+browse if dup_name < 2
+browse if dup_name == 2 | dup_name == 1
+browse if dup_name == 1 & Process_Naziv == "uredski materijal"
+~~~
+
+[Note that we are write text inside quotes (`""`). This is so Stata can tell commands apart from text values.]{style="border-left: solid 5px lightgray;padding-left: 1em;display: block;margin-block-start: 1em;margin-block-end: 1em;margin-inline-start: 40px;margin-inline-end: 40px;font-size:80%"}
+
+# Logical operators and *`if` statements*
+
+If you start building complex statements, you can use parenthesis to organize them. Note that the way you use parenthesis will alter the result.
+
+```{s}
+count if dup_name == 1 & Process_Naziv == "uredski materijal" | dup_name == 2
+count if (dup_name == 1 & Process_Naziv == "uredski materijal") | dup_name == 2
+count if (dup_name == 1) & (Process_Naziv == "uredski materijal" | dup_name == 2)
+```
+
+# `drop` and `keep`
+
+- The last two commands we will discuss today are `drop` and `keep`
+- They can be used to [remove both columns and rows from a data set]{style="color:orange"}
+
+# `drop` and `keep`
+
+Drop variables
+
+~~~
+drop varlist
+~~~
+
+Drop observations
+
+~~~
+drop if exp
+~~~
+
+Keep variables
+
+~~~
+keep varlist
+~~~
+
+Keep observations that satisfy specified condition
+
+~~~
+keep if exp
+~~~
+
+# `drop` and `keep`
+
+`drop` and `keep` are two opposing ways of choosing columns and rows
+
+- Selection **columns**
+	- If you write `drop Entity_county`, Stata will remove the variable `Entity_county` from the data set
+	- If you write `keep Entity_county`, Stata will remove all the [other]{style="color:orange"} variables from the data set
+- Selection **rows**
+	- If you write `drop if dup_name == 0`, Stata will remove all observations that are uniquely identified by `Process_Naziv` from the data set
+	- If you write `keep if dup_name == 0`, Stata will remove all [other]{style="color:orange"} observations from the data set
+
+# `drop` and `keep`
+
+**Exercise:** 
+
+**1.** Create a data set containing [only]{style="color:orange"} observations relating to the entity "GRAD CRES"
+
+**2.** Save this data set to "DataWork/Data/Raw/process_grad_cres.dta"
+
+# `drop` and `keep`
+
+**Exercise:** 
+
+**1.** Create a data set containing [only]{style="color:orange"} observations relating to the entity "GRAD CRES"
+
+**2.** Save this data set to "DataWork/Data/Raw/process_grad_cres.dta"
+
+~~~
+keep if Entity_Naziv == "GRAD CRES"
+save "DataWork/Data/Raw/process_grad_cres.dta", replace
+~~~
+
+# Summary
+
+In this session we have learned
+
+- How to [import data]{style="color:orange"} from Excel and csv into Stata
+- How to [save a Stata data set]{style="color:orange"} 
+- How to test if a variable [fully and uniquely identifies]{style="color:orange"} the data
+- How to use [`if` statements]{style="color:orange"} to select observations in the data
+- How to [remove rows and colums]{style="color:orange"} from the data

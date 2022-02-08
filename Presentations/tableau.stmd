@@ -1,0 +1,110 @@
+---
+title: Best Practices for Writing Stata Code
+author: 
+---
+
+# Master do-file
+
+- As you might have noticed, we mentioned the creation of many code scripts in the previous slides
+- A big project can become very complex, and scripts need to be run in a certain order to create the right output
+- That could mean you'd need to write one extremely long script, or a different document with instructions about in which order to run all the scripts
+- [However]{style="color:orange"}, you can make a script that runs other scripts
+- This makes it easy for anyone reproducing your results to do it with ease
+
+# Master do-file
+
+A master script is the main script that calls upon and runs all the other scripts of a project. It
+
+- compactly and reproducibly runs all scripts needed for data work,
+- is the table of content for all data work,
+- allows for easy updates
+
+# Master do-file
+
+![](img/Master4)
+![](img/Master5)
+
+# Master do-file
+
+- By reading the master script, someone external to the project should have a general understanding of what is being done at every step
+- If you want to see how a particular table or dataset or created, reading the master script should be enough to tell which script to look at
+- You can then select which parts of the code you want to run, or run all of it
+
+# Do-file header
+
+~~~
+/*******************************************************************************
+
+	PROJECT NAME
+	Task description
+	
+	Inputs: 		input1.dta
+					input2.xlsx
+	Outputs:		graph.png
+					table.xlsx
+	Author: 		Name [email]
+	Last update:	Oct 2021
+	Notes:			This is just a suggestion. 
+					Need to update it when new data is received
+
+*******************************************************************************/
+~~~
+
+# Comments
+
+Comments should be used to
+
+- Describe [what]{style="color:orange"} the code is doing
+  - Organize the script
+  - Simplify reading of complex code
+- Explain [why]{style="color:orange"} the code is doing things in a certain way
+  - Anyone with a good understanding of Stata could eventually understand a command
+  - But they should be spared from trying to understand your thought process
+
+# Loops
+
+[**DON'T REPEAT YOURSELF**]{style="color:orange"}
+
+# Loops
+
+~~~
+gr pie process_value, over(procurement_type) plabel(_all percent, gap(19)) legend(on position(4) cols(1)) 
+gr pie process_value, over(bid_procedure) 	 plabel(_all percent, gap(19)) legend(on position(4) cols(1)) 
+gr pie process_value, over(process_type) 	 plabel(_all percent, gap(19)) legend(on position(4) cols(1)) 
+~~~
+
+# Loops
+
+[**DON'T REPEAT YOURSELF**]{style="color:orange"}
+
+- It can be difficult to find errors in repeated code
+- It is difficult to maintain repetitive code
+
+# Loops
+
+```{s}
+forvalues number = 1/5 {
+	di `number'
+}
+```
+
+```{s}
+foreach word in "hello" "goodbye" {
+	di "`word'!"
+}
+```
+
+# Loops
+
+~~~
+gr pie process_value, over(procurement_type) plabel(_all percent, gap(19)) legend(on position(4) cols(1)) 
+gr pie process_value, over(bid_procedure) 	 plabel(_all percent, gap(19)) legend(on position(4) cols(1)) 
+gr pie process_value, over(process_type) 	 plabel(_all percent, gap(19)) legend(on position(4) cols(1)) 
+~~~
+
+```{s}
+	foreach var of varlist procurement_type bid_procedure process_type {
+		gr pie process_value, over(`var') plabel(_all percent, gap(19)) legend(on position(4) cols(1)) 
+	}
+```
+	
