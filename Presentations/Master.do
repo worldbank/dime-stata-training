@@ -63,6 +63,14 @@
 		}
 
 	}
+
+/*shadow link to Dropbox created through the following steps
+1. Go to Command Prompt
+2. cd "C:\Users\wb501238\OneDrive - WBG\Desktop\dime-stata-training-main\DataWork"
+3. mklink /J Data "C:\Users\wb501238\Dropbox\WB\Analytics\DIME Analytics\trainings\Stata\DataWork\Data"
+4. mklink /J Documentation "C:\Users\wb501238\Dropbox\WB\Analytics\DIME Analytics\trainings\Stata\DataWork\Documentation"*/
+	
+	
 	
 /*******************************************************************************
 	PART 3: Create document
@@ -102,10 +110,3 @@
 	}
 	
 *============================== THE END =======================================*
-
-	/*shadow link to onedrive created through the following steps
-1. Go to Command Prompt
-2. cd "you/file/path/GitHub\dime-stata-training\DataWork"
-3. mklink /J DataWork "C:\Users\wb522556\OneDrive - WBG\World Bank\Procurement\ECA\Croatia\Training\DataWork"
-}
-
